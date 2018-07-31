@@ -1,5 +1,5 @@
 ![alt text](https://i.imgur.com/pjuawRU.jpg "banner")
-# The SkinSystem [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+# [The SkinSystem](https://github.com/riflowth/SkinSystem) [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 The `SkinSystem` for make minecraft's server can change their player skin with custom skin.
 
 ## Introduction
@@ -66,7 +66,7 @@ We want to say `Thank you` to all of them.
 
 - **[xknat](https://github.com/xknat)** (SkinRestorer Team)
 
-If this project make your life better, you can give me a pack of candy :) 
+If this project make your life better, *you can give me a pack of candy :)* 
 
 [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.me/wheprakhone)
 
