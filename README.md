@@ -1,6 +1,6 @@
 ![alt text](https://i.imgur.com/pjuawRU.jpg "banner")
 # [The SkinSystem](https://github.com/riflowth/SkinSystem) [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
-The **SkinSystem** developed for Minecraft's server can change their player skin into custom skin.
+The **SkinSystem** developed for cracked Minecraft's server can change their player skin into custom skin.
 
 ## Introduction
 This plugin should make it for cracked players and some minecraft server's owner more at ease to find there *OWN CUSTOM SKIN* without having to search for it they can upload it to the website and have it applied instantly
@@ -63,9 +63,11 @@ Configuration option:
 ## Contributors
 - **[Krid Heprakhone](https://www.facebook.com/ohm.krid)**
 - **[lion328](https://github.com/lion328)**
-- **[syrainthegreat](https://github.com/syrainthefreat)**
+- **[syrainthegreat](http://www.facebook.com/jamespassaxz)**
 - **[NutpakornCat](https://github.com/nutpakorn-cat)**
 - **[InventivetalentDev](https://github.com/InventivetalentDev)**
+
+This project will not succeeded if we don't have a help from this people.
 
 ## Sponsors
 We want to say `Thank you` to all of them.
