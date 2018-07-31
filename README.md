@@ -1,9 +1,9 @@
 ![alt text](https://i.imgur.com/pjuawRU.jpg "banner")
 # [The SkinSystem](https://github.com/riflowth/SkinSystem) [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
-The **SkinSystem** for make minecraft's server can change their player skin with custom skin.
+The **SkinSystem** develope for minecraft's server can change their player skin with custom skin.
 
 ## Introduction
-This plugin should make it for cracked players and some minecraft server's owner more at ease to find there *OWN CUSTOM SKIN* without having to search for it they can upload it to the website and have it applyed instantly
+This plugin should make it for cracked players and some minecraft server's owner more at ease to find there *OWN CUSTOM SKIN* without having to search for it they can upload it to the website and have it applied instantly
 
 ## How it work ?
 The main keys of this system are [SkinRestorer](https://www.spigotmc.org/resources/skinsrestorer.2124/) and [MineSkin](https://mineskin.org/). First! this system needs to send skin image to the `MineSkin` and then they send back `value` and `signature` of the uploaded skin that's have registered from mojang. Second! we use `SkinRestorer` to assign `value` and `signature` of the skin that user has been uploaded and then BOOM!! player skin has change!
@@ -38,7 +38,7 @@ Configuration option:
 * Turn on database by change `false` to `true` on Enabled section.
 * An database section, You can input a name anything you want.
 * **IMPORTANT** Don't forget to input your `Host`, `Port`, `Username`, `Password` into it. If you don't have an database password, You should fill `''` into `Password` section like me.
-3. After input the SkinSystem into your web-root directory let's check `config.php`. You will see like a below.
+3. After input the SkinSystem into your web-root directory let's check `config.php`. You will see like this down below.
 ```PHP
   /* MySQL Configuration */
   "mysql_host" => "localhost",
@@ -58,7 +58,7 @@ Configuration option:
 * Change `authme_mysql_database` to the correct as you used on `authme`.
 * **IMPORTANT** Don't forget to input your `mysql_host`, `mysql_port`, `mysql_username`, `mysql_passwor` into it. If you don't have an database password, You can leave it blank like me.
 * **IMPORTANT** the `skinsystem_mysql_database` section. You should fill it same as `Database` section on `SkinRestorer configuration`.
-4. Let's fun with changing your skin !!! Have a good time. !!!
+4. Now have fun with changing your skin !!! Have a good time. !!!
 
 ## Contributors
 - **[lion328](https://github.com/lion328)**
