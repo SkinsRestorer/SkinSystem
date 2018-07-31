@@ -61,8 +61,8 @@ Configuration option:
 4. Let's fun with changing your skin !!! Have a good time. !!!
 
 ## Contributors
-- **[Alphabet Romeo (RiFlowTH)](https://www.facebook.com/alphabet.romeo.90)** - Developer and Maintainer
-- **[Waritnan Sookbuntherng (lion328)](https://github.com/lion328)** - Developer
+- **[Alphabet Romeo (RiFlowTH)](https://www.facebook.com/alphabet.romeo.90)**
+- **[lion328](https://github.com/lion328)**
 
 ## Sponsors
 We want to say `Thank you` to all of them.
