@@ -1,0 +1,14 @@
+/*
+	Skin-System
+	RiFlowTH (Vectier Thailand) & Lion328 Development
+*/
+
+html, body{
+	height: 100%;
+	font-family: 'Open Sans', sans-serif;
+}
+
+/* Custom Bootstrap */
+.card-footer{
+	padding: 0rem 1.25rem!important;
+}
