@@ -3,7 +3,7 @@
 The **SkinSystem** for make minecraft's server can change their player skin with custom skin.
 
 ## Introduction
-This project has been developing for minecraft server's owners that turn online-mode to false the cause of this configuration is if player plays minecraft with non-premium account they can't upload any skin like a premium account with this reason the developers of this project try to improve that variation.
+This plugin should make it for cracked players more at ease to find there *OWN CUSTOM SKIN* without having to search for it they can upload it to the website and have it applyed instantly and some minecraft server's owner too.
 
 ## How it work ?
 The main keys of this system are [SkinRestorer](https://www.spigotmc.org/resources/skinsrestorer.2124/) and [MineSkin](https://mineskin.org/). First! this system needs to send skin image to the `MineSkin` and then they send back `value` and `signature` of the uploaded skin that's have registered from mojang. Second! we use `SkinRestorer` to assign `value` and `signature` of the skin that user has been uploaded and then BOOM!! player skin has change!
@@ -76,4 +76,4 @@ If this project make your life better, *you can give me a pack of candy :)*
 [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.me/wheprakhone)
 
 ## License
-The **SkinSystem** is licensed under the MIT License - see the [LICENSE.md](https://github.com/riflowth/SkinSystem/blob/master/LICENSE) file for details.
+Our **SkinSystem** is licensed under the MIT License - see the [LICENSE.md](https://github.com/riflowth/SkinSystem/blob/master/LICENSE) file for details.
