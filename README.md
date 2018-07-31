@@ -1,5 +1,5 @@
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
-# SkinSystem
+![alt text](https://i.imgur.com/pjuawRU.jpg "banner")
+# SkinSystem [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 The SkinSystem for make minecraft's server can change their player skin with custom skin.
 
 ## Introduction
@@ -9,8 +9,9 @@ The main keys of this system are SkinRestorer plugin and MineSkin. We want to sa
 
 ## Installation
 ### Requirements
+- [SkinRestorer](https://www.spigotmc.org/resources/skinsrestorer.2124/)
 - WebServer
-- Database software (Ex: MySQL)
+- Database
 
 ### Installation
 
@@ -23,7 +24,11 @@ The main keys of this system are SkinRestorer plugin and MineSkin. We want to sa
 ## Sponsors
 - **xknat** (SkinRestorer Team)
 
-We want to say "Thank you" to all of them.
+We want to say `Thank you` to all of them.
+
+If this project make your life better, you can give me a pack of candy :) 
+
+[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.me/wheprakhone)
 
 ## License
-The SkinSystem is licensed under the MIT License - see the [LICENSE.md](https://github.com/riflowth/SurvivalSystem/blob/master/LICENSE) file for details.
+The SkinSystem is licensed under the MIT License - see the [LICENSE.md](https://github.com/riflowth/SkinSystem/blob/master/LICENSE) file for details.
