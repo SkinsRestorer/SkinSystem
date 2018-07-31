@@ -20,9 +20,9 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/91/three.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/94/three.min.js"></script>
 	<script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
-	<script src="https://skinrender.ga/js/render/skin.js"></script>
+	<script src="https://minerender.org/dist/skin.min.js"></script>
 	<script src="https://malsup.github.com/jquery.form.js"></script>
 </head>
 <body>
