@@ -5,6 +5,9 @@ The `SkinSystem` for make minecraft's server can change their player skin with c
 ## Introduction
 This project has been developing for minecraft server's owners that turn online-mode to false the cause of this configuration is if player plays minecraft with non-premium account they can't upload any skin like a premium account with this reason the developers of this project try to improve that variation.
 
+## How it work ?
+The main keys of this system are [SkinRestorer](https://www.spigotmc.org/resources/skinsrestorer.2124/) and [MineSkin](https://mineskin.org/). First! this system needs to send skin image to the `MineSkin` and then they send back `value` and `signature` of the uploaded skin that's have registered from mojang. Second! we use `SkinRestorer` to assign `value` and `signature` of the skin that user has been uploaded and then BOOM!! player skin has change!
+
 ## Installation
 ### Requirements:
 - [SkinRestorer](https://www.spigotmc.org/resources/skinsrestorer.2124/)
