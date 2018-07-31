@@ -1,6 +1,6 @@
 ![alt text](https://i.imgur.com/pjuawRU.jpg "banner")
 # [The SkinSystem](https://github.com/riflowth/SkinSystem) [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
-The `SkinSystem` for make minecraft's server can change their player skin with custom skin.
+The **SkinSystem** for make minecraft's server can change their player skin with custom skin.
 
 ## Introduction
 This project has been developing for minecraft server's owners that turn online-mode to false the cause of this configuration is if player plays minecraft with non-premium account they can't upload any skin like a premium account with this reason the developers of this project try to improve that variation.
@@ -76,4 +76,4 @@ If this project make your life better, *you can give me a pack of candy :)*
 [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.me/wheprakhone)
 
 ## License
-The SkinSystem is licensed under the MIT License - see the [LICENSE.md](https://github.com/riflowth/SkinSystem/blob/master/LICENSE) file for details.
+The **SkinSystem** is licensed under the MIT License - see the [LICENSE.md](https://github.com/riflowth/SkinSystem/blob/master/LICENSE) file for details.
