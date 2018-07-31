@@ -13,7 +13,7 @@ This project has been developing for minecraft server's owners that turn online-
 - Database
 
 ### Usage:
-You can instantly use it by download an [release verion](https://github.com/riflowth/SkinSystem/releases). If you don't. Please follow an instruction below.
+You can instantly use it by download an [release verion](https://github.com/riflowth/SkinSystem/releases). After download please follow an instruction below.
 
 1. Put all of `The SkinSystem` to your web-root directory. 
 2. Turn on database using in SkinRestorer configuration.
