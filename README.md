@@ -63,6 +63,8 @@ Configuration option:
 ## Contributors
 - **[lion328](https://github.com/lion328)**
 - **[Krid Heprakhone](https://www.facebook.com/ohm.krid)**
+- **[NutpakornCat](https://github.com/nutpakorn-cat)**
+- **[InventivetalentDev](https://github.com/InventivetalentDev)**
 
 ## Sponsors
 We want to say `Thank you` to all of them.
