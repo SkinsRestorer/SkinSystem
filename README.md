@@ -13,9 +13,8 @@ The main keys of this system are SkinRestorer plugin and MineSkin. We want to sa
 - Database software (Ex: MySQL)
 
 ### Installation
-```
-Put all of The SkinSystem to your web root directory and then turn on database using in SkinRestorer configuration after your turn it on let's check the SkinSystem configuration (config.php) !!! Important the SkinSystem configuration about database you must to config it with the same thing as SkinRestorer database configuration.
-```
+
+> Put all of The SkinSystem to your web root directory and then turn on database using in SkinRestorer configuration after your turn it on let's check the SkinSystem configuration (config.php) !!! Important the SkinSystem configuration about database you must to config it with the same thing as SkinRestorer database configuration.
 
 ## Contributors
 - **[Alphabet Romeo (RiFlowTH)](https://www.facebook.com/alphabet.romeo.90)** - Developer and Maintainer
@@ -23,6 +22,7 @@ Put all of The SkinSystem to your web root directory and then turn on database u
 
 ## Sponsors
 - **xknat** (SkinRestorer Team)
+
 We want to say "Thank you" to all of them.
 
 ## License
