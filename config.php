@@ -11,7 +11,7 @@
 		"mysql_username" => "root",
 		"mysql_password" => "",
 		/* Authme Configuration */
-		"authme" => true,
+		"authme" => false,
 		"authme_mysql_database" => "authme",
 		/* SkinSystem Configuration */
 		"server_name" => "Mc-Server",
