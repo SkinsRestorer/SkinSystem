@@ -78,6 +78,7 @@ Configuration option:
 - **[lion328](https://github.com/lion328)**
 - **[syrainthegreat](http://www.facebook.com/jamespassaxz)**
 - **[NutpakornCat](https://github.com/nutpakorn-cat)**
+- **[xknat](https://github.com/xknat)**
 - **[InventivetalentDev](https://github.com/InventivetalentDev)**
 
 This project will not succeeded if we don't have a help from these people.
