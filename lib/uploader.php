@@ -3,16 +3,28 @@
 	Skin-System
 	RiFlowTH (Vectier Thailand) & Lion328 Development
 */
+
 	require_once("../config.php");
 	require_once("lib.php");
+	
+	/* Initial Feedback Variable */
+	$data = array();
+	$error = array();
+	
+	/* If have some request to uploader.php without any POST */
+	if(!isset($_POST["slim"])) {
+		$data["ERROR"] = "Nothing here! You can't do that !!!";
+		echo json_encode($data);
+		die();
+	}
 	
 	/* Authme */
 	session_start();
 	if(!empty($_SESSION["username"])){
 		$playername = $_SESSION["username"];
 	} else {
-		if ($config["authme"] === true) {
-			die('Error: Please Login');
+		if($config["authme"] === true){ 
+			die("Login first !");
 		} else {
 			$playername = $_POST["username"];
 		}
@@ -27,8 +39,8 @@
 	}
 
 	/* Feedback */
-	echo "Your username : " . $playername . "<br>";
-	echo $skinType;
+	$data["username"] = $playername;
+	$data["slim"] = $skinType;
 
 	/* CURL Initialize */	
 	$ch = curl_init();
@@ -36,10 +48,10 @@
 	/* Parameters To Send */
 	$check = getimagesize($_FILES['file']["tmp_name"]); // Check input is an image.
 	if($check !== false){
-		echo "<br>Upload with File<br>";
+		$data["uploadtype"] = "file";
 		
 		$cfile = new CURLFile($_FILES['file']["tmp_name"], $_FILES['file']["type"], $_FILES['file']["name"]);
-		$data = [
+		$postparam = [
 			"file" => $cfile,
 			"visibility" => 1,
 			"model" => $skinType,
@@ -48,10 +60,10 @@
 		$url = "https://api.mineskin.org/generate/upload";
 	}
 	else if($check === false){
-		echo "<br>Upload with URL<br>";
+		$data["uploadtype"] = "url";
 		
 		$url = $_POST["url"];
-		$data = [
+		$postparam = [
 			"url" => $url,
 			"visibility" => 1,
 			"model" => $skinType,
@@ -65,12 +77,12 @@
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 	curl_setopt($ch, CURLOPT_POST, true);
-	curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+	curl_setopt($ch, CURLOPT_POSTFIELDS, $postparam);
 	$response = curl_exec($ch);
 		
 	if($response == true){	
 		curl_close($ch);	
-		$json = json_decode($response, true);
+		$json = json_decode($response, true);			
 								
 		$encryptname = " " . $playername;
 		
@@ -79,20 +91,28 @@
 		$signature = $json['data']['texture']['signature'];
 		$timestamp = "9223243187835955807"; // 9223243187835955807 --> 2^63 - 1 - (2^31 -1) * 60 * 1000
 		
-		echo "<br>";
-		echo "value: " . $value;
-		echo "<br>";
-		echo "signature: " . $signature;
-				
-		/* SQL Write/Read (Skins Table) */
-		$db = skinsystemDBQuery("INSERT INTO skins (Nick, Value, Signature, timestamp) VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE Nick=VALUES(Nick), Value=VALUES(Value), Signature=VALUES(Signature), timestamp=VALUES(timestamp)", [$encryptname, $value, $signature, $timestamp]);
-		
-		/* SQL Write/Read (Players Table) */
-		$db = skinsystemDBQuery("INSERT INTO players (Nick, Skin) VALUES (?, ?) ON DUPLICATE KEY UPDATE Nick=VALUES(Nick), Skin=VALUES(Skin)", [$playername, $encryptname]);
-				
-		echo "Done !";
-	}
+		/* If important variables aren't empty */
+		if(!empty($playername) && !empty($value) && !empty($signature)) {
+			/* SQL Write/Read (Skins Table) */
+			$db = skinsystemDBQuery("INSERT INTO skins (Nick, Value, Signature, timestamp) VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE Nick=VALUES(Nick), Value=VALUES(Value), Signature=VALUES(Signature), timestamp=VALUES(timestamp)", [$encryptname, $value, $signature, $timestamp]);
+			
+			/* SQL Write/Read (Players Table) */
+			$db = skinsystemDBQuery("INSERT INTO players (Nick, Skin) VALUES (?, ?) ON DUPLICATE KEY UPDATE Nick=VALUES(Nick), Skin=VALUES(Skin)", [$playername, $encryptname]);
+
+			$data["success"] = true;
+		} else {
+			$error["Invalid"] = "Invalid parameters !";
+		}
+	} 
 	else {
-		echo "Error : " . curl_error($ch);
+		$error["curl"] = "cURL ERROR : " . curl_error($ch);
 	}
+	
+	/* Assign error to data array. When it has some error. */
+	if($error){
+		$data["success"] = false;
+		$data["error"] = $error;
+	}
+	
+	echo json_encode($data);
 ?>
