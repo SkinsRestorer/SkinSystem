@@ -3,13 +3,19 @@
 	Skin-System
 	RiFlowTH (Vectier Thailand) & Lion328 Development
 */
+	require_once("../config.php");
+	require_once("lib.php");
 	
 	/* Authme */
 	session_start();
 	if(!empty($_SESSION["username"])){
 		$playername = $_SESSION["username"];
 	} else {
-		$playername = $_POST["username"];
+		if ($config["authme"] === true) {
+			die('Error: Please Login');
+		} else {
+			$playername = $_POST["username"];
+		}
 	}
 	
 	/* Check Skintype POST*/
@@ -77,9 +83,6 @@
 		echo "value: " . $value;
 		echo "<br>";
 		echo "signature: " . $signature;
-				
-		require_once("../config.php");
-		require_once("lib.php");
 				
 		/* SQL Write/Read (Skins Table) */
 		$db = skinsystemDBQuery("INSERT INTO skins (Nick, Value, Signature, timestamp) VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE Nick=VALUES(Nick), Value=VALUES(Value), Signature=VALUES(Signature), timestamp=VALUES(timestamp)", [$encryptname, $value, $signature, $timestamp]);
