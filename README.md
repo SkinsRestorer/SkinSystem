@@ -16,7 +16,7 @@ The main keys of this system are [SkinRestorer](https://www.spigotmc.org/resourc
 - Database
 
 ### Usage:
-You can instantly use it by clone this project. After clone please follow an instruction below.
+You can instantly use it by download on [release page](https://github.com/riflowth/SkinSystem/releases) or `clone` this project. After download or clone please follow an instruction below.
 
 1. Put all of `The SkinSystem` to your web-root directory. 
 2. Turn on database using in SkinRestorer configuration.
@@ -59,6 +59,19 @@ Configuration option:
 * **IMPORTANT** Don't forget to input your `mysql_host`, `mysql_port`, `mysql_username`, `mysql_passwor` into it. If you don't have an database password, You can leave it blank like me.
 * **IMPORTANT** the `skinsystem_mysql_database` section. You should fill it same as `Database` section on `SkinRestorer configuration`.
 4. Now have fun with changing your skin !!! Have a good time. !!!
+
+## Examples
+<p align="center">If you turn <b>authme</b> section to <b>false</b>, You will see like this down below.</p>
+<p align="center">
+  <img src="https://i.imgur.com/MBcVRK9.jpg" width="500" title="The SkinSystem">
+</p>
+<p align="center">If you turn <b>authme</b> section to <b>true</b>, You will see like this down below.</p>
+<p align="center">
+  <img src="https://i.imgur.com/MSsrweF.jpg" width="500" title="The SkinSystem">
+</p>
+<p align="center">
+  <img src="https://i.imgur.com/33Gkqi4.jpg" width="500" title="The SkinSystem">
+</p>
 
 ## Contributors
 - **[Krid Heprakhone](https://www.facebook.com/ohm.krid)**
