@@ -1,12 +1,12 @@
 ![alt text](https://i.imgur.com/pjuawRU.jpg "banner")
 # [The SkinSystem](https://github.com/riflowth/SkinSystem) [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
-The **SkinSystem** developed for cracked Minecraft's server can change their player skin into custom skin.
+The **SkinSystem** developed for cracked Minecraft's server allowing to change their player skin into a custom skin.
 
 ## Introduction
-This plugin should make it for cracked players and some minecraft server's owner more at ease to find there *OWN CUSTOM SKIN* without having to search for it they can upload it to the website and have it applied instantly
+This plugin makes it more at ease for cracked players and minecraft server's owner to find there *OWN CUSTOM SKIN* without having to search for it they can upload it to the website and have it applied instantly
 
 ## How it work ?
-The main keys of this system are [SkinRestorer](https://www.spigotmc.org/resources/skinsrestorer.2124/) and [MineSkin](https://mineskin.org/). First! this system needs to send skin image to the `MineSkin` and then they send back `value` and `signature` of the uploaded skin that's have registered from mojang. Second! we use `SkinRestorer` to assign `value` and `signature` of the skin that user has been uploaded and then BOOM!! player skin has change!
+The main keys of this system are [SkinRestorer](https://www.spigotmc.org/resources/skinsrestorer.2124/) and [MineSkin](https://mineskin.org/). First! this system needs to send skin image to the `MineSkin` and then they send back `value` and `signature` of the uploaded skin that's have registered from mojang. Second! we use `SkinRestorer` to assign `value` and `signature` of the skin that user has uploaded and then BOOM!! The player skin has changed!
 
 ## Installation
 ### Requirements:
@@ -19,7 +19,7 @@ The main keys of this system are [SkinRestorer](https://www.spigotmc.org/resourc
 You can instantly use it by download on [release page](https://github.com/riflowth/SkinSystem/releases) or `clone` this project. After download or clone please follow an instruction below.
 
 1. Put all of `The SkinSystem` to your web-root directory. 
-2. Turn on database using in SkinRestorer configuration.
+2. Enable MYSQL in SkinRestorer configuration.
 ```
 minecraftserver/plugins/SkinRestorer/config.yml
 ```
@@ -80,14 +80,14 @@ Configuration option:
 - **[NutpakornCat](https://github.com/nutpakorn-cat)**
 - **[InventivetalentDev](https://github.com/InventivetalentDev)**
 
-This project will not succeeded if we don't have a help from this people.
+This project will not succeeded if we don't have a help from these people.
 
 ## Sponsors
 We want to say `Thank you` to all of them.
 
 - **[xknat](https://github.com/xknat)** (SkinRestorer Team)
 
-If this project make your life better, *you can give me a pack of candy :)* 
+If this project makes your life better, *you can give me a pack of candy :)* 
 
 [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.me/wheprakhone)
 
