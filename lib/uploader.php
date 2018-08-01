@@ -65,7 +65,6 @@
 	if($response == true){	
 		curl_close($ch);	
 		$json = json_decode($response, true);
-		$success = false;
 								
 		$encryptname = " " . $playername;
 		
@@ -74,29 +73,21 @@
 		$signature = $json['data']['texture']['signature'];
 		$timestamp = "9223243187835955807"; // 9223243187835955807 --> 2^63 - 1 - (2^31 -1) * 60 * 1000
 		
-		/* Check if MineSkinAPI is sendback Value and Signature or not ? */
-		while($success == false){
-			if(!empty($value) && !empty($signature)){
-				echo "<br>";
-				echo "value: " . $value;
-				echo "<br>";
-				echo "signature: " . $signature;
+		echo "<br>";
+		echo "value: " . $value;
+		echo "<br>";
+		echo "signature: " . $signature;
 				
-				require_once("../config.php");
-				require_once("lib.php");
+		require_once("../config.php");
+		require_once("lib.php");
 				
-				/* SQL Write/Read (Skins Table) */
-				$db = skinsystemDBQuery("INSERT INTO skins (Nick, Value, Signature, timestamp) VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE Nick=VALUES(Nick), Value=VALUES(Value), Signature=VALUES(Signature), timestamp=VALUES(timestamp)", [$encryptname, $value, $signature, $timestamp]);
+		/* SQL Write/Read (Skins Table) */
+		$db = skinsystemDBQuery("INSERT INTO skins (Nick, Value, Signature, timestamp) VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE Nick=VALUES(Nick), Value=VALUES(Value), Signature=VALUES(Signature), timestamp=VALUES(timestamp)", [$encryptname, $value, $signature, $timestamp]);
 		
-				/* SQL Write/Read (Players Table) */
-				$db = skinsystemDBQuery("INSERT INTO players (Nick, Skin) VALUES (?, ?) ON DUPLICATE KEY UPDATE Nick=VALUES(Nick), Skin=VALUES(Skin)", [$playername, $encryptname]);
+		/* SQL Write/Read (Players Table) */
+		$db = skinsystemDBQuery("INSERT INTO players (Nick, Skin) VALUES (?, ?) ON DUPLICATE KEY UPDATE Nick=VALUES(Nick), Skin=VALUES(Skin)", [$playername, $encryptname]);
 				
-				echo "Done !";
-				$success = true;
-			} else {
-				echo "Reuploading...";
-			}
-		}
+		echo "Done !";
 	}
 	else {
 		echo "Error : " . curl_error($ch);
