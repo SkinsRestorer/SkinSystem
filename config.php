@@ -1,7 +1,7 @@
 <?php
 /*
 	Skin-System
-	RiFlowTH (Vectier Thailand) & Lion328 Development
+	https://github.com/riflowth/SkinSystem
 */
 
 	$config =  [
