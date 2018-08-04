@@ -3,7 +3,7 @@
 The **SkinSystem** developed for cracked Minecraft's server allowing to change their player skin into a custom skin.
 
 ## Introduction
-This plugin makes it more at ease for cracked players and minecraft server's owner to find there *OWN CUSTOM SKIN* without having to search for it they can upload it to the website and have it applied instantly
+This plugin makes it more at ease for cracked players and Minecraft server's owner to find their *OWN CUSTOM SKIN* without having to search for it they can upload it to the website and have it applied instantly
 
 ## How it work ?
 The main keys of this system are [SkinsRestorer](https://www.spigotmc.org/resources/skinsrestorer.2124/) and [MineSkin](https://mineskin.org/). First! this system needs to send skin image to the `MineSkin` and then they send back `value` and `signature` of the uploaded skin that's have registered from mojang. Second! we use `SkinsRestorer` to assign `value` and `signature` of the skin that user has uploaded and then BOOM!! The player skin has changed!
