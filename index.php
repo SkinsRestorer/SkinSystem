@@ -28,6 +28,10 @@
 	<script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
 	<script src="https://minerender.org/dist/skin.min.js"></script>
 	<script src="https://malsup.github.com/jquery.form.js"></script>
+
+	<!-- Toastr libs - https://codeseven.github.io/toastr/ -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js" charset="utf-8"></script>
+	<link rel="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" href="/css/master.css">
 </head>
 <body>
 <style>
