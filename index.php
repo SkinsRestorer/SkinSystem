@@ -5,18 +5,22 @@
 <?php
 	/* Initialize Structure */
 	require_once("config.php");
-	session_start();
+
+	/* If session is dead, start new one */
+	if (session_status() == PHP_SESSION_NONE){
+	    session_start();
+	}
 ?>
 <!doctype html>
 <html>
 <head>
 	<title><?php echo $config["server_name"]; ?> SkinSystem</title>
 	<meta charset="UTF-8">
-	
+
 	<link href="css/styles.css" rel="stylesheet">
 	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	
+
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
@@ -24,6 +28,10 @@
 	<script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
 	<script src="https://minerender.org/dist/skin.min.js"></script>
 	<script src="https://malsup.github.com/jquery.form.js"></script>
+
+	<!-- Toastr libs - https://codeseven.github.io/toastr/ -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js" charset="utf-8"></script>
+	<link rel="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" href="/css/master.css">
 </head>
 <body>
 <style>
@@ -34,7 +42,7 @@ input[type=radio]{
 }
 </style>
 <?php
-	if($config["authme"]){
+	if( $config["authme"]){
 		if(isset($_SESSION["username"])){
 ?>
 			<script src="lib/loader.js"></script>
@@ -95,17 +103,17 @@ input[type=radio]{
 						<div class="card-footer text-center text-muted">Version 1.4 A</div>
 					</div>
 				</div>
-			</div>	
-		<?php } else { ?>		
+			</div>
+		<?php } else { ?>
 		<div class="row h-100 mx-0 align-items-center">
 			<div class="col-lg-4 col-10 m-auto">
 				<div class="card mb-5">
 					<div class="card-header text-center">
-						<h4 class="my-0"><?php echo $config["server_name"]; ?></h4>	
+						<h4 class="my-0"><?php echo $config["server_name"]; ?></h4>
 					</div>
 					<div class="card-body">
 						<p class="card-title text-center" style="font-size: 1.2rem;">SkinSystem</p>
-						<!-- Login Form -->					
+						<!-- Login Form -->
 						<form id="form-login" method="POST" enctype="multipart/form-data">
 							<div class="form-group">
 								<label for="username">Username</label>
@@ -116,7 +124,7 @@ input[type=radio]{
 								<input type="password" id="password" class="form-control" placeholder="password">
 							</div>
 							<button type="submit" class="btn btn-primary w-100">Login</button>
-						</form>						
+						</form>
 					</div>
 					<div class="card-footer text-center text-muted">Version 1.4 A</div>
 				</div>
