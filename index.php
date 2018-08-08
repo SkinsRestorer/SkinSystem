@@ -10,6 +10,12 @@
 	if (session_status() == PHP_SESSION_NONE){
 	    session_start();
 	}
+
+	/* If system install is not finished, redirect to install page */
+	if (!$config['is_installed']) {
+		Header('Location: ./install/');
+		exit();
+	}
 ?>
 <!doctype html>
 <html>

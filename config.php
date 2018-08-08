@@ -6,16 +6,22 @@
 
 	$config =  [
 		/* MySQL Configuration */
-		"mysql_host" => "localhost",
-		"mysql_port" => "3306",
-		"mysql_username" => "root",
-		"mysql_password" => "",
+		'mysql_host' => '',
+		'mysql_port' => '',
+		'mysql_username' => '',
+		'mysql_password' => '',
+
 		/* Authme Configuration */
-		"authme" => false,
-		"authme_mysql_database" => "authme",
+		'authme' => false,
+		'authme_mysql_database' => 'authme',
+
 		/* SkinSystem Configuration */
-		"server_name" => "Mc-Server",
-		"skinsystem_mysql_database" => "skinsystem",
-		"skinhistory" => true
+		'server_name' => 'Mc-Server',
+		'skinsystem_mysql_database' => 'skinsystem',
+		'skinhistory' => true,
+
+		/* First-load install system */
+		'is_installed' => false
+
 	];
 ?>
