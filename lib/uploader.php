@@ -4,8 +4,7 @@
 	https://github.com/riflowth/SkinSystem
 */
 
-	require_once("../config.php");
-	require_once("lib.php");
+	require_once __DIR__ . '/lib.php';
 
 	/* Initial Feedback Variable */
 	$data = array();
