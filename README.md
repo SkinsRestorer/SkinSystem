@@ -23,6 +23,7 @@ You can instantly use it by download on [release page](https://github.com/riflow
 
 1. Put all of `The SkinSystem` to your web-root directory.
 2. Enable MYSQL in SkinRestorer configuration, located here: `minecraftserver/plugins/SkinRestorer/config.yml`
+
 Example configuration:
 ```YML
 MySQL:
@@ -92,7 +93,7 @@ We want to say `Thank you` to all of them.
 
 If this project makes your life better, *you can give me a pack of candy :)*
 
-<img src="https://raw.githubusercontent.com/riflowth/SkinSystem/master/src/donate-paypal.png" height="48px" width="auto">
+<img src="https://raw.githubusercontent.com/riflowth/SkinSystem/master/src/donate-paypal.png" height="48px" width="auto"> <-- Click here!
 
 ## License
 Our **SkinSystem** is licensed under the MIT License - see the [LICENSE.md](https://github.com/riflowth/SkinSystem/blob/master/LICENSE) file for details.
