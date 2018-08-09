@@ -32,8 +32,8 @@ MySQL:
   Database: skinsystem
   SkinTable: Skins
   PlayerTable: Players
-  Username: 'username'
-  Password: 'userpassword'
+  Username: root
+  Password: ''
 ```
 Configuration option:
 * Turn on database by change `false` to `true` on Enabled section.
