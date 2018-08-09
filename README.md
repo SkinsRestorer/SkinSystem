@@ -90,7 +90,7 @@ We want to say `Thank you` to all of them.
 - **[xknat](https://github.com/xknat)** (SkinsRestorer Team)
 
 If this project makes your life better, *you can give me a pack of candy :)*
-[![paypal](https://raw.githubusercontent.com/riflowth/SkinSystem/master/src/donate-paypal.png)](https://www.paypal.me/wheprakhone)
+[![paypal](https://raw.githubusercontent.com/riflowth/SkinSystem/master/src/donate-paypal.png | width=48)](https://www.paypal.me/wheprakhone)
 
 ## License
 Our **SkinSystem** is licensed under the MIT License - see the [LICENSE.md](https://github.com/riflowth/SkinSystem/blob/master/LICENSE) file for details.
