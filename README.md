@@ -76,14 +76,15 @@ Configuration option:
 </p>
 
 ## Contributors
-This project will not succeeded if we don't have a help from these people.
-- **[aljaxus](https://github.com/LazosPlaying)**
 - **[Krid Heprakhone](https://www.facebook.com/ohm.krid)**
 - **[lion328](https://github.com/lion328)**
 - **[syrainthegreat](http://www.facebook.com/jamespassaxz)**
 - **[NutpakornCat](https://github.com/nutpakorn-cat)**
 - **[xknat](https://github.com/xknat)**
 - **[InventivetalentDev](https://github.com/InventivetalentDev)**
+- **[aljaxus](https://github.com/LazosPlaying)**
+
+This project will not succedded if we don't have a help from these people.
 
 ## Sponsors
 We want to say `Thank you` to all of them.
