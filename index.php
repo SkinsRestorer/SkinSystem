@@ -4,11 +4,17 @@
 -->
 <?php
 	/* Initialize Structure */
-	require_once("config.php");
+	require_once __DIR__ . '/lib/config.php';
 
 	/* If session is dead, start new one */
 	if(session_status() == PHP_SESSION_NONE){
 	    session_start();
+	}
+
+	/* If system install is not finished, redirect to install page */
+	if (!$config['is_installed']) {
+		Header('Location: ./install/');
+		exit();
 	}
 ?>
 <!doctype html>
@@ -18,7 +24,7 @@
 	<meta charset="UTF-8">
 
 	<link href="css/styles.css" rel="stylesheet">
-	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="./src/favicon.ico" type="image/x-icon"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 	<!-- Libraries -->
