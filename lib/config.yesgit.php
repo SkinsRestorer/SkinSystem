@@ -2,6 +2,10 @@
 /*
 	Skin-System
 	https://github.com/riflowth/SkinSystem
+
+
+	>> I am a template! Configure me and rename me to config.nogit.php
+
 */
 
 	$config =  [
