@@ -57,7 +57,7 @@ Configuration option:
   'mysql_sr_username' => '',
   'mysql_sr_password' => '',
   'mysql_sr_db' => 'skinsrestorer',
-  'mysql_sr_tbl_players' => 'skins',
+  'mysql_sr_tbl_players' => 'players',
   'mysql_sr_tbl_skins' => 'skins',
   /* SkinSystem Configuration */
   'server_name' => 'Mc-Server',
