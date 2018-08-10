@@ -24,7 +24,7 @@
 		$password_pass = false;
 
 		/* Check Username */
-		$authme = authmeDBQuery("SELECT username FROM authme WHERE username = ?", [$username]);
+		$authme = authmeDBQuery("SELECT username FROM ? WHERE username = ?", [$config['mysql_authme_table'],$username]);
 		$result = $authme->fetch(PDO::FETCH_ASSOC);
 
 		if($result["username"] == $username){
@@ -34,7 +34,7 @@
 		}
 
 		/* Check Password */
-		$authme = authmeDBQuery("SELECT password FROM authme WHERE username = ?", [$username]);
+		$authme = authmeDBQuery("SELECT password FROM ? WHERE username = ?", [$config['mysql_authme_table'],$username]);
 		$result = $authme->fetch(PDO::FETCH_ASSOC);
 
 		$hashParts = explode("$", $result["password"]);

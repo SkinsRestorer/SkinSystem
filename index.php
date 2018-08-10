@@ -4,7 +4,8 @@
 -->
 <?php
 	/* Initialize Structure */
-	require_once __DIR__ . '/lib/config.php';
+	require_once __DIR__ . '/lib/firstload.php';
+	require_once __DIR__ . '/lib/config.notigt.php';
 
 	/* If session is dead, start new one */
 	if (session_status() == PHP_SESSION_NONE){
