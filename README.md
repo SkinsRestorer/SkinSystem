@@ -41,7 +41,7 @@ Configuration option:
 * An database section, You can input a name anything you want.
 * **IMPORTANT** Don't forget to input your `Host`, `Port`, `Username`, `Password` into it. If you don't have an database password, You should fill `''` into `Password` section like me.
 
-3. After input the SkinSystem into your web-root directory let's check `config.php`. You will see like this down below.
+3. After input the SkinSystem into your web-root directory let's check `lib/config.php`. You will see like this down below.
 ```PHP
   /* Authme Configuration */
   'authme' => false,
