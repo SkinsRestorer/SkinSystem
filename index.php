@@ -8,7 +8,7 @@
 	require_once __DIR__ . '/lib/config.notigt.php';
 
 	/* If session is dead, start new one */
-	if (session_status() == PHP_SESSION_NONE){
+	if(session_status() == PHP_SESSION_NONE){
 	    session_start();
 	}
 
@@ -28,6 +28,7 @@
 	<link rel="shortcut icon" href="./src/favicon.ico" type="image/x-icon"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+	<!-- Libraries -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
@@ -49,7 +50,7 @@ input[type=radio]{
 }
 </style>
 <?php
-	if( $config["authme"]){
+	if($config["authme"]){
 		if(isset($_SESSION["username"])){
 ?>
 			<script src="lib/loader.js"></script>

@@ -23,6 +23,7 @@ You can instantly use it by download on [release page](https://github.com/riflow
 
 1. Put all of `The SkinSystem` to your web-root directory.
 2. Enable MYSQL in SkinRestorer configuration, located here: `minecraftserver/plugins/SkinRestorer/config.yml`
+
 Example configuration:
 ```YML
 MySQL:
@@ -32,8 +33,8 @@ MySQL:
   Database: skinsystem
   SkinTable: Skins
   PlayerTable: Players
-  Username: 'username'
-  Password: 'userpassword'
+  Username: root
+  Password: ''
 ```
 Configuration option:
 * Turn on database by change `false` to `true` on Enabled section.
@@ -76,21 +77,24 @@ Configuration option:
 </p>
 
 ## Contributors
-This project will not succeeded if we don't have a help from these people.
-- **[aljaxus](https://github.com/LazosPlaying)**
 - **[Krid Heprakhone](https://www.facebook.com/ohm.krid)**
 - **[lion328](https://github.com/lion328)**
 - **[syrainthegreat](http://www.facebook.com/jamespassaxz)**
 - **[NutpakornCat](https://github.com/nutpakorn-cat)**
 - **[xknat](https://github.com/xknat)**
 - **[InventivetalentDev](https://github.com/InventivetalentDev)**
+- **[aljaxus](https://github.com/LazosPlaying)**
+
+This project will not succedded if we don't have a help from these people.
 
 ## Sponsors
 We want to say `Thank you` to all of them.
 - **[xknat](https://github.com/xknat)** (SkinsRestorer Team)
 
 If this project makes your life better, *you can give me a pack of candy :)*
+
 <img src="https://raw.githubusercontent.com/riflowth/SkinSystem/master/src/donate-paypal.png" height="48px" width="auto">
+
 
 ## License
 Our **SkinSystem** is licensed under the MIT License - see the [LICENSE.md](https://github.com/riflowth/SkinSystem/blob/master/LICENSE) file for details.
