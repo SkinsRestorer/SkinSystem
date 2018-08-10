@@ -43,24 +43,33 @@ Configuration option:
 
 3. After input the SkinSystem into your web-root directory let's check `config.php`. You will see like this down below.
 ```PHP
-  /* MySQL Configuration */
-  "mysql_host" => "localhost",
-  "mysql_port" => "3306",
-  "mysql_username" => "root",
-  "mysql_password" => "",
   /* Authme Configuration */
-  "authme" => false,
-  "authme_mysql_database" => "authme",
+  'authme' => false,
+  'mysql_authme_host' => 'localhost',
+  'mysql_authme_port' => '3306',
+  'mysql_authme_username' => '',
+  'mysql_authme_password' => '',
+  'mysql_authme_db' => 'authme',
+  'mysql_authme_table' => 'authme',
+  /* SkinsRestorer Configuration */
+  'mysql_sr_host' => 'localhost',
+  'mysql_sr_port' => '3306',
+  'mysql_sr_username' => '',
+  'mysql_sr_password' => '',
+  'mysql_sr_db' => 'skinsrestorer',
+  'mysql_sr_tbl_players' => 'skins',
+  'mysql_sr_tbl_skins' => 'skins',
   /* SkinSystem Configuration */
-  "server_name" => "Mc-Server",
-  "skinsystem_mysql_database" => "skinsystem",
-  "skinhistory" => true
+  'server_name' => 'Mc-Server',
+  'skinhistory' => true,
+  'is_public' => false,
+  /* First-load install system */
+  'is_installed' => false
 ```
 Configuration option:
 * If you want to work with [AuthMe](https://www.spigotmc.org/resources/authmereloaded.6269/) for authenication. You can change `false` to `true` on `authme` section.
-* Change `authme_mysql_database` to the correct as you used on `authme`.
-* **IMPORTANT** Don't forget to input your `mysql_host`, `mysql_port`, `mysql_username`, `mysql_password` into it. If you don't have an database password, You can leave it blank like me.
-* **IMPORTANT** the `skinsystem_mysql_database` section. You should fill it same as `Database` section on `SkinsRestorer configuration`.
+* Change `authme_mysql_db` to the correct as you used on `authme`.
+* **IMPORTANT** Don't forget to input your `mysql_sr_host`, `mysql_sr_port`, `mysql_sr_username`, `mysql_sr_password` into it. If you don't have an database password, You can leave it blank like me.
 4. Now have fun with changing your skin !!! Have a good time. !!!
 
 ## Examples
