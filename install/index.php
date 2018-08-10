@@ -5,7 +5,7 @@
 <?php
 	/* Initialize Structure */
 	require_once __DIR__ . '/../lib/firstload.php';
-	require_once __DIR__ . '/../lib/config.nogit.php';
+	$config = require_once(__DIR__ . '/../lib/config.nogit.php');
 
 	/* If session is dead, start new one */
 	if (session_status() == PHP_SESSION_NONE){
@@ -13,7 +13,7 @@
 	}
 
 	/* If system install is already finished, redirect to main page */
-	if ($config['is_installed']) {
+	if ($config['sys']['is_installed']) {
 		Header('Location: ./');
 		exit();
 	}
@@ -21,7 +21,7 @@
 <!doctype html>
 <html>
 <head>
-	<title><?php echo $config["server_name"]; ?> SkinSystem</title>
+	<title><?php echo $config['sys']['name']; ?> SkinSystem</title>
 	<meta charset="UTF-8">
 
 	<link href="css/styles.css" rel="stylesheet">
