@@ -3,13 +3,11 @@
 	Skin-System
 	https://github.com/riflowth/SkinSystem
 
-
 	>> I am a template! Configure me and rename me to config.nogit.php
-
 */
 
 	$config =  [
-
+		
 		/* Authme Configuration */
 		'authme' => false,
 		'mysql_authme_host' => 'localhost',
@@ -25,7 +23,7 @@
 		'mysql_sr_username' => '',
 		'mysql_sr_password' => '',
 		'mysql_sr_db' => 'skinsrestorer',
-		'mysql_sr_tbl_players' => 'skins',
+		'mysql_sr_tbl_players' => 'player',
 		'mysql_sr_tbl_skins' => 'skins',
 
 		/* SkinSystem Configuration */
