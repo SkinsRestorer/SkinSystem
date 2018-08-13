@@ -102,7 +102,7 @@ We want to say `Thank you` to all of them.
 
 If this project makes your life better, *you can give me a pack of candy :)*
 
-<img src="https://raw.githubusercontent.com/riflowth/SkinSystem/master/src/donate-paypal.png" height="48px" width="auto"> <-- Click here ^-^
+<a href="https://www.paypal.me/wheprakhone"><img src="https://raw.githubusercontent.com/riflowth/SkinSystem/master/src/donate-paypal.png" height="48px" width="auto"></a> <-- Click here
 
 
 ## License
