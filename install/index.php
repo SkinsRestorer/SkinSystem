@@ -3,25 +3,25 @@
 	https://github.com/riflowth/SkinSystem
 -->
 <?php
-	/* Initialize Structure */
-	require_once __DIR__ . '/../lib/firstload.php';
-	$config = require_once(__DIR__ . '/../lib/config.nogit.php');
 
 	/* If session is dead, start new one */
 	if (session_status() == PHP_SESSION_NONE){
 	    session_start();
 	}
 
-	/* If system install is already finished, redirect to main page */
-	if ($config['sys']['is_installed'] === true) {
-		Header('Location: /');
-		exit();
+	if (file_exists(__DIR__.'/../lib/config.nogit.php')){
+		$config = require_once(__DIR__ . '/../lib/config.nogit.php');
+		if ($config['sys']['is_installed'] === true) {
+			Header('Location: /');
+			exit();
+		}
 	}
+
 ?>
 <!doctype html>
 <html>
 <head>
-	<title><?php echo $config['sys']['name']; ?> SkinSystem install</title>
+	<title>SkinSystem install</title>
 	<meta charset="UTF-8">
 
 	<link href="../css/styles.css" rel="stylesheet">
@@ -35,7 +35,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/94/three.min.js"></script>
 	<script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
 	<script src="https://minerender.org/dist/skin.min.js"></script>
-	<script src="https://malsup.github.io/jquery.form.js"></script>
+	<script src="https://static.aljaxus.eu/lib/jquery-form/jquery.form-3.51.0.js"></script>
 
 	<!-- Toastr libs - https://codeseven.github.io/toastr/ -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js" charset="utf-8"></script>
@@ -76,7 +76,6 @@ if (isset($_GET['step']) && !empty($_GET['step'])) {																						// Che
 
 						</div>
 					</div>
-					<div class="card-footer text-center text-muted"><?php echo $config['sys']['version']; ?></div>
 				</div>
 			</div>
 		</div>

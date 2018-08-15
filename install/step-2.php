@@ -25,11 +25,11 @@
 		</div>
 		<div class="form-group col-6">
 			<label for="sys-name">player table</label>
-			<input value="players" type="text" id="sr_tbl_skins" class="form-control">
+			<input value="Players" type="text" id="sr_tbl_players" class="form-control">
 		</div>
 		<div class="form-group col-6">
 			<label for="sys-name">skins table</label>
-			<input value="skins" type="text" id="sr_tbl_players" class="form-control">
+			<input value="Skins" type="text" id="sr_tbl_skins" class="form-control">
 		</div>
 	</div>
 	<hr>
@@ -43,13 +43,13 @@
 <script type="text/javascript">
 
 $(document).ready(function() {
-	( Cookies.get('sr_host') != 'undefined' ) ? $('#sr_host').val(Cookies.get('sr_host')) : null ;
-	( Cookies.get('sr_port') != 'undefined' ) ? $('#sr_port').val(Cookies.get('sr_port')) : null ;
-	( Cookies.get('sr_username') != 'undefined' ) ? $('#sr_username').val(Cookies.get('sr_username')) : null ;
-	( Cookies.get('sr_password') != 'undefined' ) ? $('#sr_password').val(Cookies.get('sr_password')) : null ;
-	( Cookies.get('sr_database') != 'undefined' ) ? $('#sr_database').val(Cookies.get('sr_database')) : null ;
-	( Cookies.get('sr_tbl_skins') != 'undefined' ) ? $('#sr_tbl_skins').val(Cookies.get('sr_tbl_skins')) : null ;
-	( Cookies.get('sr_tbl_players') != 'undefined' ) ? $('#sr_tbl_players').val(Cookies.get('sr_tbl_players')) : null ;
+	( Cookies.get('sr_host') != ('undefined'|'') ) ? $('#sr_host').val(Cookies.get('sr_host')) : null ;
+	( Cookies.get('sr_port') != ('undefined'|'') ) ? $('#sr_port').val(Cookies.get('sr_port')) : null ;
+	( Cookies.get('sr_username') != ('undefined'|'') ) ? $('#sr_username').val(Cookies.get('sr_username')) : null ;
+	( Cookies.get('sr_password') != ('undefined'|'') ) ? $('#sr_password').val(Cookies.get('sr_password')) : null ;
+	( Cookies.get('sr_database') != ('undefined'|'') ) ? $('#sr_database').val(Cookies.get('sr_database')) : null ;
+	( Cookies.get('sr_tbl_players') != ('undefined'|'') ) ? $('#sr_tbl_players').val(Cookies.get('sr_tbl_players')) : null ;
+	( Cookies.get('sr_tbl_skins') != ('undefined'|'') ) ? $('#sr_tbl_skins').val(Cookies.get('sr_tbl_skins')) : null ;
 });
 
 $('#footer').find('.btn').click(function(event) {

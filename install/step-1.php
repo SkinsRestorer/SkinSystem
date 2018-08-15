@@ -8,6 +8,23 @@
 	<hr>
 	<div class="row">
 		<div class="form-group col-6">
+			<?php
+				if ( is_writable(__DIR__ . '/../lib') ){
+					echo '<p style="color:green;font-weight:bold;" id="rwxperms">True - directory is writable :)</p><script>Cookies.set("sys_perms", "true");</script>';
+				} else {
+					echo '<p style="color:red;font-weight:bold;" id="rwxperms">False - directory is NOT writable! Make it so.</p><script>Cookies.set("sys_perms", "false");</script>';
+				}
+			?>
+		</div>
+		<div class="col-6">
+			<p>/lib/ directory must be writable.</p>
+			<p>If you are on linux (which you should totally be), simply run one of the following commands, where "folderPath" is the path to "lib" directory:</p>
+			<p class="code">chown www-data:www-data folderPath <br> chmod 775 folderPath</p>
+		</div>
+	</div>
+	<hr>
+	<div class="row">
+		<div class="form-group col-6">
 			<label for="sys-skinhistory">Should authme hook be enabled?</label>
 			<br>
 			<input type="checkbox" data-toggle="toggle" data-on="Enabled" data-off="Disabled" id="auth_enabled">
@@ -46,12 +63,21 @@
 		</div>
 	</div>
 </div>
+<style media="all">
+	.code {
+		background-color: rgb(230, 230, 230);
+		padding: 3px;
+		border-color: rgb(100, 100, 100);
+		border-radius: 5px;
+		border-width: 2px;
+	}
+</style>
 <script type="text/javascript">
 
 
 $(document).ready(function() {
 
-	( Cookies.get('sys_name') != 'undefined' ) ? $('#sys-name').val(Cookies.get('sys_name')) : null ;
+	( Cookies.get('sys_name') != ('undefined'|'') ) ? $('#sys-name').val(Cookies.get('sys_name')) : null ;
 
 	( Cookies.get('auth_enabled') == ('true'||true) ) ? $('#auth_enabled').prop('checked', true).change() : null ;
 

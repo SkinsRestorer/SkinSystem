@@ -5,7 +5,7 @@
 <?php
 	/* Initialize Structure */
 	require_once __DIR__ . '/lib/firstload.php';
-	$config = require_once(__DIR__ . '/lib/config.notigt.php');
+	$config = require_once(__DIR__ . '/lib/config.nogit.php');
 
 	/* If session is dead, start new one */
 	if(session_status() == PHP_SESSION_NONE){
@@ -35,11 +35,13 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/94/three.min.js"></script>
 	<script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
 	<script src="https://minerender.org/dist/skin.min.js"></script>
-	<script src="https://malsup.github.com/jquery.form.js"></script>
+	<script src="https://static.aljaxus.eu/lib/jquery-form/jquery.form-3.51.0.js"></script>
 
 	<!-- Toastr libs - https://codeseven.github.io/toastr/ -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js" charset="utf-8"></script>
 	<link rel="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" href="/css/master.css">
+	<!-- Cookies lib -->
+	<script src="https://static.aljaxus.eu/lib/js-cookie/js-cookie-v2.2.0.js" charset="utf-8"></script>
 </head>
 <body>
 <style>

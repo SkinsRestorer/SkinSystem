@@ -19,6 +19,10 @@
 				<td>sys_ispublic</td>
 				<td>val</td>
 		  	</tr>
+		  	<tr id="sys_perms">
+				<td>+RWX perms on /lib folder</td>
+				<td>val</td>
+		  	</tr>
   		</tbody>
 	</table>
 	<table class="table">
@@ -98,13 +102,22 @@
   		</tbody>
 	</table>
 	<hr>
-	<div class="row" id="footer">
-		<div class="col-12">
+	<div class="row">
+		<div class="col-12" id="ajaxMsgs">
+
+		</div>
+		<div class="col-12" id="footer">
 			<button type="button" class="btn btn-info" style="float:left;">Go back</button>
-			<button type="button" class="btn btn-success" style="float:right;">Finish setup</button>
+			<button type="button" class="btn btn-success" style="float:right;">Check data and finish</button>
 		</div>
 	</div>
 </div>
+<style media="all">
+#ajaxMsgs > p {
+	margin: 1px;
+	padding: 0;
+}
+</style>
 <script type="text/javascript">
 
 $(document).ready(function() {
@@ -116,6 +129,7 @@ console.log(cookies);
 	$('#sys_name').children('td:eq(1)').html(Cookies.get('sys_name'));
 	$('#sys_skinhistory').children('td:eq(1)').html(Cookies.get('sys_skinhistory'));
 	$('#sys_ispublic').children('td:eq(1)').html(Cookies.get('sys_ispublic'));
+	$('#sys_perms').children('td:eq(1)').html(Cookies.get('sys_perms'));
 
 	$('#auth_enabled').children('td:eq(1)').html(Cookies.get('auth_enabled'));
 	$('#auth_host').children('td:eq(1)').html(Cookies.get('auth_host'));
@@ -159,17 +173,105 @@ if ( false ){
 });
 
 $('#footer').find('.btn.btn-info').click(function(event) {
-	if (Cookies.get('sys_ispublic') == (true|'true')){
+	if (Cookies.get('sys_ispublic') == ("true"||true)){
 		window.location.href = '?step=1';
 	} else {
-		if (Cookies.get('auth_enabled') == (true|'true')){
-			window.location.href = '?step=2';
-		} else {
+		if (Cookies.get('auth_enabled') == ("true"||true)){
 			window.location.href = '?step=3';
+		} else {
+			window.location.href = '?step=2';
 		}
 	}
 });
 $('#footer').find('.btn.btn-success').click(function(event) {
 
+	let $this = $(this);
+
+	$this.attr('disabled', true);
+
+	let dat = [];
+
+	{
+		dat.sys_name = Cookies.get('sys_name');
+		dat.sys_skinhistory = Cookies.get('sys_skinhistory');
+		dat.sys_ispublic = Cookies.get('sys_ispublic');
+
+		dat.auth_enabled = Cookies.get('auth_enabled');
+		dat.auth_host = Cookies.get('auth_host');
+		dat.auth_port = Cookies.get('auth_port');
+		dat.auth_username = Cookies.get('auth_username');
+		dat.auth_password = Cookies.get('auth_password');
+		dat.auth_database = Cookies.get('auth_database');
+		dat.auth_table = Cookies.get('auth_table');
+
+		dat.sr_host = Cookies.get('sr_host');
+		dat.sr_port = Cookies.get('sr_port');
+		dat.sr_username = Cookies.get('sr_username');
+		dat.sr_password = Cookies.get('sr_password');
+		dat.sr_database = Cookies.get('sr_database');
+		dat.sr_tbl_skins = Cookies.get('sr_tbl_skins');
+		dat.sr_tbl_players = Cookies.get('sr_tbl_players');
+
+		console.log(dat);
+	}
+	{
+
+		console.log('------------------------------');
+
+		$.post('ajax.php', {
+			sys_name: dat.sys_name,
+			sys_skinhistory: dat.sys_skinhistory,
+			sys_ispublic: dat.sys_ispublic,
+
+			auth_enabled: dat.auth_enabled,
+			auth_host: dat.auth_host,
+			auth_port: dat.auth_port,
+			auth_username: dat.auth_username,
+			auth_password: dat.auth_password,
+			auth_database: dat.auth_database,
+			auth_table: dat.auth_table,
+
+			sr_host: dat.sr_host,
+			sr_port: dat.sr_port,
+			sr_username: dat.sr_username,
+			sr_password: dat.sr_password,
+			sr_database: dat.sr_database,
+			sr_tbl_skins: dat.sr_tbl_skins,
+			sr_tbl_players: dat.sr_tbl_players
+		})
+		.always(function() {
+
+		})
+		.fail(function() {
+			console.log("|_ Testing data - post: failed");
+		})
+		.done(function(data) {
+			console.log("|_ Testing data - post: success");
+			console.log(data);
+
+			let el = $('#ajaxMsgs');
+			el.html('');
+
+			data.messages.forEach(function(elem){
+				el.append('<p style="color:'+elem.color+';">'+elem.msg+'</p>');
+			});
+
+
+			if (data.is_success == true){
+				el.append('<p style="color:blue;font-weight:bold;">Installation was successful! Forcing refresh in 5 minutes.</p>');
+				setTimeout(function(){
+					window.location.href = '/';
+				}, 300000);
+			} else {
+				setTimeout(function(){
+					$this.attr('disabled', false);
+				}, 2500);
+			}
+			
+			el.append('<hr>');
+
+		});
+
+	}
 });
 </script>

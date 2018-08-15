@@ -39,12 +39,12 @@
 <script type="text/javascript">
 
 $(document).ready(function() {
-	( Cookies.get('auth_host') != 'undefined' ) ? $('#auth_host').val(Cookies.get('auth_host')) : null ;
-	( Cookies.get('auth_port') != 'undefined' ) ? $('#auth_port').val(Cookies.get('auth_port')) : null ;
-	( Cookies.get('auth_username') != 'undefined' ) ? $('#auth_username').val(Cookies.get('auth_username')) : null ;
-	( Cookies.get('auth_password') != 'undefined' ) ? $('#auth_password').val(Cookies.get('auth_password')) : null ;
-	( Cookies.get('auth_database') != 'undefined' ) ? $('#auth_database').val(Cookies.get('auth_database')) : null ;
-	( Cookies.get('auth_table') != 'undefined' ) ? $('#auth_table').val(Cookies.get('auth_table')) : null ;
+	( Cookies.get('auth_host') != ('undefined'|'') ) ? $('#auth_host').val(Cookies.get('auth_host')) : null ;
+	( Cookies.get('auth_port') != ('undefined'|'') ) ? $('#auth_port').val(Cookies.get('auth_port')) : null ;
+	( Cookies.get('auth_username') != ('undefined'|'') ) ? $('#auth_username').val(Cookies.get('auth_username')) : null ;
+	( Cookies.get('auth_password') != ('undefined'|'') ) ? $('#auth_password').val(Cookies.get('auth_password')) : null ;
+	( Cookies.get('auth_database') != ('undefined'|'') ) ? $('#auth_database').val(Cookies.get('auth_database')) : null ;
+	( Cookies.get('auth_table') != ('undefined'|'') ) ? $('#auth_table').val(Cookies.get('auth_table')) : null ;
 });
 
 $('#footer').find('.btn').click(function(event) {
