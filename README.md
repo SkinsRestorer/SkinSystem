@@ -25,8 +25,8 @@ You can instantly use it by download on [release page](https://github.com/riflow
 2. Enable MYSQL in SkinRestorer configuration, located here: `minecraftserver/plugins/SkinRestorer/config.yml`
 
 * It is recommended to run the system on a separate domain/subdomain in root folder of the host
-  |_ Right: https://host.tld/index.php
-  |_ Wrong: https://host.tld/skinSystem/index.php
+- |_ Right: https://host.tld/index.php
+- |_ Wrong: https://host.tld/skinSystem/index.php
 
 Example configuration:
 ```YML
