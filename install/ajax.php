@@ -267,7 +267,7 @@ if (isset($_POST) && !empty($_POST)){
 						fwrite($configFile, "			'skinhistory' => ".$_POST['sys_skinhistory'].","."\n");
 						fwrite($configFile, "			'is_public' => ".$_POST['sys_ispublic'].","."\n");
 						fwrite($configFile, "			/* Do-not-touch part */"."\n");
-						fwrite($configFile, "			'version' => 'Version 1.4 A',"."\n");
+						fwrite($configFile, "			'version' => 'Version 1.5 A',"."\n");
 						fwrite($configFile, "			/* First-load install system */"."\n");
 						fwrite($configFile, "			'is_installed' => true"."\n");
 						fwrite($configFile, "		)"."\n");
