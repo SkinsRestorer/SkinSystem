@@ -5,7 +5,7 @@
 <?php
 	/* Initialize Structure */
 	require_once __DIR__ . '/lib/firstload.php';
-	$config = require_once(__DIR__ . '/lib/config.notigt.php');
+	$config = require_once(__DIR__ . '/lib/config.nogit.php');
 
 	/* If session is dead, start new one */
 	if(session_status() == PHP_SESSION_NONE){
