@@ -52,6 +52,7 @@
 			<input type="checkbox" data-toggle="toggle" data-on="Public" data-off="Private" id="sys_isprivate">
 		</div>
 		<div class="col-6">
+			<p>Currently not in use // will be used in future update(-s)</p>
 			<p>If enabled, no database data will not be saved and you will have to provide it every time you use this software</p>
 		</div>
 	</div>
