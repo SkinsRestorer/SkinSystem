@@ -5,7 +5,7 @@
 <?php
 	/* Initialize Structure */
 	require_once __DIR__ . '/lib/firstload.php';
-	require_once __DIR__ . '/lib/config.notigt.php';
+	$config = require_once(__DIR__ . '/lib/config.nogit.php');
 
 	/* If session is dead, start new one */
 	if(session_status() == PHP_SESSION_NONE){
@@ -13,7 +13,7 @@
 	}
 
 	/* If system install is not finished, redirect to install page */
-	if (!$config['is_installed']) {
+	if (!$config['sys']['is_installed']) {
 		Header('Location: ./install/');
 		exit();
 	}
@@ -21,7 +21,7 @@
 <!doctype html>
 <html>
 <head>
-	<title><?php echo $config["server_name"]; ?> SkinSystem</title>
+	<title><?php echo $config['sys']['name']; ?> SkinSystem</title>
 	<meta charset="UTF-8">
 
 	<link href="css/styles.css" rel="stylesheet">
@@ -35,11 +35,13 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/94/three.min.js"></script>
 	<script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
 	<script src="https://minerender.org/dist/skin.min.js"></script>
-	<script src="https://malsup.github.com/jquery.form.js"></script>
+	<script src="https://static.aljaxus.eu/lib/jquery-form/jquery.form-3.51.0.js"></script>
 
 	<!-- Toastr libs - https://codeseven.github.io/toastr/ -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js" charset="utf-8"></script>
 	<link rel="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" href="/css/master.css">
+	<!-- Cookies lib -->
+	<script src="https://static.aljaxus.eu/lib/js-cookie/js-cookie-v2.2.0.js" charset="utf-8"></script>
 </head>
 <body>
 <style>
@@ -50,7 +52,7 @@ input[type=radio]{
 }
 </style>
 <?php
-	if($config["authme"]){
+	if($config['authme']['enabled'] === true){
 		if(isset($_SESSION["username"])){
 ?>
 			<script src="lib/loader.js"></script>
@@ -66,7 +68,7 @@ input[type=radio]{
 									<form id="form" method="POST" enctype="multipart/form-data">
 										<div class="form-group">
 											<label for="input-username">Username</label>
-											<input type="text" id="input-username" name="username" class="form-control" value="<?php echo $_SESSION["username"]; ?>" disabled>
+											<input type="text" id="input-username" name="username" class="form-control" value="<?php echo $_SESSION['username']; ?>" disabled>
 										</div>
 										<div class="form-group">
 											<div style="margin-bottom: .5rem;">Skin type</div>
@@ -117,7 +119,7 @@ input[type=radio]{
 			<div class="col-lg-4 col-10 m-auto">
 				<div class="card mb-5">
 					<div class="card-header text-center">
-						<h4 class="my-0"><?php echo $config["server_name"]; ?></h4>
+						<h4 class="my-0"><?php echo $config['sys']['name']; ?></h4>
 					</div>
 					<div class="card-body">
 						<p class="card-title text-center" style="font-size: 1.2rem;">SkinSystem</p>

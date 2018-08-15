@@ -22,8 +22,11 @@ The main key of this system are [SkinsRestorer](https://www.spigotmc.org/resourc
 You can instantly use it by download on [release page](https://github.com/riflowth/SkinSystem/releases) or `clone` this project. After download or clone please follow an instruction below.
 
 1. Put all of `The SkinSystem` in your web-root directory.
-2. Enable MYSQL in SkinRestorer configuration, located here: `minecraftserver/plugins/SkinRestorer/config.yml`
+2. It is recommended to run the system on a separate domain/subdomain in root folder of the host
+- |_ Right: https://host.tld/index.php
+- |_ Wrong: https://host.tld/skinSystem/index.php
 
+3. Enable MYSQL in SkinRestorer configuration, located here: `minecraftserver/plugins/SkinRestorer/config.yml`
 Example configuration:
 ```YML
 MySQL:
@@ -37,11 +40,11 @@ MySQL:
   Password: ''
 ```
 Configuration option:
-* Turn on a database by change `false` to `true` on the Enabled section.
-* The Database section, You can input a name anything you want.
-* **IMPORTANT** Don't forget to input your `Host`, `Port`, `Username`, `Password` into it. If you don't have a database password, You should fill `''` into `Password` section like me.
+* Turn on database by change `false` to `true` on Enabled section.
+* An Database section, You can input a name anything you want.
+* **IMPORTANT** Don't forget to input your `Host`, `Port`, `Username`, `Password` into it. If you don't have an database password, You should fill `''` into `Password` section like me.
 
-3. After inputting the SkinSystem into your web-root directory let's check `lib/config.php`. You will see like this down below.
+4. After input the SkinSystem into your web-root directory let's check `lib/config.php`. You will see like this down below.
 ```PHP
   /* Authme Configuration */
   'authme' => false,
@@ -69,8 +72,9 @@ Configuration option:
 Configuration option:
 * If you want to work with [AuthMe](https://www.spigotmc.org/resources/authmereloaded.6269/) for authenication. You can change `false` to `true` on `authme` section.
 * Change `authme_mysql_db` to the correct as you used on `authme`.
-* **IMPORTANT** Don't forget to input your `mysql_sr_host`, `mysql_sr_port`, `mysql_sr_username`, `mysql_sr_password` into it. If you don't have a database password, You can leave it blank like me.
-4. Now have fun with changing your skin !!! Have a good time. !!!
+* **IMPORTANT** Don't forget to input your `mysql_sr_host`, `mysql_sr_port`, `mysql_sr_username`, `mysql_sr_password` into it. If you don't have an database password, You can leave it blank like me.
+
+5. Now have fun with changing your skin! Have a good time.
 
 ## Examples
 <p align="center">If you turn <b>the Authme</b> section to <b>false</b>, You will see like this down below.</p>

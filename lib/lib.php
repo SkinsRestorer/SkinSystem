@@ -4,12 +4,12 @@
 	https://github.com/riflowth/SkinSystem
 */
 	/* Import config */
-	require_once __DIR__ . '/config.nogit.php';
+	$config = require_once(__DIR__ . '/config.nogit.php');
 	global $config;
 
 	/* Initialize PDO */
-	$authmePDOinstance = new PDO('mysql:host=' . $config['mysql_authme_host'] . '; port=' . $config['mysql_authme_port'] . '; dbname=' . $config['mysql_authme_database'] . ';', $config['mysql_authme_username'], $config['mysql_authme_password']);
-	$skinsystemPDOinstance = new PDO('mysql:host=' . $config['mysql_sr_host'] . '; port=' . $config['mysql_sr_port'] . '; dbname=' . $config['mysql_sr_database'] . ';', $config['mysql_sr_username'], $config['mysql_sr_password']);
+	$authmePDOinstance = new PDO('mysql:host=' . $config['authme']['host'] . '; port=' . $config['authme']['port'] . '; dbname=' . $config['authme']['database'] . ';', $config['authme']['username'], $config['authme']['password']);
+	$skinsystemPDOinstance = new PDO('mysql:host=' . $config['sr']['host'] . '; port=' . $config['sr']['port'] . '; dbname=' . $config['sr']['database'] . ';', $config['sr']['username'], $config['sr']['password']);
 
 	/* When working with Authme */
 	function authmeDBQuery($mysqlcommand, $key = []){
