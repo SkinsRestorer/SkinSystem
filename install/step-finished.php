@@ -122,8 +122,8 @@
 
 $(document).ready(function() {
 
-let cookies = Cookies.get();
-console.log(cookies);
+	let cookies = Cookies.get();
+	//console.log(cookies);
 
 {
 	$('#sys_name').children('td:eq(1)').html(Cookies.get('sys_name'));

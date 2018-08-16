@@ -17,7 +17,7 @@
 		</div>
 		<div class="form-group col-6">
 			<label for="sys-name">user password</label>
-			<input type="text" id="sr_password" class="form-control">
+			<input type="password" id="sr_password" class="form-control">
 		</div>
 		<div class="form-group col-6">
 			<label for="sys-name">database</label>

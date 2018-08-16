@@ -32,7 +32,7 @@
 		'is_public' => false,
 
 		/* First-load install system */
-		'is_installed' => false
+		'is_installed' => true
 
 	];
 ?>

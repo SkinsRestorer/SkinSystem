@@ -5,6 +5,7 @@
 <?php
 	/* Initialize Structure */
 	require_once __DIR__ . '/lib/firstload.php';
+	require_once __DIR__ . '/lib/lib.php';
 	$config = require_once(__DIR__ . '/lib/config.nogit.php');
 
 	/* If session is dead, start new one */
@@ -14,8 +15,8 @@
 
 	/* If system install is not finished, redirect to install page */
 	if (!$config['sys']['is_installed']) {
-		Header('Location: ./install/');
-		exit();
+		//Header('Location: ./install/');
+		//exit();
 	}
 ?>
 <!doctype html>
@@ -110,7 +111,7 @@ input[type=radio]{
 								</div>
 							</div>
 						</div>
-						<div class="card-footer text-center text-muted">Version 1.4 A</div>
+						<div class="card-footer text-center text-muted">Current Version 1.4 | Latest version <?php echo getLatestVersion(); ?></div>
 					</div>
 				</div>
 			</div>
@@ -136,7 +137,7 @@ input[type=radio]{
 							<button type="submit" class="btn btn-primary w-100">Login</button>
 						</form>
 					</div>
-					<div class="card-footer text-center text-muted">Version 1.4 A</div>
+					<div class="card-footer text-center text-muted">Current Version 1.4 | Latest version <?php echo getLatestVersion(); ?></div>
 				</div>
 			</div>
 		</div>
@@ -196,7 +197,7 @@ input[type=radio]{
 							</div>
 						</div>
 					</div>
-					<div class="card-footer text-center text-muted">Version 1.4 A</div>
+					<div class="card-footer text-center text-muted">Current Version 1.4 | Latest version <?php echo getLatestVersion(); ?></div>
 				</div>
 			</div>
 		</div>

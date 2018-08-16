@@ -26,4 +26,24 @@
 		$result->execute($key);
 		return $result;
 	}
+	
+	/* Get lastest version of The SkinSystem */
+	function getLatestVersion(){
+		global $response;
+		
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, 'https://api.github.com/repos/riflowth/SkinSystem/releases/latest');
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_USERAGENT, 'The SkinSystem');
+		$response = curl_exec($ch);
+		curl_close($ch);
+		
+		if($response == true){
+			$json = json_decode($response, true);
+			return $json['tag_name'];
+		} else {
+			return 'cURL ERROR : ' . curl_error($ch);
+		}
+	}
 ?>

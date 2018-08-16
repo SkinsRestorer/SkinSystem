@@ -78,9 +78,9 @@
 	curl_setopt($ch, CURLOPT_POST, true);
 	curl_setopt($ch, CURLOPT_POSTFIELDS, $postparam);
 	$response = curl_exec($ch);
-
+	curl_close($ch);
+	
 	if($response == true){
-		curl_close($ch);
 		$json = json_decode($response, true);
 
 		$encryptname = " " . $playername;

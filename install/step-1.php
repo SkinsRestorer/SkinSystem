@@ -2,7 +2,7 @@
 	<div class="row">
 		<div class="form-group col-6">
 			<label for="sys-name">Server name</label>
-			<input placeholder="play.myserver.net" type="text" id="sys-name" class="form-control">
+			<input placeholder="mc-server" type="text" id="sys-name" class="form-control">
 		</div>
 	</div>
 	<hr>
