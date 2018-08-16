@@ -1,5 +1,5 @@
 ![alt text](https://i.imgur.com/pjuawRU.jpg "banner")
-# [The SkinSystem](https://github.com/riflowth/SkinSystem) [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+# [The SkinSystem](https://github.com/riflowth/SkinSystem) [![License: MIT](https://img.shields.io/github/license/riflowth/SkinSystem.svg)](https://opensource.org/licenses/MIT) [![Release](https://img.shields.io/github/release/riflowth/skinsystem.svg)](https://github.com/riflowth/SkinSystem/releases) [![Download](https://img.shields.io/github/downloads/riflowth/SkinSystem/total.svg)](https://github.com/riflowth/SkinSystem/releases)
 The **SkinSystem** developed for cracked Minecraft's server allowing to change their player skin into a custom skin.
 
 - **For other languages, you should go to a [wiki page](https://github.com/riflowth/SkinSystem/wiki)**
