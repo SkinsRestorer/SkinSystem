@@ -2,14 +2,14 @@
 # [The SkinSystem](https://github.com/riflowth/SkinSystem) [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 The **SkinSystem** developed for cracked Minecraft's server allowing to change their player skin into a custom skin.
 
+- **For other languages, you should go to a [wiki page](https://github.com/riflowth/SkinSystem/wiki)**
+- **สำหรับผู้ที่ต้องการอ่านข้อมูลภาษาไทย สามารถเข้าไปอ่านได้ที่นี่ [คลิก](https://github.com/riflowth/SkinSystem/wiki)**
 
 ## Introduction
-This plugin makes it more at ease for cracked players and Minecraft server's owner to find their *OWN CUSTOM SKIN* without having to search for it they can upload it to the website and have it applied instantly
-
+This plugin makes it more at ease for cracked players and Minecraft server's owner to find their *OWN CUSTOM SKIN* without having to search for it they can upload it to the website and have it applied instantly.
 
 ## How does it work?
 The main key of this system are [SkinsRestorer](https://www.spigotmc.org/resources/skinsrestorer.2124/) and [MineSkin](https://mineskin.org/). First! this system needs to send skin image to the `MineSkin` and then they send back `value` and `signature` of the uploaded skin that's have registered from Mojang. Second! we use `SkinsRestorer` to assign `value` and `signature` of the skin that user has uploaded and then BOOM!! The player skin has changed!
-
 
 ## Installation
 #### Requirements:
@@ -95,7 +95,6 @@ We want to say `Thank you` to all of them.
 If this project makes your life better, *you can give me a pack of candy :)*
 
 <a href="https://www.paypal.me/wheprakhone"><img src="https://raw.githubusercontent.com/riflowth/SkinSystem/master/src/donate-paypal.png" height="48px" width="auto"></a> <-- Click here
-
 
 ## License
 Our **SkinSystem** is licensed under the MIT License - see the [LICENSE.md](https://github.com/riflowth/SkinSystem/blob/master/LICENSE) file for details.
