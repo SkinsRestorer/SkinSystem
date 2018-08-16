@@ -15,8 +15,8 @@
 
 	/* If system install is not finished, redirect to install page */
 	if (!$config['sys']['is_installed']) {
-		//Header('Location: ./install/');
-		//exit();
+		Header('Location: ./install/');
+		exit();
 	}
 ?>
 <!doctype html>
