@@ -39,42 +39,30 @@ MySQL:
   Username: root
   Password: ''
 ```
-Configuration option:
-* Turn on a database by change `false` to `true` on the Enabled section.
-* The Database section, You can input a name anything you want.
-* **IMPORTANT** Don't forget to input your `Host`, `Port`, `Username`, `Password` into it. If you don't have a database password, You should fill `''` into `Password` section like me.
+* Configuration option:
+  * Turn on a database by change `false` to `true` on the Enabled section.
+  * The Database section, You can input a name anything you want.
+  * **IMPORTANT** Don't forget to input your `Host`, `Port`, `Username`, `Password` into it. If you don't have a database password, You should fill `''` into `Password` section like me.
 
-4. After inputting the SkinSystem into your web-root directory let's check `lib/config.php`. You will see like this down below.
-```PHP
-  /* Authme Configuration */
-  'authme' => false,
-  'mysql_authme_host' => 'localhost',
-  'mysql_authme_port' => '3306',
-  'mysql_authme_username' => '',
-  'mysql_authme_password' => '',
-  'mysql_authme_db' => 'authme',
-  'mysql_authme_table' => 'authme',
-  /* SkinsRestorer Configuration */
-  'mysql_sr_host' => 'localhost',
-  'mysql_sr_port' => '3306',
-  'mysql_sr_username' => '',
-  'mysql_sr_password' => '',
-  'mysql_sr_db' => 'skinsrestorer',
-  'mysql_sr_tbl_players' => 'players',
-  'mysql_sr_tbl_skins' => 'skins',
-  /* SkinSystem Configuration */
-  'server_name' => 'Mc-Server',
-  'skinhistory' => true,
-  'is_public' => false,
-  /* First-load install system */
-  'is_installed' => false
-```
-Configuration option:
-* If you want to work with [AuthMe](https://www.spigotmc.org/resources/authmereloaded.6269/) for authenication. You can change `false` to `true` on `authme` section.
-* Change `authme_mysql_db` to the correct as you used on `authme`.
-* **IMPORTANT** Don't forget to input your `mysql_sr_host`, `mysql_sr_port`, `mysql_sr_username`, `mysql_sr_password` into it. If you don't have an database password, You can leave it blank like me.
+4. After inputting The SkinSystem into your web-root directory let's check The SkinSystem on your website. You will see like this down below.
 
-5. Now have fun with changing your skin! Have a good time.
+<p align="center">
+  <img src="https://i.imgur.com/mLYt2p8.jpg" width="500" title="The SkinSystem">
+</p>
+<p align="center">
+  <img src="https://i.imgur.com/AsrGEIY.jpg" width="500" title="The SkinSystem">
+</p>
+<p align="center">
+  <img src="https://i.imgur.com/zwUkJvz.jpg" width="500" title="The SkinSystem">
+</p>
+<p align="center">
+  <img src="https://i.imgur.com/M7Z4kej.jpg" width="500" title="The SkinSystem">
+</p>
+
+* **IMPORTANT** This is a configuration that uses on The SkinSystem. Please fill in a blank correctly.
+* **IMPORTANT** You can change it later on `skinsystem/lib/config.nogit.php`
+
+5. Now have fun with changing your skin! Have a good time. :smiley:
 
 ## Examples
 <p align="center">If you turn <b>the Authme</b> section to <b>false</b>, You will see like this down below.</p>
