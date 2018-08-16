@@ -44,7 +44,7 @@ MySQL:
   * The Database section, You can input a name anything you want.
   * **IMPORTANT** Don't forget to input your `Host`, `Port`, `Username`, `Password` into it. If you don't have a database password, You should fill `''` into `Password` section like me.
 
-4. After inputting The SkinSystem into your web-root directory let's check The SkinSystem on your website. You will see like this down below.
+4. After putting The SkinSystem into your web-root directory you should see The SkinSystem on your website. You will see like this down below. So let's configure it correctly to get your started.
 
 <p align="center">
   <img src="https://i.imgur.com/mLYt2p8.jpg" width="500" title="The SkinSystem">
