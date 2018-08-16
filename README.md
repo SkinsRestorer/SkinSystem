@@ -22,7 +22,7 @@ The main key of this system are [SkinsRestorer](https://www.spigotmc.org/resourc
 You can instantly use it by download on [release page](https://github.com/riflowth/SkinSystem/releases) or `clone` this project. After download or clone please follow an instruction below.
 
 1. Put all of `The SkinSystem` in your web-root directory.
-2. It is recommended to run the system on a separate domain/subdomain in root folder of the host
+2. It is recommended to run the system on a separate domain/subdomain in the root folder of the host
 - |_ Right: https://host.tld/index.php
 - |_ Wrong: https://host.tld/skinSystem/index.php
 
@@ -40,11 +40,11 @@ MySQL:
   Password: ''
 ```
 Configuration option:
-* Turn on database by change `false` to `true` on Enabled section.
-* An Database section, You can input a name anything you want.
-* **IMPORTANT** Don't forget to input your `Host`, `Port`, `Username`, `Password` into it. If you don't have an database password, You should fill `''` into `Password` section like me.
+* Turn on a database by change `false` to `true` on the Enabled section.
+* The Database section, You can input a name anything you want.
+* **IMPORTANT** Don't forget to input your `Host`, `Port`, `Username`, `Password` into it. If you don't have a database password, You should fill `''` into `Password` section like me.
 
-4. After input the SkinSystem into your web-root directory let's check `lib/config.php`. You will see like this down below.
+4. After inputting the SkinSystem into your web-root directory let's check `lib/config.php`. You will see like this down below.
 ```PHP
   /* Authme Configuration */
   'authme' => false,
