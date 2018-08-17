@@ -2,7 +2,7 @@
 	<table class="table">
 	  <thead class="thead-light">
 		    <tr>
-		      <th scope="col">Sistem settings</th>
+		      <th scope="col">System settings</th>
 			  <th scope="col"></th>
 		    </tr>
 	  </thead>
