@@ -148,7 +148,7 @@ $(document).ready(function() {
 	$('#sr_tbl_players').children('td:eq(1)').html(Cookies.get('sr_tbl_players'));
 }
 
-if ( false ){
+if ( true ){
 
 	Cookies.remove('sys_name');
 	Cookies.remove('sys_skinhistory');
