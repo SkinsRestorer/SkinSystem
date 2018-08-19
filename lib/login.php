@@ -37,8 +37,8 @@
 				/* Password is not correct */
 				$error["password"] = "Password is invalid.";
 				/* Create PasswordCaching table if not exist */
-				$data = skinsystemDBQuery("");
-				$result = $data->fetch(PDO::FETCH_ASSOC);
+				//$data = skinsystemDBQuery("");
+				//$result = $data->fetch(PDO::FETCH_ASSOC);
 			}
 		}
  		/* Username and Password are correct */
