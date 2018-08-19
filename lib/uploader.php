@@ -78,7 +78,6 @@
 	curl_setopt($ch, CURLOPT_POST, true);
 	curl_setopt($ch, CURLOPT_POSTFIELDS, $postparam);
 	$response = curl_exec($ch);
-	curl_close($ch);
 	
 	if($response == true){
 		$json = json_decode($response, true);
@@ -113,6 +112,9 @@
 	else {
 		$error["curl"] = "cURL ERROR : " . curl_error($ch);
 	}
+	
+	/* Close CURL Handle */
+	curl_close($ch);
 
 	/* Assign error to data array. When it has some error. */
 	if($error){
