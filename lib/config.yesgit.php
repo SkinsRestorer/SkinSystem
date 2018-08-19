@@ -28,6 +28,7 @@
 
 		/* SkinSystem Configuration */
 		'server_name' => 'Mc-Server',
+		'new_version_notify' => true,
 		'skinhistory' => true,
 		'is_public' => false,
 
