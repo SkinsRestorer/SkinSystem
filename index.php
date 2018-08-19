@@ -41,7 +41,7 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/94/three.min.js"></script>
 	<script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
-	<script src="https://minerender.org/dist/skin.min.js" crossorigin="anonymous"></script>
+	<script src="https://minerender.org/dist/skin.min.js"></script>
 	<script src="https://static.aljaxus.eu/lib/jquery-form/jquery.form-3.51.0.js"></script>
 
 	<!-- Toastr libs - https://codeseven.github.io/toastr/ -->
