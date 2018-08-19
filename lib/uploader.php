@@ -99,10 +99,10 @@
 		/* If important variables aren't empty */
 		if(!empty($playername) && !empty($value) && !empty($signature)) {
 			/* SQL Write/Read (Skins Table) */
-			$db = skinsystemDBQuery("INSERT INTO ? (Nick, Value, Signature, timestamp) VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE Nick=VALUES(Nick), Value=VALUES(Value), Signature=VALUES(Signature), timestamp=VALUES(timestamp)", [$config['mysql_sr_tbl_skins'], $encryptname, $value, $signature, $timestamp]);
+			$db = skinsystemDBQuery("INSERT INTO " . $config['sr']['tbl_skins'] . " (Nick, Value, Signature, timestamp) VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE Nick=VALUES(Nick), Value=VALUES(Value), Signature=VALUES(Signature), timestamp=VALUES(timestamp)", [$encryptname, $value, $signature, $timestamp]);
 
 			/* SQL Write/Read (Players Table) */
-			$db = skinsystemDBQuery("INSERT INTO ? (Nick, Skin) VALUES (?, ?) ON DUPLICATE KEY UPDATE Nick=VALUES(Nick), Skin=VALUES(Skin)", [$config['mysql_sr_tbl_players'], $playername, $encryptname]);
+			$db = skinsystemDBQuery("INSERT INTO " . $config['sr']['tbl_players'] . " (Nick, Skin) VALUES (?, ?) ON DUPLICATE KEY UPDATE Nick=VALUES(Nick), Skin=VALUES(Skin)", [$playername, $encryptname]);
 
 			$data["success"] = true;
 		} else {
