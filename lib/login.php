@@ -23,7 +23,7 @@
 	
 	/* Initial Feedback Variable */
 	$data = array();
-	$error = array();	
+	$error = array();
  	/* Username or Password is empty */
 	if(empty($_POST["username"])){ $error["username"] = "Username is required."; }
 	if(empty($_POST["password"])){ $error["password"] = "Password is required."; }
