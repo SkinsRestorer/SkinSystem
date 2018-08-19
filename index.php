@@ -28,7 +28,7 @@
 <!doctype html>
 <html>
 <head>
-	<title><?php echo $config['sys']['name']; ?> SkinSystem</title>
+	<title><?php echo $config['sys']['name']; ?> | SkinSystem</title>
 	<meta charset="UTF-8">
 
 	<link href="css/styles.css" rel="stylesheet">
