@@ -258,10 +258,10 @@ $('#footer').find('.btn.btn-success').click(function(event) {
 
 
 			if (data.is_success == true){
-				el.append('<p style="color:blue;font-weight:bold;">Installation was successful! Forcing refresh in 5 minutes.</p>');
+				el.append('<p style="color:blue;font-weight:bold;">Installation was successful! Forcing refresh in 5 seconds.</p>');
 				setTimeout(function(){
 					window.location.href = '/';
-				}, 300000);
+				}, 5000);
 			} else {
 				setTimeout(function(){
 					$this.attr('disabled', false);

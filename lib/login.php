@@ -24,7 +24,7 @@
 		$password_pass = false;
 
 		/* Check Username */
-		$authme = authmeDBQuery("SELECT username FROM ? WHERE username = ?", [$config['mysql_authme_table'],$username]);
+		$authme = authmeDBQuery("SELECT username FROM ? WHERE username = ?", [$config['mysql_authme_table'], $username]);
 		$result = $authme->fetch(PDO::FETCH_ASSOC);
 
 		if($result["username"] == $username){
@@ -34,7 +34,7 @@
 		}
 
 		/* Check Password */
-		$authme = authmeDBQuery("SELECT password FROM ? WHERE username = ?", [$config['mysql_authme_table'],$username]);
+		$authme = authmeDBQuery("SELECT password FROM ? WHERE username = ?", [$config['mysql_authme_table'], $username]);
 		$result = $authme->fetch(PDO::FETCH_ASSOC);
 
 		$hashParts = explode("$", $result["password"]);
@@ -42,7 +42,11 @@
 			if(hash("sha256", hash("sha256", $password) . $hashParts[2]) === $hashParts[3]){
 				$password_pass = true;
 			} else {
+				/* Password is not correct */
 				$error["password"] = "Password is invalid.";
+				/* Create PasswordCaching table if not exist */
+				$data = skinsystemDBQuery("");
+				$result = $data->fetch(PDO::FETCH_ASSOC);
 			}
 		}
 

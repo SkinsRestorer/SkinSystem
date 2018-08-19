@@ -6,7 +6,6 @@
 	/* Initialize Structure */
 	require_once __DIR__ . '/lib/firstload.php';
 	require_once __DIR__ . '/lib/lib.php';
-	$config = require_once(__DIR__ . '/lib/config.nogit.php');
 
 	/* If session is dead, start new one */
 	if(session_status() == PHP_SESSION_NONE){
@@ -17,6 +16,13 @@
 	if (!$config['sys']['is_installed']) {
 		Header('Location: ./install/');
 		exit();
+	}
+	
+	/* Show version */
+	if($config['sys']['new_version_notify'] == true){
+		$version = 'Current ' . $config['sys']['version'] . ' | Latest version ' . getLatestVersion();
+	} else {
+		$version = 'Current ' . $config['sys']['version'];
 	}
 ?>
 <!doctype html>
@@ -35,7 +41,7 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/94/three.min.js"></script>
 	<script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
-	<script src="https://minerender.org/dist/skin.min.js"></script>
+	<script src="https://minerender.org/dist/skin.min.js" crossorigin="anonymous"></script>
 	<script src="https://static.aljaxus.eu/lib/jquery-form/jquery.form-3.51.0.js"></script>
 
 	<!-- Toastr libs - https://codeseven.github.io/toastr/ -->
@@ -111,7 +117,7 @@ input[type=radio]{
 								</div>
 							</div>
 						</div>
-						<div class="card-footer text-center text-muted">Current Version 1.4 | Latest version <?php echo getLatestVersion(); ?></div>
+						<div class="card-footer text-center text-muted"><?php echo $version; ?></div>
 					</div>
 				</div>
 			</div>
@@ -137,7 +143,7 @@ input[type=radio]{
 							<button type="submit" class="btn btn-primary w-100">Login</button>
 						</form>
 					</div>
-					<div class="card-footer text-center text-muted">Current Version 1.4 | Latest version <?php echo getLatestVersion(); ?></div>
+					<div class="card-footer text-center text-muted"><?php echo $version; ?></div>
 				</div>
 			</div>
 		</div>
@@ -197,7 +203,7 @@ input[type=radio]{
 							</div>
 						</div>
 					</div>
-					<div class="card-footer text-center text-muted">Current Version 1.4 | Latest version <?php echo getLatestVersion(); ?></div>
+					<div class="card-footer text-center text-muted"><?php echo $version; ?></div>
 				</div>
 			</div>
 		</div>
