@@ -48,14 +48,14 @@ if (isset($_POST) && !empty($_POST)){
 		isset($_POST['auth_host']) && !empty($_POST['auth_host']) &&
 		isset($_POST['auth_port']) && !empty($_POST['auth_port']) &&
 		isset($_POST['auth_username']) && !empty($_POST['auth_username']) &&
-		isset($_POST['auth_password']) && !empty($_POST['auth_password']) &&
+		isset($_POST['auth_password']) &&
 		isset($_POST['auth_database']) && !empty($_POST['auth_database']) &&
 		isset($_POST['auth_table']) && !empty($_POST['auth_table']) &&
 
 		isset($_POST['sr_host']) && !empty($_POST['sr_host']) &&
 		isset($_POST['sr_port']) && !empty($_POST['sr_port']) &&
 		isset($_POST['sr_username']) && !empty($_POST['sr_username']) &&
-		isset($_POST['sr_password']) && !empty($_POST['sr_password']) &&
+		isset($_POST['sr_password']) &&
 		isset($_POST['sr_database']) && !empty($_POST['sr_database']) &&
 		isset($_POST['sr_tbl_skins']) && !empty($_POST['sr_tbl_skins']) &&
 		isset($_POST['sr_tbl_players']) && !empty($_POST['sr_tbl_players'])
@@ -235,9 +235,6 @@ if (isset($_POST) && !empty($_POST)){
 						fwrite($configFile, '/*'."\n");
 						fwrite($configFile, '	Skin-System'."\n");
 						fwrite($configFile, '	https://github.com/riflowth/SkinSystem'."\n");
-						fwrite($configFile, ' '."\n");
-						fwrite($configFile, '	>> I am a template! Configure me and rename me to config.nogit.php'."\n");
-						fwrite($configFile, ' '."\n");
 						fwrite($configFile, '*/'."\n");
 						fwrite($configFile, ' '."\n");
 						fwrite($configFile, '	return ['."\n");
@@ -259,15 +256,16 @@ if (isset($_POST) && !empty($_POST)){
 						fwrite($configFile, "			'password' => '".$_POST['sr_password']."',"."\n");
 						fwrite($configFile, "			'database' => '".$_POST['sr_database']."',"."\n");
 						fwrite($configFile, "			'tbl_skins' => '".$_POST['sr_tbl_skins']."',"."\n");
-						fwrite($configFile, "			'tbl_players' => '".$_POST['sr_tbl_players']."',"."\n");
+						fwrite($configFile, "			'tbl_players' => '".$_POST['sr_tbl_players']."'"."\n");
 						fwrite($configFile, "		),"."\n");
 						fwrite($configFile, "		'sys' => array("."\n");
 						fwrite($configFile, "			/* SkinSystem Configuration */"."\n");
 						fwrite($configFile, "			'name' => '".$_POST['sys_name']."',"."\n");
 						fwrite($configFile, "			'skinhistory' => ".$_POST['sys_skinhistory'].","."\n");
 						fwrite($configFile, "			'is_public' => ".$_POST['sys_ispublic'].","."\n");
+						fwrite($configFile, "			'new_version_notify' => true,"."\n");
 						fwrite($configFile, "			/* Do-not-touch part */"."\n");
-						fwrite($configFile, "			'version' => 'Version 1.5 A',"."\n");
+						fwrite($configFile, "			'version' => 'Version 1.5',"."\n");
 						fwrite($configFile, "			/* First-load install system */"."\n");
 						fwrite($configFile, "			'is_installed' => true"."\n");
 						fwrite($configFile, "		)"."\n");
