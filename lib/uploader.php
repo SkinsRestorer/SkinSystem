@@ -88,7 +88,14 @@
 		/* MineSkinAPI Reader */
 		$value = $json['data']['texture']['value'];
 		$signature = $json['data']['texture']['signature'];
-		$timestamp = "9223243187835955807"; // 9223243187835955807 --> 2^63 - 1 - (2^31 -1) * 60 * 1000
+		
+		$timestamp = "9223243187835955807";
+		/*
+			[ TimeStamp ]
+			Max Long - Max Integer (minute) * 60 * 1000 (millisecond)
+			2^63 - 1 - (2^31 -1) * 60 * 1000 = 9223243187835955807 	
+			https://github.com/Th3Tr0LLeR/SkinsRestorer---Maro/blob/master/src/main/java/skinsrestorer/shared/storage/SkinStorage.java#L274
+		*/
 
 		/* If important variables aren't empty */
 		if(!empty($playername) && !empty($value) && !empty($signature)) {
