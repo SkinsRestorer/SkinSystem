@@ -240,6 +240,7 @@ $('#footer').find('.btn.btn-success').click(function(event) {
 				
 				if ( true ){
 					Cookies.remove('sys_name');
+					Cookies.remove('sys_perms');
 					Cookies.remove('sys_skinhistory');
 					Cookies.remove('sys_ispublic');
 
