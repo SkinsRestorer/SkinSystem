@@ -45,8 +45,8 @@
 	<script src="https://static.aljaxus.eu/lib/jquery-form/jquery.form-3.51.0.js"></script>
 
 	<!-- Toastr libs - https://codeseven.github.io/toastr/ -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js" charset="utf-8"></script>
-	<link rel="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" href="/css/master.css">
+	<script src="https://static.aljaxus.eu/lib/jquery-toastr/toastr-2.1.4/toastr.min.js" charset="utf-8"></script>
+	<link rel="stylesheet" type="text/css" href="https://static.aljaxus.eu/lib/jquery-toastr/toastr-2.1.4/toastr.min.css">
 	<!-- Cookies lib -->
 	<script src="https://static.aljaxus.eu/lib/js-cookie/js-cookie-v2.2.0.js" charset="utf-8"></script>
 </head>
