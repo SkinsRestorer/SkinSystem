@@ -6,19 +6,27 @@
  	/* Import Lib */
 	require_once __DIR__ . '/lib.php';
 	
-	/* Check fail count */
+	/* Check fail count and unban date */
 	$query = skinsystemDBQuery("SELECT fail FROM logincaching WHERE ipaddress = ?", [getIP()]);
 	$failCount = $query->fetch(PDO::FETCH_ASSOC);
 	if($failCount['fail'] == 4){
-		$error = array();
-		$data = array();
+		$query = skinsystemDBQuery("SELECT unban_date FROM logincaching WHERE ipaddress = ?", [getIP()]);
+		$result = $query->fetch(PDO::FETCH_ASSOC);
+		$today = date('Y-m-d H:i:s');
 		
-		$error['block'] = "You have been blocked by the server because you inputted the wrong password for 4 times.";
-		$data["success"] = false;
-		$data["error"] = $error;
-		
-		echo json_encode($data, JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES);
-		die();
+		if($result['unban_date'] > $today){
+			$error = array();
+			$data = array();
+			
+			$error['block'] = "You have been blocked by the server because you inputted the wrong password for 4 times.";
+			$data["success"] = false;
+			$data["error"] = $error;
+			
+			echo json_encode($data, JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES);
+			die();
+		} else {
+			$query = skinsystemDBQuery("DELETE FROM logincaching WHERE ipaddress = ?", [getIP()]);
+		}
 	} 
 	
 	/* Initial Feedback Variable */
@@ -56,6 +64,7 @@
 				skinsystemDBQuery("CREATE TABLE IF NOT EXISTS logincaching (
 				ipaddress varchar(15) NOT NULL,
 				fail tinyint(4) NOT NULL,
+				unban_date datetime,
 				PRIMARY KEY (ipaddress)
 				) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci");
 				
@@ -64,17 +73,18 @@
 				$failCount = $query->fetch(PDO::FETCH_ASSOC);
 				/* If not have any fail count, Insert fail count with 1 */
 				if($failCount == false){
-					skinsystemDBQuery("INSERT INTO logincaching (ipaddress, fail) VALUES (?, ?) ON DUPLICATE KEY UPDATE ipaddress=VALUES(ipaddress), fail=VALUES(fail)", [getIP(), 1]);
+					skinsystemDBQuery("INSERT INTO logincaching (ipaddress, fail) VALUES (?, ?)", [getIP(), 1]);
 				} 
 				/* If have any fail count, Increase fail count ++ */
 				else if($failCount['fail'] == 1){
-					skinsystemDBQuery("INSERT INTO logincaching (ipaddress, fail) VALUES (?, ?) ON DUPLICATE KEY UPDATE ipaddress=VALUES(ipaddress), fail=VALUES(fail)", [getIP(), 2]);
+					skinsystemDBQuery("UPDATE logincaching SET fail = ?", [2]);
 				}
 				else if($failCount['fail'] == 2){
-					skinsystemDBQuery("INSERT INTO logincaching (ipaddress, fail) VALUES (?, ?) ON DUPLICATE KEY UPDATE ipaddress=VALUES(ipaddress), fail=VALUES(fail)", [getIP(), 3]);
+					skinsystemDBQuery("UPDATE logincaching SET fail = ?", [3]);
 				}
 				else if($failCount['fail'] == 3){
-					skinsystemDBQuery("INSERT INTO logincaching (ipaddress, fail) VALUES (?, ?) ON DUPLICATE KEY UPDATE ipaddress=VALUES(ipaddress), fail=VALUES(fail)", [getIP(), 4]);
+					$date = date('Y-m-d H:i:s', strtotime('+1 hour'));
+					skinsystemDBQuery("UPDATE logincaching SET fail = ?, unban_date = ?", [4, $date]);
 				}
 			}
 		}
