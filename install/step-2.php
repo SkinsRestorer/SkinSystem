@@ -5,15 +5,15 @@
 	<div class="row">
 		<div class="form-group col-6">
 			<label for="sys-name">address</label>
-			<input value="localhost" type="text" id="sr_host" class="form-control">
+			<input value="localhost" type="text" id="sr_host" class="form-control" placeholder="localhost">
 		</div>
 		<div class="form-group col-6">
 			<label for="sys-name">port</label>
-			<input value="3306" type="text" id="sr_port" class="form-control">
+			<input value="3306" type="text" id="sr_port" class="form-control" placeholder="3306">
 		</div>
 		<div class="form-group col-6">
 			<label for="sys-name">username</label>
-			<input type="text" id="sr_username" class="form-control">
+			<input type="text" id="sr_username" class="form-control" placeholder="root">
 		</div>
 		<div class="form-group col-6">
 			<label for="sys-name">user password</label>
@@ -21,15 +21,15 @@
 		</div>
 		<div class="form-group col-6">
 			<label for="sys-name">database</label>
-			<input value="skinsrestorer" type="text" id="sr_database" class="form-control">
+			<input value="skinsrestorer" type="text" id="sr_database" class="form-control" placeholder="skinsrestorer">
 		</div>
 		<div class="form-group col-6">
 			<label for="sys-name">player table</label>
-			<input value="Players" type="text" id="sr_tbl_players" class="form-control">
+			<input value="Players" type="text" id="sr_tbl_players" class="form-control" placeholder="Players">
 		</div>
 		<div class="form-group col-6">
 			<label for="sys-name">skins table</label>
-			<input value="Skins" type="text" id="sr_tbl_skins" class="form-control">
+			<input value="Skins" type="text" id="sr_tbl_skins" class="form-control" placeholder="Skins">
 		</div>
 	</div>
 	<hr>

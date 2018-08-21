@@ -5,15 +5,15 @@
 	<div class="row">
 		<div class="form-group col-6">
 			<label for="auth_host">address</label>
-			<input value="localhost" type="text" id="auth_host" class="form-control">
+			<input value="localhost" type="text" id="auth_host" class="form-control" placeholder="localhost">
 		</div>
 		<div class="form-group col-6">
 			<label for="auth_port">port</label>
-			<input value="3306" type="text" id="auth_port" class="form-control">
+			<input value="3306" type="text" id="auth_port" class="form-control" placeholder="3306">
 		</div>
 		<div class="form-group col-6">
 			<label for="auth_username">username</label>
-			<input type="text" id="auth_username" class="form-control">
+			<input type="text" id="auth_username" class="form-control" placeholder="root">
 		</div>
 		<div class="form-group col-6">
 			<label for="auth_password">user password</label>
@@ -21,11 +21,11 @@
 		</div>
 		<div class="form-group col-6">
 			<label for="auth_database">database</label>
-			<input value="authme" type="text" id="auth_database" class="form-control">
+			<input value="authme" type="text" id="auth_database" class="form-control" placeholder="authme">
 		</div>
 		<div class="form-group col-6">
 			<label for="auth_table">authme table</label>
-			<input value="authme" type="text" id="auth_table" class="form-control">
+			<input value="authme" type="text" id="auth_table" class="form-control" placeholder="authme">
 		</div>
 	</div>
 	<hr>
