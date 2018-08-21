@@ -148,28 +148,6 @@ $(document).ready(function() {
 	$('#sr_tbl_players').children('td:eq(1)').html(Cookies.get('sr_tbl_players'));
 }
 
-if ( true ){
-
-	Cookies.remove('sys_name');
-	Cookies.remove('sys_skinhistory');
-	Cookies.remove('sys_ispublic');
-
-	Cookies.remove('auth_enabled');
-	Cookies.remove('auth_host');
-	Cookies.remove('auth_port');
-	Cookies.remove('auth_username');
-	Cookies.remove('auth_password');
-	Cookies.remove('auth_database');
-	Cookies.remove('auth_table');
-
-	Cookies.remove('sr_host');
-	Cookies.remove('sr_port');
-	Cookies.remove('sr_username');
-	Cookies.remove('sr_password');
-	Cookies.remove('sr_database');
-	Cookies.remove('sr_tbl_skins');
-	Cookies.remove('sr_tbl_players');
-}
 });
 
 $('#footer').find('.btn.btn-info').click(function(event) {
@@ -259,6 +237,29 @@ $('#footer').find('.btn.btn-success').click(function(event) {
 
 			if (data.is_success == true){
 				el.append('<p style="color:blue;font-weight:bold;">Installation was successful! Forcing refresh in 5 seconds.</p>');
+				
+				if ( true ){
+					Cookies.remove('sys_name');
+					Cookies.remove('sys_skinhistory');
+					Cookies.remove('sys_ispublic');
+
+					Cookies.remove('auth_enabled');
+					Cookies.remove('auth_host');
+					Cookies.remove('auth_port');
+					Cookies.remove('auth_username');
+					Cookies.remove('auth_password');
+					Cookies.remove('auth_database');
+					Cookies.remove('auth_table');
+
+					Cookies.remove('sr_host');
+					Cookies.remove('sr_port');
+					Cookies.remove('sr_username');
+					Cookies.remove('sr_password');
+					Cookies.remove('sr_database');
+					Cookies.remove('sr_tbl_skins');
+					Cookies.remove('sr_tbl_players');
+				}
+				
 				setTimeout(function(){
 					window.location.href = '/';
 				}, 5000);
