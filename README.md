@@ -90,9 +90,13 @@ This project will not succeed if we don't have a help from these people.
 
 ## Sponsors
 We want to say `Thank you` to all of them.
+- **[Vectier Thailand](https://www.facebook.com/VectierThailand/)** (Our team)
 - **[xknat](https://github.com/xknat)** (SkinsRestorer Team)
+- **Thanaphon Rangbunlue**
 
 If this project makes your life better, *you can give me a pack of candy :)*
+
+or leave your thumbs up on [Our team Facebook](https://www.facebook.com/VectierThailand/) :thumbsup:
 
 <a href="https://www.paypal.me/wheprakhone"><img src="https://raw.githubusercontent.com/riflowth/SkinSystem/master/src/donate-paypal.png" height="48px" width="auto"></a> <-- Click here
 
