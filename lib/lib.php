@@ -11,6 +11,10 @@
 	$authmePDOinstance = new PDO('mysql:host=' . $config['authme']['host'] . '; port=' . $config['authme']['port'] . '; dbname=' . $config['authme']['database'] . ';', $config['authme']['username'], $config['authme']['password']);
 	$skinsystemPDOinstance = new PDO('mysql:host=' . $config['sr']['host'] . '; port=' . $config['sr']['port'] . '; dbname=' . $config['sr']['database'] . ';', $config['sr']['username'], $config['sr']['password']);
 
+	/* Tell PDO to throw exceptions */
+	$authmePDOinstance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	$skinsystemPDOinstance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
 	/* When working with Authme */
 	function authmeDBQuery($mysqlcommand, $key = []){
 		global $authmePDOinstance;
@@ -26,11 +30,11 @@
 		$result->execute($key);
 		return $result;
 	}
-	
+
 	/* Get lastest version of The SkinSystem */
 	function getLatestVersion(){
 		global $response;
-		
+
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, 'https://api.github.com/repos/riflowth/SkinSystem/releases/latest');
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
@@ -48,14 +52,14 @@
 
 		return $response;
 	}
-	
+
 	/* Get IP address of visitor */
 	function getIP(){
 		if(isset($_SERVER["HTTP_CF_CONNECTING_IP"])) {
 			$_SERVER['REMOTE_ADDR'] = $_SERVER["HTTP_CF_CONNECTING_IP"];
 			$_SERVER['HTTP_CLIENT_IP'] = $_SERVER["HTTP_CF_CONNECTING_IP"];
 		}
-		
+
 		$client  = @$_SERVER['HTTP_CLIENT_IP'];
 		$forward = @$_SERVER['HTTP_X_FORWARDED_FOR'];
 		$remote  = $_SERVER['REMOTE_ADDR'];
