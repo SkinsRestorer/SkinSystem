@@ -8,7 +8,7 @@
 	require_once __DIR__ . '/lib/lib.php';
 
 	/* If session is dead, start new one */
-	if(session_status() == PHP_SESSION_NONE){
+	if (session_status() == PHP_SESSION_NONE) {
 	    session_start();
 	}
 
@@ -19,7 +19,7 @@
 	}
 	
 	/* Show version */
-	if($config['sys']['new_version_notify'] == true){
+	if ($config['sys']['new_version_notify'] == true) {
 		$version = 'Current ' . $config['sys']['version'] . ' | Latest version ' . getLatestVersion();
 	} else {
 		$version = 'Current ' . $config['sys']['version'];

@@ -38,13 +38,15 @@
 		curl_setopt($ch, CURLOPT_USERAGENT, 'The SkinSystem');
 		$response = curl_exec($ch);
 		curl_close($ch);
-		
-		if($response == true){
-			$json = json_decode($response, true);
-			return $json['tag_name'];
+
+		if ($response === false) {
+			$response = 'cURL ERROR : ' . curl_error($ch);
 		} else {
-			return 'cURL ERROR : ' . curl_error($ch);
+			$response = json_decode($response, true);
+			$response = $response['tag_name'];
 		}
+
+		return $response;
 	}
 	
 	/* Get IP address of visitor */
@@ -61,7 +63,7 @@
 		if(filter_var($client, FILTER_VALIDATE_IP)){
 			$ip = $client;
 		}
-		else if(filter_var($forward, FILTER_VALIDATE_IP)){
+		elseif(filter_var($forward, FILTER_VALIDATE_IP)){
 			$ip = $forward;
 		}
 		else{
@@ -69,5 +71,29 @@
 		}
 
 		return $ip;
+	}
+
+	function printDataAndDie($data = []) {
+		if (!isset($data['success'])) {
+			$data['success'] = empty($data['error']);
+		}
+
+		die(json_encode($data, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+	}
+
+	function printErrorAndDie($error) {
+		printDataAndDie([
+			'error' => $error
+		]);
+	}
+
+	function sql_datetime($time = false) {
+		$format = 'Y-m-d H:i:s';
+
+		if ($time === false) {
+			date($format);
+		}
+
+		return date($format, $time);
 	}
 ?>

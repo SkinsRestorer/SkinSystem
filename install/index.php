@@ -57,8 +57,8 @@ input[type=radio]{
 <body>
 <?php
 
-if (isset($_GET['step']) && !empty($_GET['step'])) {																						// Check if $_GET['step'] is correctly defined
-	if ( file_exists(__DIR__ . '/step-' . $_GET['step'] . '.php') ) {																		// Check if the file for the step exists
+if (!empty($_GET['step'])) {																												// Check if $_GET['step'] is correctly defined
+	if (file_exists(__DIR__ . '/step-' . $_GET['step'] . '.php') ) {																		// Check if the file for the step exists
 		?>
 
 		<div class="row h-100 mx-0 align-items-center">
