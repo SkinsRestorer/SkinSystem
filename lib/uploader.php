@@ -6,72 +6,70 @@
 
 	require_once __DIR__ . '/lib.php';
 
-	/* Initial Feedback Variable */
-	$data = array();
-	$error = array();
-
-	/* If have some request to uploader.php without any POST */
-	if(!isset($_POST["slim"])) {
-		$data["ERROR"] = "Nothing here! You can't do that !!!";
-		echo json_encode($data);
-		die();
-	}
+	session_start();
 
 	/* Authme */
-	session_start();
-	if(!empty($_SESSION["username"])){
+	if (!empty($_SESSION["username"])) {
 		$playername = $_SESSION["username"];
-	} else {
-		if($config["authme"] === true){
-			die("Login first !");
-		} else {
-			$playername = $_POST["username"];
-		}
+	} elseif ($config['authme']['enabled']) {
+		printErrorAndDie('Please login first');
+	} elseif (!empty($_POST['username'])) {
+		$playername = $_POST['username'];
 	}
+
+	if (empty($playername)) {
+		printErrorAndDie([
+			'invalid' => 'Empty username'
+		]);
+	}
+
+	/* If have some request to uploader.php without any POST */
+	if (!isset($_POST['slim']) ||
+		(empty($_FILES['file']['tmp_name']) && empty($_POST['url'])) ||
+		empty($_POST['withURL'])
+	) {
+		printErrorAndDie('Invalid request');
+	}
+
+	/* Initial Feedback Variable */
+	$data = [
+		'username' => $playername,
+		'slim' => false,
+	];
+
+	$postparam = [
+		'visibility' => 0
+	];
 
 	/* Check Skintype POST*/
-	if($_POST["slim"] == "true"){
-		$skinType = "slim";
-	}
-	else if($_POST["slim"] == "false"){
-		$skinType = "";
+	if ($_POST["slim"] == "true") {
+		$postparam['model'] = 'slim';
+		$data['slim'] = true;
 	}
 
-	/* Feedback */
-	$data["username"] = $playername;
-	$data["slim"] = $skinType;
+	if ($_POST['withURL'] === 'true' && !empty($_POST['url'])) {
+		$data["uploadtype"] = "url";
 
-	/* CURL Initialize */
-	$ch = curl_init();
+		$postparam['url'] = $_POST['url'];
 
-	/* Parameters To Send */
-	$check = getimagesize($_FILES['file']["tmp_name"]); // Check input is an image.
-	if($check !== false){
+		$url = "https://api.mineskin.org/generate/url";
+	} else {
+		$file = $_FILES['file']['tmp_name'];
+
+		if (strncmp(mime_content_type($file), 'image/', 6) !== 0) {
+			printErrorAndDie('Invalid image file');
+		}
+
 		$data["uploadtype"] = "file";
-
-		$cfile = new CURLFile($_FILES['file']["tmp_name"], $_FILES['file']["type"], $_FILES['file']["name"]);
-		$postparam = [
-			"file" => $cfile,
-			"visibility" => 1,
-			"model" => $skinType,
-		];
+	
+		$postparam['file'] =
+			new CURLFile($_FILES['file']['tmp_name'], $_FILES['file']['type'], $_FILES['file']['name']);
 
 		$url = "https://api.mineskin.org/generate/upload";
 	}
-	else if($check === false){
-		$data["uploadtype"] = "url";
-
-		$url = $_POST["url"];
-		$postparam = [
-			"url" => $url,
-			"visibility" => 1,
-			"model" => $skinType,
-		];
-
-		$url = "https://api.mineskin.org/generate/url";
-	}
 
 	/* CURL System To Talk with RESTapi */
+	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_URL, $url);
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -79,48 +77,62 @@
 	curl_setopt($ch, CURLOPT_POSTFIELDS, $postparam);
 	$response = curl_exec($ch);
 	
-	if($response == true){
-		$json = json_decode($response, true);
-
-		$encryptname = " " . $playername;
-
-		/* MineSkinAPI Reader */
-		$value = $json['data']['texture']['value'];
-		$signature = $json['data']['texture']['signature'];
-		
-		$timestamp = "9223243187835955807";
-		/*
-			[ TimeStamp ]
-			Max Long - Max Integer (minute) * 60 * 1000 (millisecond)
-			2^63 - 1 - (2^31 -1) * 60 * 1000 = 9223243187835955807 	
-			https://github.com/Th3Tr0LLeR/SkinsRestorer---Maro/blob/master/src/main/java/skinsrestorer/shared/storage/SkinStorage.java#L274
-		*/
-
-		/* If important variables aren't empty */
-		if(!empty($playername) && !empty($value) && !empty($signature)) {
-			/* SQL Write/Read (Skins Table) */
-			$db = skinsystemDBQuery("INSERT INTO " . $config['sr']['tbl_skins'] . " (Nick, Value, Signature, timestamp) VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE Nick=VALUES(Nick), Value=VALUES(Value), Signature=VALUES(Signature), timestamp=VALUES(timestamp)", [$encryptname, $value, $signature, $timestamp]);
-
-			/* SQL Write/Read (Players Table) */
-			$db = skinsystemDBQuery("INSERT INTO " . $config['sr']['tbl_players'] . " (Nick, Skin) VALUES (?, ?) ON DUPLICATE KEY UPDATE Nick=VALUES(Nick), Skin=VALUES(Skin)", [$playername, $encryptname]);
-
-			$data["success"] = true;
-		} else {
-			$error["Invalid"] = "Invalid parameters !";
-		}
+	if ($response === false) {
+		printErrorAndDie([
+			'curl' => curl_error($ch)
+		]);
 	}
-	else {
-		$error["curl"] = "cURL ERROR : " . curl_error($ch);
-	}
-	
-	/* Close CURL Handle */
+
 	curl_close($ch);
 
-	/* Assign error to data array. When it has some error. */
-	if($error){
-		$data["success"] = false;
-		$data["error"] = $error;
+	$json = json_decode($response, true);
+
+	$transformedName = " " . $playername;
+
+	if (empty($json['data']['texture']['value']) || empty($json['data']['texture']['signature'])) {
+		printErrorAndDie([
+			'invalid' => 'MineSkin API returned unusable data'
+		]);
 	}
 
-	echo json_encode($data, JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES);
+	$value = $json['data']['texture']['value'];
+	$signature = $json['data']['texture']['signature'];
+
+	/*
+		https://github.com/Th3Tr0LLeR/SkinsRestorer---Maro/blob/9358d5727cfc7a1dce4e2af9412679999be5b519/src/main/java/skinsrestorer/shared/storage/SkinStorage.java#L274
+
+		From condition in SkinRestorer source code,
+
+		```
+		if (timestamp + TimeUnit.MINUTES.toMillis(Config.SKIN_EXPIRES_AFTER) <= System.currentTimeMillis()) {
+		```
+
+		Variable "timestamp", toMillis(...), currentTimeMillis() are long, except SKIN_EXPIRES_AFTER which is integer.
+		This mean the left side of operator is less than or equal to Long.MAX_VALUE (2^63 - 1).
+
+		Since we want to get maximum timestamp, we substitute SKIN_EXPIRES_AFTER with Integer.MAX_VALUE (2^31 - 1), and
+		we get (2^31 - 1) * 60 * 1000 where 60 is used for convert to second and 1000 to convert to millisecond.
+
+		To get maximum timestamp, we substract Long.MAX_VALUE with value above with get us:
+
+		(2^63 - 1) - ((2^31 - 1) * 60 * 1000) = 9223243187835955807
+	*/
+	$timestamp = "9223243187835955807";
+
+	/* SQL Write/Read (Skins Table) */
+	skinsystemDBQuery(
+		"INSERT INTO {$config['sr']['tbl_skins']} (Nick, Value, Signature, timestamp) VALUES (?, ?, ?, ?) " .
+		"ON DUPLICATE KEY UPDATE Nick=VALUES(Nick), Value=VALUES(Value), Signature=VALUES(Signature), " .
+		"timestamp=VALUES(timestamp)",
+		[$transformedName, $value, $signature, $timestamp]
+	);
+
+	/* SQL Write/Read (Players Table) */
+	skinsystemDBQuery(
+		"INSERT INTO {$config['sr']['tbl_players']} (Nick, Skin) VALUES (?, ?) " .
+		"ON DUPLICATE KEY UPDATE Nick=VALUES(Nick), Skin=VALUES(Skin)",
+		[$playername, $transformedName]
+	);
+
+	printDataAndDie($data);
 ?>

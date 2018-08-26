@@ -6,99 +6,83 @@
  	/* Import Lib */
 	require_once __DIR__ . '/lib.php';
 	
+	$ip = getIP();
+
 	/* Check fail count and unban date */
-	$query = skinsystemDBQuery("SELECT fail FROM logincaching WHERE ipaddress = ?", [getIP()]);
-	$failCount = $query->fetch(PDO::FETCH_ASSOC);
-	if($failCount['fail'] == 4){
-		$query = skinsystemDBQuery("SELECT unban_date FROM logincaching WHERE ipaddress = ?", [getIP()]);
-		$result = $query->fetch(PDO::FETCH_ASSOC);
-		$today = date('Y-m-d H:i:s');
+	$query = skinsystemDBQuery("SELECT fail, unban_date FROM logincaching WHERE ipaddress = ?", [$ip]);
+	$failData = $query->fetch(PDO::FETCH_ASSOC);
+	if ($failData['fail'] >= 4){
+		$today = sql_datetime();
 		
-		if($result['unban_date'] > $today){
-			$error = array();
-			$data = array();
-			
-			$error['block'] = "You have been blocked by the server because you inputted the wrong password for 4 times.";
-			$data["success"] = false;
-			$data["error"] = $error;
-			
-			echo json_encode($data, JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES);
-			die();
-		} else {
-			$query = skinsystemDBQuery("DELETE FROM logincaching WHERE ipaddress = ?", [getIP()]);
+		if($failData['unban_date'] > $today){
+			printErrorAndDie([
+				'block' => 'You have been blocked by the server because you inputted the wrong password for 4 times.'
+			]);
 		}
+		
+		skinsystemDBQuery("DELETE FROM logincaching WHERE ipaddress = ?", [$ip]);
 	} 
-	
-	/* Initial Feedback Variable */
-	$data = array();
-	$error = array();
+
  	/* Username or Password is empty */
-	if(empty($_POST["username"])){ $error["username"] = "Username is required."; }
-	if(empty($_POST["password"])){ $error["password"] = "Password is required."; }
- 	/* Username and Password are not empty */
-	if(!empty($_POST["username"]) && !empty($_POST["password"])){
-		$username = strtolower($_POST["username"]);
-		$password = $_POST["password"];
- 		$username_pass = false;
-		$password_pass = false;
- 		/* Check Username */
-		$authme = authmeDBQuery("SELECT username FROM ". $config['authme']['table'] ." WHERE username = ?", [$username]);
-		$result = $authme->fetch(PDO::FETCH_ASSOC);
- 		if($result["username"] == $username){
-			$username_pass = true;
-		} else {
-			$error["username"] = "Username is invalid.";
-		}
- 		/* Check Password */
-		$authme = authmeDBQuery("SELECT password FROM " . $config['authme']['table'] . " WHERE username = ?", [$username]);
-		$result = $authme->fetch(PDO::FETCH_ASSOC);
- 		$hashParts = explode("$", $result["password"]);
-		if(count($hashParts) === 4){
-			if(hash("sha256", hash("sha256", $password) . $hashParts[2]) === $hashParts[3]){
-				$password_pass = true;
-			} else {
-				/* Password is not correct */
-				$error["password"] = "Password is invalid.";
-				
-				/* Create PasswordCaching table if not exist */
-				skinsystemDBQuery("CREATE TABLE IF NOT EXISTS logincaching (
-				ipaddress varchar(15) NOT NULL,
-				fail tinyint(4) NOT NULL,
-				unban_date datetime,
-				PRIMARY KEY (ipaddress)
-				) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci");
-				
-				/* Check fail count */
-				$query = skinsystemDBQuery("SELECT fail FROM logincaching WHERE ipaddress = ?", [getIP()]);
-				$failCount = $query->fetch(PDO::FETCH_ASSOC);
-				/* If not have any fail count, Insert fail count with 1 */
-				if($failCount == false){
-					skinsystemDBQuery("INSERT INTO logincaching (ipaddress, fail) VALUES (?, ?)", [getIP(), 1]);
-				} 
-				/* If have any fail count, Increase fail count ++ */
-				else if($failCount['fail'] == 1){
-					skinsystemDBQuery("UPDATE logincaching SET fail = ?", [2]);
-				}
-				else if($failCount['fail'] == 2){
-					skinsystemDBQuery("UPDATE logincaching SET fail = ?", [3]);
-				}
-				else if($failCount['fail'] == 3){
-					$date = date('Y-m-d H:i:s', strtotime('+1 hour'));
-					skinsystemDBQuery("UPDATE logincaching SET fail = ?, unban_date = ?", [4, $date]);
-				}
-			}
-		}
- 		/* Username and Password are correct */
-		if($username_pass && $password_pass){
-			session_start();
-			$_SESSION["username"] = $username;
-			$data["success"] = true;
-		}
+	if (empty($_POST["username"])) {
+		printErrorAndDie([
+			'username' => 'Username is required.'
+		]);
 	}
- 	/* Assign error to data array. When it has some error. */
-	if($error){
-		$data["success"] = false;
-		$data["error"] = $error;
+
+	if (empty($_POST["password"])) {
+		printErrorAndDie([
+			'password' => 'Password is required.'
+		]);
 	}
- 	echo json_encode($data, JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES);
+
+	$username = strtolower($_POST["username"]);
+	$password = $_POST["password"];
+
+ 	/* Fetch user */
+	$authme = authmeDBQuery("SELECT username, password FROM ". $config['authme']['table'] ." WHERE username = ?", [$username]);
+	$result = $authme->fetch(PDO::FETCH_ASSOC);
+
+	/* Check Password */
+	$hashParts = explode("$", $result["password"]);
+
+	if (count($hashParts) === 4 && hash("sha256", hash("sha256", $password) . $hashParts[2]) === $hashParts[3]) {
+		session_start();
+		$_SESSION["username"] = $username;
+
+		printDataAndDie();
+	}
+
+	/* Create logincaching table if not exist */
+	skinsystemDBQuery("CREATE TABLE IF NOT EXISTS logincaching (
+	ipaddress varchar(15) NOT NULL,
+	fail tinyint(4) NOT NULL,
+	unban_date datetime,
+	PRIMARY KEY (ipaddress)
+	) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci");
+
+	/* Check fail count */
+	$query = skinsystemDBQuery("SELECT fail FROM logincaching WHERE ipaddress = ?", [$ip]);
+	$failData = $query->fetch(PDO::FETCH_ASSOC);
+	/* If not have any fail count, Insert fail count with 1 */
+	if (!$failData) {
+		skinsystemDBQuery('INSERT INTO logincaching (ipaddress, fail) VALUES (?, 1)', [$ip]);
+	} else {
+		$nextFailCount = $failData['fail'] + 1;
+		$time = 0;
+
+		if ($nextFailCount >= 4) {
+			$time = strtotime('+1 hour');
+		}
+
+		/* If have any fail count, Increase fail count ++ */
+		skinsystemDBQuery('UPDATE logincaching SET fail = ?, unban_date = ?', [
+			$nextFailCount,
+			sql_datetime($time)
+		]);
+	}
+
+	printErrorAndDie([
+		'password' => 'Username or password is incorrect.'
+	]);
 ?>

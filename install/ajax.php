@@ -25,17 +25,17 @@ $statusData = array(
 	'is_success' => false
 );
 
-if (isset($_GET) && !empty($_GET)){
+if (!empty($_GET)){
 	$statusData['isset']['get'] = true;
 	$statusData['debug']['get'] = $_GET;
 }
 
-if (isset($_SESSION) && !empty($_SESSION)){
+if (!empty($_SESSION)){
 	$statusData['isset']['session'] = true;
 	$statusData['debug']['session'] = $_SESSION;
 }
 
-if (isset($_POST) && !empty($_POST)){
+if (!empty($_POST)){
 	$statusData['isset']['post'] = true;
 	$statusData['debug']['post'] = $_POST;
 
@@ -73,7 +73,7 @@ if (isset($_POST) && !empty($_POST)){
 			try {
 				$statusData['data']['sr_conn'] = true;
 
-				$conn = new pdo( 'mysql:host='.$_POST['sr_host'].':'.$_POST['sr_port'].';dbname='.$_POST['sr_database'],
+				$conn = new pdo( 'mysql:host='.$_POST['sr_host'].';port='.$_POST['sr_port'].';dbname='.$_POST['sr_database'],
 					$_POST['sr_username'],
 					$_POST['sr_password'],
 					array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION)
@@ -146,7 +146,7 @@ if (isset($_POST) && !empty($_POST)){
 		{
 			try {
 				$statusData['data']['auth_conn'] = true;
-				$conn = new pdo( 'mysql:host='.$_POST['auth_host'].':'.$_POST['auth_port'].';dbname='.$_POST['auth_database'],
+				$conn = new pdo( 'mysql:host='.$_POST['auth_host'].';port='.$_POST['auth_port'].';dbname='.$_POST['auth_database'],
 					$_POST['auth_username'],
 					$_POST['auth_password'],
 					array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION)
