@@ -138,7 +138,7 @@ if (!empty($_POST)){
 				$statusData['messages'],
 					array(
 						'color' => 'red',
-						'msg' => json_encode(array('Testing skinsrestorer MySql:' => false, '[error]' => $ex), JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES)
+						'msg' => json_encode(array('Testing skinsrestorer MySql:' => false, '[error]' => $ex->getTrace()), JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES)
 					)
 				);
 			}
@@ -188,7 +188,7 @@ if (!empty($_POST)){
 					$statusData['messages'],
 					array(
 						'color' => 'red',
-						'msg' => json_encode(array('[error]' => 'Authme MySql test failed!', '[error]' => $ex), JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES)
+						'msg' => json_encode(array('[error]' => 'Authme MySql test failed!', '[error]' => $ex->getTrace()), JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES)
 					)
 				);
 			}
