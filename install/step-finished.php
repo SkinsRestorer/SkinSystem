@@ -237,7 +237,7 @@ $('#footer').find('.btn.btn-success').click(function(event) {
 
 			if (data.is_success == true){
 				el.append('<p style="color:blue;font-weight:bold;">Installation was successful! Forcing refresh in 5 seconds.</p>');
-				
+
 				if ( true ){
 					Cookies.remove('sys_name');
 					Cookies.remove('sys_perms');
@@ -260,7 +260,7 @@ $('#footer').find('.btn.btn-success').click(function(event) {
 					Cookies.remove('sr_tbl_skins');
 					Cookies.remove('sr_tbl_players');
 				}
-				
+
 				setTimeout(function(){
 					window.location.href = '/';
 				}, 5000);
@@ -269,7 +269,7 @@ $('#footer').find('.btn.btn-success').click(function(event) {
 					$this.attr('disabled', false);
 				}, 2500);
 			}
-			
+
 			el.append('<hr>');
 
 		});
