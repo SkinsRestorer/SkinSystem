@@ -12,7 +12,7 @@
 	if (file_exists(__DIR__.'/../lib/config.nogit.php')){
 		$config = require_once(__DIR__ . '/../lib/config.nogit.php');
 		if ($config['sys']['is_installed'] === true) {
-			Header('Location: /');
+			Header('Location: ./../');
 			exit();
 		}
 	}

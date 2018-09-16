@@ -14,10 +14,10 @@
 
 	/* If system install is not finished, redirect to install page */
 	if (!$config['sys']['is_installed']) {
-		Header('Location: ./install/');
+		Header('Location: install/index.php');
 		exit();
 	}
-	
+
 	/* Show version */
 	if ($config['sys']['new_version_notify'] == true) {
 		$version = 'Current ' . $config['sys']['version'] . ' | Latest version ' . getLatestVersion();
@@ -32,7 +32,7 @@
 	<meta charset="UTF-8">
 
 	<link href="css/styles.css" rel="stylesheet">
-	<link rel="shortcut icon" href="./src/favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="src/favicon.ico" type="image/x-icon"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 	<!-- Libraries -->
