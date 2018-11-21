@@ -92,7 +92,7 @@ This project will not succeed if we don't have a help from these people.
 We want to say `Thank you` to all of them.
 - **[Vectier Thailand](https://www.facebook.com/VectierThailand/)** (Our team)
 - **[xknat](https://github.com/xknat)** (SkinsRestorer Team)
-- **Thanaphon Rangbunlue**
+- **Thanaphon Rangbunlue** (MC-SurvivialCity)
 
 If this project makes your life better, *you can give me a pack of candy :)*
 
