@@ -40,25 +40,23 @@ if (!empty($_POST)){
 	$statusData['debug']['post'] = $_POST;
 
 	if (
-		isset($_POST['sys_name']) && !empty($_POST['sys_name']) &&
-		isset($_POST['sys_skinhistory']) && !empty($_POST['sys_skinhistory']) &&
-		isset($_POST['sys_ispublic']) && !empty($_POST['sys_ispublic']) &&
+		!empty($_POST['sys_name']) &&
+		!empty($_POST['sys_skinhistory']) &&
+		!empty($_POST['sys_ispublic']) &&
 
-		isset($_POST['auth_enabled']) && !empty($_POST['auth_enabled']) &&
-		isset($_POST['auth_host']) && !empty($_POST['auth_host']) &&
-		isset($_POST['auth_port']) && !empty($_POST['auth_port']) &&
-		isset($_POST['auth_username']) && !empty($_POST['auth_username']) &&
-		isset($_POST['auth_password']) &&
-		isset($_POST['auth_database']) && !empty($_POST['auth_database']) &&
-		isset($_POST['auth_table']) && !empty($_POST['auth_table']) &&
+		isset($_POST['auth_enabled']) && is_boolean($_POST['auth_enabled']) &&
+// 		!empty($_POST['auth_host']) &&
+// 		!empty($_POST['auth_port']) &&
+// 		!empty($_POST['auth_username']) &&
+// 		!empty($_POST['auth_database']) &&
+// 		!empty($_POST['auth_table']) &&
 
-		isset($_POST['sr_host']) && !empty($_POST['sr_host']) &&
-		isset($_POST['sr_port']) && !empty($_POST['sr_port']) &&
-		isset($_POST['sr_username']) && !empty($_POST['sr_username']) &&
-		isset($_POST['sr_password']) &&
-		isset($_POST['sr_database']) && !empty($_POST['sr_database']) &&
-		isset($_POST['sr_tbl_skins']) && !empty($_POST['sr_tbl_skins']) &&
-		isset($_POST['sr_tbl_players']) && !empty($_POST['sr_tbl_players'])
+		!empty($_POST['sr_host']) &&
+		!empty($_POST['sr_port']) &&
+		!empty($_POST['sr_username']) &&
+		!empty($_POST['sr_database']) &&
+		!empty($_POST['sr_tbl_skins']) &&
+		!empty($_POST['sr_tbl_players'])
 	){
 		{
 			array_push(
@@ -143,52 +141,69 @@ if (!empty($_POST)){
 				);
 			}
 		}
-		{
-			try {
-				$statusData['data']['auth_conn'] = true;
-				$conn = new pdo( 'mysql:host='.$_POST['auth_host'].';port='.$_POST['auth_port'].';dbname='.$_POST['auth_database'],
-					$_POST['auth_username'],
-					$_POST['auth_password'],
-					array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION)
-				);
+		if ($_POST['auth_enabled']) {
+			if (
+				!empty($_POST['auth_host']) &&
+				!empty($_POST['auth_port']) &&
+				!empty($_POST['auth_username']) &&
+				!empty($_POST['auth_database']) &&
+				!empty($_POST['auth_table'])
+			) {
+				try {
+					$statusData['data']['auth_conn'] = true;
+					$conn = new pdo( 'mysql:host='.$_POST['auth_host'].';port='.$_POST['auth_port'].';dbname='.$_POST['auth_database'],
+						$_POST['auth_username'],
+						$_POST['auth_password'],
+						array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION)
+					);
 
-				array_push(
-					$statusData['messages'],
-					array(
-						'color' => 'green',
-						'msg' => json_encode(array('[success]' => 'Authme MySql test succeeded'), JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES)
-					)
-				);
+					array_push(
+						$statusData['messages'],
+						array(
+							'color' => 'green',
+							'msg' => json_encode(array('[success]' => 'Authme MySql test succeeded'), JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES)
+						)
+					);
 
-				{
-					if ($conn->query("SHOW TABLES LIKE '".$_POST['auth_table']."';")->rowCount() == 1){
-						$statusData['data']['auth_table'] = true;
-						array_push(
-							$statusData['messages'],
-							array(
-								'color' => 'green',
-								'msg' => json_encode(array('[success]' => 'Test for Authme MySql - '.$_POST['auth_table'].' table succeeded'), JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES)
-							)
-						);
-					} else {
-						$statusData['data']['auth_table'] = false;
-						array_push(
-							$statusData['messages'],
-							array(
-								'color' => 'red',
-								'msg' => json_encode(array('[error]' => 'Test for Authme MySql - '.$_POST['auth_table'].' table failed!'), JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES)
-							)
-						);
+					{
+						if ($conn->query("SHOW TABLES LIKE '".$_POST['auth_table']."';")->rowCount() == 1){
+							$statusData['data']['auth_table'] = true;
+							array_push(
+								$statusData['messages'],
+								array(
+									'color' => 'green',
+									'msg' => json_encode(array('[success]' => 'Test for Authme MySql - '.$_POST['auth_table'].' table succeeded'), JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES)
+								)
+							);
+						} else {
+							$statusData['data']['auth_table'] = false;
+							array_push(
+								$statusData['messages'],
+								array(
+									'color' => 'red',
+									'msg' => json_encode(array('[error]' => 'Test for Authme MySql - '.$_POST['auth_table'].' table failed!'), JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES)
+								)
+							);
+						}
 					}
-				}
 
-			} catch (PDOException $ex){
+				} catch (PDOException $ex){
+					$statusData['data']['auth_conn'] = false;
+					array_push(
+						$statusData['messages'],
+						array(
+							'color' => 'red',
+							'msg' => json_encode(array('[error]' => 'Authme MySql test failed!', '[error]' => $ex->getTrace()), JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES)
+						)
+					);
+				}
+			} else {
 				$statusData['data']['auth_conn'] = false;
 				array_push(
 					$statusData['messages'],
 					array(
 						'color' => 'red',
-						'msg' => json_encode(array('[error]' => 'Authme MySql test failed!', '[error]' => $ex->getTrace()), JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES)
+						'msg' => json_encode(array('[error]' => 'Authme MySql test failed!', '[error]' => 'Some needed cretentials are missing! Please re-chech all imput fields.'), JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES)
 					)
 				);
 			}
