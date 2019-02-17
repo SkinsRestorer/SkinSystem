@@ -1,5 +1,5 @@
 <?php
-  $config = require_once('config.nogit.php');
+  $config = require_once(__DIR__ . '../../../config.nogit.php');
   global $config;
 
   function printDataAndDie($data = []){
