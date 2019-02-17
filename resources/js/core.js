@@ -5,8 +5,37 @@ $(document).ready(function(){
   var withURL = false;
 
   /* OnSubmit uploadSkinForm */
-  $("#uploadSkinForm").on("submit", function(){
-    $.ajax({});
+  $("#uploadSkinForm").on("submit", function(e){
+    e.preventDefault();
+
+    var formData = new FormData($("#uploadSkinForm")[0]);
+
+    $.ajax({
+      type : "POST",
+      url : "resources/server/skinCore.php",
+      cache : false,
+      contentType : false,
+      processData : false,
+      data : formData,
+      dataType : "JSON",
+      encode : true,
+    }).done(function(res){
+      if(res.success){
+        Swal.fire({
+          type : "success",
+          title : "Upload Successfully!",
+          text : "Enjoy with your skin"
+        });
+      } else {
+        Swal.fire({
+          type : "error",
+          title : "Upload Failed!",
+          text : "Something went wrong"
+        });
+      }
+    }).fail(function(){
+      console.log("[ERROR] AJAX FAILED!");
+    });
   });
 
   /* If user changes uploadtype */
@@ -14,11 +43,15 @@ $(document).ready(function(){
     if($("#uploadtype-file")[0].checked == true){
       $("#form-skin-file").show();
       $("#form-input-url").hide();
+      $("input-url").prop("required", false);
+      $("skin-file").prop("required", true);
       withURL = false;
     }
     if($("#uploadtype-url")[0].checked == true){
       $("#form-skin-file").hide();
       $("#form-input-url").show();
+      $("input-url").prop("required", true);
+      $("skin-file").prop("required", false);
       withURL = true;
     }
   });
