@@ -44,7 +44,7 @@
                             <div class="form-group row">
                               <h5 class="col-lg-3"><span class="badge badge-success">Username</span></h5>
                               <div class="col-lg-9">
-                                <input id="input-username" class="form-control form-control-sm" type="text">
+                                <input id="input-username" class="form-control form-control-sm" name="username" type="text" required>
                               </div>
                             </div>
                             <div class="form-group">
@@ -71,7 +71,7 @@
                             </div>
                             <div id="form-skin-file" class="form-group">
                               <div class="custom-file">
-                                <input id="skin-file" class="custom-file-input" type="file" accept="image/x-png,image/gif,image/jpeg">
+                                <input id="skin-file" class="custom-file-input" type="file" accept="image/x-png,image/gif,image/jpeg" required>
                                 <label class="custom-file-label text-truncate">Choose skin...</label>
                               </div>
                             </div>
