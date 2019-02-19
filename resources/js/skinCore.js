@@ -67,9 +67,9 @@ $(document).ready(function(){
       pan : false
     },
     canvas : {
-  		height : $("#skinViewerContainer")[0].offsetHeight,
-  		width : $("#skinViewerContainer")[0].offsetWidth
-  	},
+      height : $("#skinViewerContainer")[0].offsetHeight,
+      width : $("#skinViewerContainer")[0].offsetWidth
+    },
     camera : {
       x : 15,
       y : 25,
@@ -159,8 +159,8 @@ $(document).ready(function(){
     if(skinURL === undefined){ return; }
 
     if($('[id^=minerender-canvas-]')[0]){
-			skinRender.clearScene();
-		}
+      skinRender.clearScene();
+    }
 
     skinRender.render({
       url : skinURL,
