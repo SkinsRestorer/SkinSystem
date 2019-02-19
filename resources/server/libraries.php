@@ -13,9 +13,9 @@
   /* $type; 1 = Authme , 2 = SkinSystem */
 	function query($type, $mysqlcommand, $key = []){
     if($type == 1){
-  		global $authmePDOinstance;
-  		$result = $authmePDOinstance->prepare($mysqlcommand);
-  		$result->execute($key);
+      global $authmePDOinstance;
+      $result = $authmePDOinstance->prepare($mysqlcommand);
+      $result->execute($key);
     } else if($type == 2){
       global $skinsystemPDOinstance;
       $result = $skinsystemPDOinstance->prepare($mysqlcommand);
