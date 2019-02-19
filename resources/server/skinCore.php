@@ -1,7 +1,93 @@
 <?php
   require_once(__DIR__ . '/libraries.php');
+  session_start();
 
-  if(!empty($_POST['username']) && !empty($_POST['isSlim']) && !empty($_POST['uploadtype'])){
+  /* Initialize playername */
+  if(!empty($_SESSION['username'])){
+    $playername = $_SESSION['username'];
+  } else if($config['authme']['enabled'] == true){
+    printErrorAndDie('Please login before upload skin!');
+  } else if(!empty($_POST['username'])){
+    $playername = $_POST['username'];
+  }
+  if(empty($playername)){
+    printErrorAndDie('Empty username!');
+  }
+
+  /* Check a request from users, Does it valid? --> If it valid do the statment below */
+  if(!empty($_POST['isSlim']) && !empty($_POST['uploadtype']) && isset($_FILES['file']['tmp_name']) && isset($_POST['url'])){
+    /* Initialize Data for sending to MineSkin API */
+    $postparams = ['visibility' => 0];
+    if($_POST['isSlim'] == 'true'){
+      $postparams['model'] = 'slim';
+    }
+    /* Send with URL */
+    if($_POST['uploadtype'] == 'url' && !empty($_POST['url'])){
+      $postparams['url'] = $_POST['url'];
+      $endpointURL = 'https://api.mineskin.org/generate/url';
+    /* Send with File */
+    } else {
+      $file = $_FILES['file']['tmp_name'];
+      if(strncmp(mime_content_type($file), 'image/', 6) != 0){
+        printErrorAndDie('Invalid skin file!');
+      }
+      $postparams['file'] = new CURLFile($_FILES['file']['tmp_name'], $_FILES['file']['type'], $_FILES['file']['name']);
+      $endpointURL = 'https://api.mineskin.org/generate/upload';
+    }
+
+    /* cURL to MineSkin API */
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $endpointURL);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $postparams);
+    $response = curl_exec($ch);
+    curl_close($ch);
+    if($response == false){
+      printErrorAndDie(['curl' => curl_error($ch)]);
+    }
+
+    $json = json_decode($response, true);
+    /* Prevent from duplicated casual skin of SkinsRestorer */
+    $transformedName = ' ' . $playername;
+
+    if(empty($json['data']['texture']['value']) || empty($json['data']['texture']['signature'])){
+      printErrorAndDie('MineSkin API returned unusable data!');
+    }
+
+    /* Assign data for putting to SkinsRestorer Storage */
+    $value = $json['data']['texture']['value'];
+    $signature = $json['data']['texture']['signature'];
+    /*
+      https://github.com/Th3Tr0LLeR/SkinsRestorer---Maro/blob/9358d5727cfc7a1dce4e2af9412679999be5b519/src/main/java/skinsrestorer/shared/storage/SkinStorage.java#L274
+      From condition in SkinRestorer source code,
+      ```
+      if (timestamp + TimeUnit.MINUTES.toMillis(Config.SKIN_EXPIRES_AFTER) <= System.currentTimeMillis()) {
+      ```
+      Variable "timestamp", toMillis(...), currentTimeMillis() are long, except SKIN_EXPIRES_AFTER which is integer.
+      This mean the left side of operator is less than or equal to Long.MAX_VALUE (2^63 - 1).
+      Since we want to get maximum timestamp, we substitute SKIN_EXPIRES_AFTER with Integer.MAX_VALUE (2^31 - 1), and
+      we get (2^31 - 1) * 60 * 1000 where 60 is used for convert to second and 1000 to convert to millisecond.
+      To get maximum timestamp, we substract Long.MAX_VALUE with value above with get us:
+      (2^63 - 1) - ((2^31 - 1) * 60 * 1000) = 9223243187835955807
+    */
+    $timestamp = "9223243187835955807";
+
+    /* Storage Writing (Skins Table) */
+    query(2,
+      "INSERT INTO {$config['sr']['skintable']} (Nick, Value, Signature, timestamp) VALUES (?, ?, ?, ?) " .
+      "ON DUPLICATE KEY UPDATE Nick=VALUES(Nick), Value=VALUES(Value), Signature=VALUES(Signature), " .
+      "timestamp=VALUES(timestamp)",
+      [$transformedName, $value, $signature, $timestamp]
+    );
+    /* Storage Writing (Players Table) */
+    query(2,
+      "INSERT INTO {$config['sr']['playretable']} (Nick, Skin) VALUES (?, ?) " .
+      "ON DUPLICATE KEY UPDATE Nick=VALUES(Nick), Skin=VALUES(Skin)",
+      [$playername, $transformedName]
+    );
+
     printDataAndDie();
   }
 

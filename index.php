@@ -3,7 +3,7 @@
 
   require_once(__DIR__ . '/resources/server/libraries.php');
   session_start();
- ?>
+?>
 <!doctype html>
 <html>
   <head>
@@ -15,25 +15,32 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
     <link rel="stylesheet" href="Resources/css/styles.css">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/94/three.min.js"></script>
+    <script src="https://minerender.org/dist/skin.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
   </head>
   <body class="bg-light">
     <!-- Main Container -->
     <section class="bg-light h-100">
       <div class="container h-100">
         <div class="row h-100">
-          <div class="col-lg-8 m-auto">
+          <div class="col-lg-<?php echo(!empty($_SESSION['username']) ? 8 : 6); ?> m-auto">
             <div class="card border-0 shadow">
               <div class="card-header bg-primary text-white">
                 <div class="row mx-2 align-items-center">
                   <h5 class="mb-0">SkinSystem <small style="font-size: 60%;">v.1.6</small></h5>
-                  <?php if($config['authme']['enabled'] == true){ ?>
-                    <h6 class="mb-0 ml-auto"><i class="fas fa-user"></i> RiFlowTH</h6>
-                    <button class="btn btn-sm btn-light ml-2 rounded-circle"><i class="fas fa-sign-out-alt"></i></button>
+                  <?php if($config['authme']['enabled'] == true && !empty($_SESSION['username'])){ ?>
+                    <h6 class="mb-0 ml-auto"><i class="fas fa-user"></i> <?php echo $_SESSION['username']; ?></h6>
+                    <a class="btn btn-sm btn-light ml-2 rounded-circle" href="resources/server/authenCore.php?logout"><i class="fas fa-sign-out-alt"></i></a>
                   <?php } ?>
                 </div>
               </div>
               <div class="card-body">
-                <?php if(true){ ?>
+                <?php if(!empty($_SESSION['username'])){ ?>
+                  <script src="Resources/js/skinCore.js"></script>
                   <div class="row">
                     <!-- Uploader -->
                     <div class="col-lg-8 pr-lg-2 mb-lg-0 mb-3">
@@ -41,12 +48,14 @@
                         <h6 class="card-header bg-info text-white"><i class="fas fa-file-upload text-dark"></i> Upload</h6>
                         <div class="card-body">
                           <form id="uploadSkinForm">
-                            <div class="form-group row">
-                              <h5 class="col-lg-3"><span class="badge badge-success">Username</span></h5>
-                              <div class="col-lg-9">
-                                <input id="input-username" class="form-control form-control-sm" name="username" type="text" required>
+                            <?php if($config['authme']['enabled'] == false){ ?>
+                              <div class="form-group row">
+                                <h5 class="col-lg-3"><span class="badge badge-success">Username</span></h5>
+                                <div class="col-lg-9">
+                                  <input id="input-username" class="form-control form-control-sm" name="username" type="text" required>
+                                </div>
                               </div>
-                            </div>
+                            <?php } ?>
                             <div class="form-group">
                               <h5 class="mb-0 mr-3 custom-control-inline"><span class="badge badge-info">Skintype</span></h5>
                               <div class="custom-control custom-radio custom-control-inline">
@@ -71,14 +80,14 @@
                             </div>
                             <div id="form-skin-file" class="form-group">
                               <div class="custom-file">
-                                <input id="skin-file" class="custom-file-input" type="file" accept="image/x-png,image/gif,image/jpeg" required>
+                                <input id="skin-file" class="custom-file-input" name="file" type="file" accept="image/x-png,image/gif,image/jpeg" required>
                                 <label class="custom-file-label text-truncate">Choose skin...</label>
                               </div>
                             </div>
                             <div id="form-input-url" class="form-group row" style="display: none;">
                               <h5 class="col-lg-3"><span class="badge badge-success">Skin URL</span></h5>
                               <div class="col-lg-9">
-                                <input id="input-url" class="form-control form-control-sm" type="text">
+                                <input id="input-url" class="form-control form-control-sm" name="url" type="text">
                               </div>
                             </div>
                             <button class="btn btn-primary w-100"><strong>Upload!</strong></button>
@@ -126,6 +135,28 @@
                       </div>
                     <?php } ?>
                   </div>
+                <?php } else { ?>
+                  <script src="Resources/js/authenCore.js"></script>
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <div class="card border-0 shadow">
+                        <h6 class="card-header bg-info text-white"><i class="fas fa-sign-in-alt"></i> Authenication</h6>
+                        <div class="card-body">
+                          <form id="loginForm">
+                            <div class="input-group mb-3">
+                              <div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-user"></i></span></div>
+                              <input id="login-username" class="form-control" name="username" type="text" placeholder="Username" required>
+                            </div>
+                            <div class="input-group mb-3">
+                              <div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-lock"></i></span></div>
+                              <input id="login-password" class="form-control" name="password" type="password" placeholder="Password" required>
+                            </div>
+                            <button class="btn btn-success w-100"><strong>Login!</strong></button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 <?php } ?>
               </div>
             </div>
@@ -133,13 +164,5 @@
         </div>
       </div>
     </section>
-
-    <!-- Libraries -->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/94/three.min.js"></script>
-    <script src="https://minerender.org/dist/skin.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
-    <script src="Resources/js/core.js"></script>
   </body>
 </html>

@@ -1,5 +1,10 @@
 <?php
-  require_once '../resources/server/libraries.php';
+  function printDataAndDie($data = []){
+    if(!isset($data['success'])){ $data['success'] = empty($data['error']); }
+    die(json_encode($data, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+  }
+
+  function printErrorAndDie($error){ printDataAndDie(['error' => $error]); }
 
   if(empty($_FILES['sr-config']['tmp_name'])){ printErrorAndDie('Invalid Request'); }
   $raw_srconfig = file_get_contents($_FILES['sr-config']['tmp_name']);
@@ -39,7 +44,7 @@
   } else {
     $am_enabled = 'false';
   }
-  if($am_enabled == 'false'){ $am_host = ''; $am_port = ''; $am_username = ''; $am_password = ''; $am_database = ''; }
+  if($am_enabled == 'false'){ $am_host = "''"; $am_port = "''"; $am_username = "''"; $am_password = "''"; $am_database = "''"; }
 
   /* Create Config file */
   $configFilePath = '../config.nogit.php';

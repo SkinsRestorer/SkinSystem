@@ -44,7 +44,7 @@ $(document).ready(function(){
         $("#alert").removeClass("alert-danger").addClass("alert-success");
         $("#alert").find("i").removeClass("fas fa-exclamation-circle").addClass("fas fa-check-circle");
         $("#alert").find("span").html("Installation success!, Please wait...");
-        setTimeout(function(){ location.replace("/"); }, 2000);
+        setTimeout(function(){ location.reload(); }, 2000);
       } else {
         $("#alert").show();
         $("#alert").find("span").html(res.error);
