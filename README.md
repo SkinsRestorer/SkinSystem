@@ -1,6 +1,8 @@
+---
+
 <p align="center">
   <a href="https://github.com/riflowth/SkinSystem">
-    <img src="https://i.imgur.com/L7jaiCm.png" alt="SkinSystem">
+    <img src="https://i.imgur.com/pjuawRU.jpg" alt="SkinSystem" width="600">
   </a>
 </p>
 
@@ -17,8 +19,7 @@
 
 ---
 
-:memo: Requirements
--------------------------------
+## :memo: Requirements
 
 - [SkinsRestorer](https://www.spigotmc.org/resources/skinsrestorer.2124/)
 - [AuthMe](https://www.spigotmc.org/resources/authmereloaded.6269/) (Optional)
@@ -27,8 +28,7 @@
 
 ---
 
-:eyeglasses: Examples
-------------------
+## :eyeglasses: Examples
 
 <p align="center">
   <img src="https://i.imgur.com/naeNvbO.png" alt="The SkinSystem Preview" width="350">
@@ -39,8 +39,27 @@
 
 ---
 
-:wrench: Installation
----------------------
+## :wrench: Installation
+
+* **IMPORTANT** Don't forget to *enable* **Database** in your **SkinsRestorer** configuration, located here: `minecraftserver/plugins/SkinRestorer/config.yml`
+Example configuration:
+```YML
+MySQL:
+  Enabled: true
+  Host: localhost
+  Port: 3306
+  Database: skinsrestorer
+  SkinTable: Skins
+  PlayerTable: Players
+  Username: root
+  Password: ''
+```
+* Configuration option:
+  * Turn on a database by change `false` to `true` on the Enabled section.
+  * The Database section, You can input a name anything you want.
+  * **IMPORTANT** Don't forget to input your `Host`, `Port`, `Username`, `Password` into it. If you don't have a database password, You should fill `''` into `Password` section like me.
+
+### :star: Let's start!!!
 
 1. Download **release** version from [**here!**](https://github.com/riflowth/SkinSystem/releases)
 2. Put all of `The SkinSystem` in your **web-root** directory.
@@ -52,10 +71,11 @@
 
 4. Just choose **config.yml** to install this system!
 5. Now have fun with *changing* your skin! **Have a good time**. :smiley:
+
+* **IMPORTANT** You can change configuration later on `skinsystem/config.nogit.php`
 ---
 
-:thumbsup: Donations
---------------------
+## :thumbsup: Donations
 
 If The SkinSystem makes your life better, *you can give me a pack of candy :)*
 
@@ -65,7 +85,8 @@ If The SkinSystem makes your life better, *you can give me a pack of candy :)*
 
 ---
 
-:pencil: License
-----------------
+## :pencil: License
 
 Our **SkinSystem** is licensed under the MIT License - see the [LICENSE.md](https://github.com/riflowth/SkinSystem/blob/master/LICENSE) file for details.
+
+---
