@@ -88,9 +88,9 @@ MySQL:
 
 If The SkinSystem makes your life better, *you can give me a pack of candy :)*
 
-or leave your thumbs up on [Our team Facebook](https://www.facebook.com/VectierThailand) :thumbsup:
-
 - PayPal: https://www.paypal.me/wheprakhone
+
+or leave your thumbs up on [Our team Facebook](https://www.facebook.com/VectierThailand) :thumbsup:
 
 ### [:trophy: Hall of Donators](DONATIONS.md)
 
