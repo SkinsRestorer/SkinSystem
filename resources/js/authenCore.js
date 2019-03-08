@@ -17,6 +17,13 @@ $(document).ready(function(){
           text : "Enjoy with your skin"
         });
         setTimeout(function(){ location.reload(); }, 1000);
+      } else if(res.error.code == 404){
+        Swal.fire({
+          type : "error",
+          title : "Something went wrong!",
+          text : "Please check your username or password"
+        });
+        console.log(res);
       } else {
         Swal.fire({
           type : "error",
