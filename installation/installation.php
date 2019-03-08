@@ -14,7 +14,7 @@
 
   /* Get Data from SkinsRestorer's config.yml */
   $sr_sqlDataString = substr($sr_mySQLNode, strpos($sr_mySQLNode, 'Enabled'));
-  $sr_enabled = preg_replace('/\s+/', '', explode(':', substr($sr_sqlDataString, 0, strpos($sr_sqlDataString, 'Host')))[1]);
+  $sr_enabled = @preg_replace('/\s+/', '', explode(':', substr($sr_sqlDataString, 0, strpos($sr_sqlDataString, 'Host')))[1]);
   if($sr_enabled == false){ printErrorAndDie('Please make sure SkinsRestorerDB system is enabled!'); }
   $sr_host = preg_replace('/\s+/', '', explode(':', substr($sr_sqlDataString, strpos($sr_sqlDataString, 'Host'), strpos($sr_sqlDataString, 'Port') - strpos($sr_sqlDataString, 'Host')))[1]);
   $sr_port = preg_replace('/\s+/', '', explode(':', substr($sr_sqlDataString, strpos($sr_sqlDataString, 'Port'), strpos($sr_sqlDataString, 'Database') - strpos($sr_sqlDataString, 'Port')))[1]);

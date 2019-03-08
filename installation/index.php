@@ -1,3 +1,6 @@
+<?php
+  if(file_exists('../config.nogit.php')){ die(header('Location: ../')); }
+?>
 <!doctype html>
 <html>
   <head>
