@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  The <strong>SkinSystem</strong> developed for cracked <strong>Minecraft's server</strong> allowing to change their player skin into a <strong>custom skin</strong>.
+  The <b>SkinSystem</b> developed for cracked <strong>Minecraft's server</strong> allowing to change their player skin into a <strong>custom skin</strong>.
 </p>
 
 <p align="center">
@@ -27,6 +27,18 @@
 
 ---
 
+:eyeglasses: Examples
+------------------
+
+<p align="center">
+  <img src="https://i.imgur.com/naeNvbO.png" alt="The SkinSystem Preview" width="350">
+  <img src="https://i.imgur.com/X3aSrnB.png" alt="The SkinSystem Preview" width="350">
+  <img src="https://i.imgur.com/thQrsxu.png" alt="The SkinSystem Preview" width="350">
+  <p align="center"><b>Installation</b> view / <b>SkinUploader</b> view / <b>Authen</b> view (<i>when you use this system with Authme</i>)</p>
+</p>
+
+---
+
 :wrench: Installation
 ---------------------
 
@@ -45,8 +57,15 @@
 :thumbsup: Donations
 --------------------
 
-If this project makes your life better, *you can give me a pack of candy :)*
+If The SkinSystem makes your life better, *you can give me a pack of candy :)*
 
 - PayPal: https://www.paypal.me/wheprakhone
 
 ### [:trophy: Hall of Donators](DONATIONS.md)
+
+---
+
+:pencil: License
+----------------
+
+Our **SkinSystem** is licensed under the MIT License - see the [LICENSE.md](https://github.com/riflowth/SkinSystem/blob/master/LICENSE) file for details.
