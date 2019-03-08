@@ -13,6 +13,8 @@ Your contribution will be extremely appreciated! :heart:
 # Supporters
 
 - **[xknat](https://github.com/xknat)** (18 EUR)
+    > Vectier Thailand has made some "Custom Skin" tools for skinsrestorer, To realize this time was needed. time that the devs did not have because of money / work.
+Therefor we from SkinsRestorer Team have made a arrangement to make a monthly payment for each update and the maintenance of the project.
     
 - **[Thanaphon Rangbunlue](https://survivalcity.in.th/)** (50 BAHT)
     > Render_X is everywhere!
