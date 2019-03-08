@@ -1,8 +1,11 @@
 <?php
-  if(!file_exists('config.nogit.php')){ die(header('Location: Installation')); }
+  if(!file_exists('config.nogit.php')){ session_start(); session_destroy(); die(header('Location: Installation')); }
 
   require_once(__DIR__ . '/resources/server/libraries.php');
   session_start();
+
+  /* Set username session for non-authme system */
+  if(empty($_SESSION['username']) && $config['authme']['enabled'] == false){ $_SESSION['username'] = 'SkinSystemUser'; }
 ?>
 <!doctype html>
 <html>
