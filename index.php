@@ -35,7 +35,11 @@
             <div class="card border-0 shadow">
               <div class="card-header bg-primary text-white">
                 <div class="row mx-2 align-items-center">
-                  <h5 class="mb-0">SkinSystem <small style="font-size: 60%;">v.1.6 <?php if($config['version'] != getLatestVersion()){ echo '(New version avaliable)'; } ?></small></h5>
+                  <h5 class="mb-0">SkinSystem 
+                    <small style="font-size: 60%;">v.1.6
+                      <?php if($config['version'] < getLatestVersion()){ echo ' (New version avaliable)'; } ?>
+                    </small>
+                  </h5>
                   <?php if($config['authme']['enabled'] == true && !empty($_SESSION['username'])){ ?>
                     <h6 class="mb-0 ml-auto"><i class="fas fa-user"></i> <?php echo $_SESSION['username']; ?></h6>
                     <a class="btn btn-sm btn-light ml-2 rounded-circle" href="resources/server/authenCore.php?logout"><i class="fas fa-sign-out-alt"></i></a>
