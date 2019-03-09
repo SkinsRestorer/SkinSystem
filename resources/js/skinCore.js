@@ -77,13 +77,28 @@ $(document).ready(function(){
   var startTime = Date.now();
   var t;
   $("#skinViewerContainer").on("skinRender", function(e){
+    if(!e.detail.playerModel){ return; }
     e.detail.playerModel.rotation.y += 0.01;
     t = (Date.now() - startTime) / 1000;
     e.detail.playerModel.children[2].rotation.x = Math.sin(t * 5) / 2;
     e.detail.playerModel.children[3].rotation.x = -Math.sin(t * 5) / 2;
     e.detail.playerModel.children[4].rotation.x = Math.sin(t * 5) / 2;
     e.detail.playerModel.children[5].rotation.x = -Math.sin(t * 5) / 2;
-  })
+  });
+
+  /* RENDER FUNCTION */
+  function render(){
+    if(skinURL === undefined){ return; }
+
+    if($('[id^=minerender-canvas-]')[0]){
+      skinRender.clearScene();
+    }
+
+    skinRender.render({
+      url : skinURL,
+      slim : isSlim
+    });
+  }
 
   /* Check what type of skins (Alex or Steve) */
   function skinChecker(callback){
@@ -99,7 +114,7 @@ $(document).ready(function(){
       detectCtx.drawImage(image, 0, 0);
 
       var px1 = detectCtx.getImageData(46, 52, 1, 12).data;
-			var px2 = detectCtx.getImageData(54, 20, 1, 12).data;
+      var px2 = detectCtx.getImageData(54, 20, 1, 12).data;
       var allTransparent = true;
       for(var i = 3; i < 12 * 4; i += 4){
         if(px1[i] === 255){
@@ -144,22 +159,8 @@ $(document).ready(function(){
   /* If user changes skintype radios */
   $("[id^=skintype-]").on("change", function(){
     isSlim = !isSlim;
-    render()
+    render();
   });
-
-  /* RENDER FUNCTION */
-  function render(){
-    if(skinURL === undefined){ return; }
-
-    if($('[id^=minerender-canvas-]')[0]){
-      skinRender.clearScene();
-    }
-
-    skinRender.render({
-      url : skinURL,
-      slim : isSlim
-    });
-  }
 
   /* Change file name when user changes skin file */
   $(".custom-file-input").on("change", function(){
