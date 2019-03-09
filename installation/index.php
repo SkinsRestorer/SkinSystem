@@ -9,6 +9,7 @@
     <title>SkinSystem - Installation</title>
 
     <!-- Libraries -->
+    <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
     <link rel="stylesheet" href="../resources/css/styles.css">
