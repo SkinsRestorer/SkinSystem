@@ -78,7 +78,7 @@ MySQL:
 
 # :hammer: Collaborators
 
-[![](https://avatars3.githubusercontent.com/u/42472574?s=80&v=4)](https://www.facebook.com/VectierThailand) | [![](https://avatars3.githubusercontent.com/u/1367069?s=80&v=4)](https://github.com/lion328) | [![](https://avatars3.githubusercontent.com/u/24414483?s=80&v=4)](https://github.com/aljaxus) | [![](https://avatars2.githubusercontent.com/u/43493339?s=80&v=4)](https://github.com/SkinsRestorer/SkinsRestorerX) | [![](https://avatars2.githubusercontent.com/u/6525296?s=80&v=4)](https://github.com/InventivetalentDev)
+[![](https://avatars3.githubusercontent.com/u/42472574?s=80&v=4)](https://www.facebook.com/Vectier) | [![](https://avatars3.githubusercontent.com/u/1367069?s=80&v=4)](https://github.com/lion328) | [![](https://avatars3.githubusercontent.com/u/24414483?s=80&v=4)](https://github.com/aljaxus) | [![](https://avatars2.githubusercontent.com/u/43493339?s=80&v=4)](https://github.com/SkinsRestorer/SkinsRestorerX) | [![](https://avatars2.githubusercontent.com/u/6525296?s=80&v=4)](https://github.com/InventivetalentDev)
 -|-|-|-|-
 [@VectierThailand](https://www.facebook.com/VectierThailand) | [@lion328](https://github.com/lion328) | [@aljaxus](https://github.com/aljaxus) | [@SkinsRestorer](https://github.com/SkinsRestorer/SkinsRestorerX) | [@InventivetalentDev](https://github.com/InventivetalentDev)
 
@@ -90,7 +90,7 @@ If The SkinSystem makes your life better, *you can give me a pack of candy :)*
 
 - PayPal: https://www.paypal.me/wheprakhone
 
-or leave your thumbs up on [Our team Facebook](https://www.facebook.com/VectierThailand) :thumbsup:
+or leave your thumbs up on [Our team Facebook](https://www.facebook.com/Vectier) :thumbsup:
 
 ### [:trophy: Hall of Donators](DONATIONS.md)
 
