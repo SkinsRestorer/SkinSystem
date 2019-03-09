@@ -8,7 +8,6 @@
   $authmePDOinstance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	$skinsystemPDOinstance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-
   /* When working with Authme or SkinSystem storeage */
   /* $type; 1 = Authme , 2 = SkinSystem */
 	function query($type, $mysqlcommand, $key = []){
@@ -30,10 +29,4 @@
   }
 
   function printErrorAndDie($error){ printDataAndDie(['error' => $error]); }
-
-  function logout(){
-    session_start();
-    session_destroy();
-    die(header('Location: ../'));
-  }
 ?>
