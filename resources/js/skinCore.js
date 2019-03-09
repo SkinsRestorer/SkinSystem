@@ -2,12 +2,10 @@ $(document).ready(function(){
   /* Initialize Variables */
   var isSlim = false;
   var skinURL;
-  var withURL = false;
 
   /* OnSubmit uploadSkinForm */
   $("#uploadSkinForm").on("submit", function(e){
     e.preventDefault();
-
     var formData = new FormData($("#uploadSkinForm")[0]);
 
     $.ajax({
@@ -30,9 +28,8 @@ $(document).ready(function(){
         Swal.fire({
           type : "error",
           title : "Something went wrong!",
-          text : "Please re-upload or contact WebMaster"
+          text : res.error
         });
-        console.log(res.error);
       }
     }).fail(function(){
       console.log("[ERROR] AJAX FAILED!");
@@ -42,18 +39,16 @@ $(document).ready(function(){
   /* If user changes uploadtype */
   $("[id^=uploadtype-]").on("change", function(){
     if($("#uploadtype-file")[0].checked == true){
-      $("#form-skin-file").show();
+      $("#form-input-file").show();
       $("#form-input-url").hide();
-      $("input-url").prop("required", false);
-      $("skin-file").prop("required", true);
-      withURL = false;
+      $("#input-url").prop("required", false);
+      $("#input-file").prop("required", true);
     }
     if($("#uploadtype-url")[0].checked == true){
-      $("#form-skin-file").hide();
+      $("#form-input-file").hide();
       $("#form-input-url").show();
-      $("input-url").prop("required", true);
-      $("skin-file").prop("required", false);
-      withURL = true;
+      $("#input-url").prop("required", true);
+      $("#input-file").prop("required", false);
     }
   });
 
@@ -123,8 +118,8 @@ $(document).ready(function(){
   }
 
   /* If user changes skin file */
-  $("#skin-file").on("change", function(event){
-    if($("#skin-file")[0].files.length === 0){ return; }
+  $("#input-file").on("change", function(event){
+    if($("#input-file")[0].files.length === 0){ return; }
 
     skinURL = URL.createObjectURL(event.target.files[0]);
     skinChecker(function(){
@@ -138,7 +133,7 @@ $(document).ready(function(){
   $("#input-url").on("change", function(){
     if(!$("#input-url").val()){ return; }
 
-    skinURL = URL.createObjectURL($("#input-url").val());
+    skinURL = $("#input-url").val();
     skinChecker(function(){
       $("#skintype-alex").prop("checked", isSlim);
       $("#skintype-steve").prop("checked", !isSlim);
@@ -151,8 +146,6 @@ $(document).ready(function(){
     isSlim = !isSlim;
     render()
   });
-
-
 
   /* RENDER FUNCTION */
   function render(){

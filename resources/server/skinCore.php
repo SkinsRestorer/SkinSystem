@@ -9,7 +9,7 @@
     $playername = $_POST['username'];
   }
   if(empty($playername)){
-    printErrorAndDie('Empty username!');
+    printErrorAndDie('Please re-upload or contact WebMaster!');
   }
 
   /* Check a request from users, Does it valid? --> If it valid do the statment below */
@@ -25,11 +25,16 @@
       $endpointURL = 'https://api.mineskin.org/generate/url';
     /* Send with File */
     } else {
-      $file = $_FILES['file']['tmp_name'];
-      if(strncmp(mime_content_type($file), 'image/', 6) != 0){
-        printErrorAndDie('Invalid skin file!');
+      $file = $_FILES['file'];
+      $validFileType = ['image/jpeg', 'image/png'];
+      /* Check If the skin is a Minecraft's skin format */
+      if(!in_array($file['type'], $validFileType)){ printErrorAndDie('Please upload JPEG or PNG file!'); }
+      list($skinWidth, $skinHeight) = getimagesize($file['tmp_name']);
+      if(( $skinWidth != 64 && $skinHeight != 64 ) || ( $skinWidth != 64 && $skinHeight != 32 )){
+        printErrorAndDie('This is not Minecraft\'s skin!');
       }
-      $postparams['file'] = new CURLFile($_FILES['file']['tmp_name'], $_FILES['file']['type'], $_FILES['file']['name']);
+
+      $postparams['file'] = new CURLFile($file['tmp_name'], $file['type'], $file['name']);
       $endpointURL = 'https://api.mineskin.org/generate/upload';
     }
 
@@ -43,15 +48,17 @@
     $response = curl_exec($ch);
     curl_close($ch);
     if($response == false){
-      printErrorAndDie(['curl' => curl_error($ch)]);
+      /* cURL ERROR */
+      printErrorAndDie('Please re-upload or contact WebMaster!');
     }
 
     $json = json_decode($response, true);
     /* Prevent from duplicated casual skin of SkinsRestorer */
     $transformedName = ' ' . $playername;
 
+    /* MineSkin API returned unusable data */
     if(empty($json['data']['texture']['value']) || empty($json['data']['texture']['signature'])){
-      printErrorAndDie('MineSkin API returned unusable data!');
+      printErrorAndDie('Please re-upload or contact WebMaster!');
     }
 
     /* Assign data for putting to SkinsRestorer Storage */
@@ -89,5 +96,5 @@
     printDataAndDie();
   }
 
-  printErrorAndDie('Invalid Request!');
- ?>
+  printErrorAndDie('Please re-upload or contact WebMaster!');
+?>

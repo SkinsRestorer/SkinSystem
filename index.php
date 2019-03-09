@@ -86,9 +86,9 @@
                                 <label class="custom-control-label" for="uploadtype-url">URL</label>
                               </div>
                             </div>
-                            <div id="form-skin-file" class="form-group">
+                            <div id="form-input-file" class="form-group">
                               <div class="custom-file">
-                                <input id="skin-file" class="custom-file-input" name="file" type="file" accept="image/x-png,image/gif,image/jpeg" required>
+                                <input id="input-file" class="custom-file-input" name="file" type="file" accept="image/x-png,image/gif,image/jpeg" required>
                                 <label class="custom-file-label text-truncate">Choose skin...</label>
                               </div>
                             </div>
