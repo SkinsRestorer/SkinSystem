@@ -29,6 +29,4 @@
   }
 
   function printErrorAndDie($error){ printDataAndDie(['error' => $error]); }
-
-
 ?>
