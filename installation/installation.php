@@ -53,6 +53,7 @@
 
   fwrite($configFile, '<?php' . "\n");
   fwrite($configFile, '    return [' . "\n");
+  fwrite($configFile, '        \'version\' => 1.6,' . "\n");
   fwrite($configFile, "        /* SkinsRestorer Configuration */" . "\n");
   fwrite($configFile, "        'sr' => [" . "\n");
   fwrite($configFile, "            'host' => '" . $sr_host . "'," . "\n");
