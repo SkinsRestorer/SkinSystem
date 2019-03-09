@@ -3,10 +3,8 @@
   session_start();
 
   /* Initialize playername */
-  if(!empty($_SESSION['username'])){
+  if($config['authme']['enabled'] == true && !empty($_SESSION['username'])){
     $playername = $_SESSION['username'];
-  } else if($config['authme']['enabled'] == true){
-    printErrorAndDie('Please login before upload skin!');
   } else if(!empty($_POST['username'])){
     $playername = $_POST['username'];
   }

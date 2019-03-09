@@ -1,5 +1,6 @@
 <?php
   require_once(__DIR__ . '/libraries.php');
+  if($config['authme']['enabled'] == false){ printErrorAndDie('Unusable system!'); }
   session_start();
 
   /* logout Request */
