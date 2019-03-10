@@ -1,7 +1,7 @@
 <?php
   if(!file_exists('config.nogit.php')){ session_start(); session_destroy(); die(header('Location: installation')); }
 
-  require_once(__DIR__ . '/resources/server/libraries.php');
+  require_once('resources/server/libraries.php');
   session_start();
 
   /* Set username session for non-authme system */
@@ -18,7 +18,7 @@
     <link rel="shortcut icon" href="favicon.ico">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
-    <link rel="stylesheet" href="Resources/css/styles.css">
+    <link rel="stylesheet" href="resources/css/styles.css">
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
@@ -48,7 +48,7 @@
               </div>
               <div class="card-body">
                 <?php if(!empty($_SESSION['username'])){ ?>
-                  <script src="Resources/js/skinCore.js"></script>
+                  <script src="resources/js/skinCore.js"></script>
                   <div class="row">
                     <!-- Uploader -->
                     <div class="col-lg-8 pr-lg-2 mb-lg-0 mb-3">
@@ -144,7 +144,7 @@
                     <?php } ?>
                   </div>
                 <?php } else { ?>
-                  <script src="Resources/js/authenCore.js"></script>
+                  <script src="resources/js/authenCore.js"></script>
                   <div class="row">
                     <div class="col-lg-12">
                       <div class="card border-0 shadow">
