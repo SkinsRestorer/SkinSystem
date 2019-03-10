@@ -6,9 +6,14 @@
 
   function printErrorAndDie($error){ printDataAndDie(['error' => $error]); }
 
+  /* Check a directory. Can it create a config file?*/
+  if(!is_writable('..')){
+    printErrorAndDie('Try to \'chown www-data:www-data folderPath\' and \'chmod 775 folderPath\' (folderPath is the place that index.php live)');
+  }
+
   if(empty($_FILES['sr-config']['tmp_name'])){ printErrorAndDie('Invalid Request'); }
   $raw_srconfig = file_get_contents($_FILES['sr-config']['tmp_name']);
-
+  
   $sr_mySQLNode = substr($raw_srconfig, strpos($raw_srconfig, 'MySQL'), strpos($raw_srconfig, 'Updater') - strpos($raw_srconfig, 'MySQL'));
   if(empty($sr_mySQLNode)){ printErrorAndDie('This file isn\'t SkinsRestorer\'s config!'); }
 
