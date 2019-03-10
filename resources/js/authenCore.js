@@ -14,21 +14,24 @@ $(document).ready(function(){
         Swal.fire({
           type : "success",
           title : "Login Successfully!",
-          text : "Enjoy with your skin"
+          text : "Enjoy with your skin",
+          heightAuto : false
         });
         setTimeout(function(){ location.reload(); }, 1000);
       } else if(res.error.code == 404){
         Swal.fire({
           type : "error",
           title : "Something went wrong!",
-          text : "Please check your username or password"
+          text : "Please check your username or password",
+          heightAuto : false
         });
         console.log(res);
       } else {
         Swal.fire({
           type : "error",
           title : "Something went wrong!",
-          text : "Please re-login or contact WebMaster"
+          text : "Please re-login or contact WebMaster",
+          heightAuto : false
         });
         console.log(res.data);
       }

@@ -22,13 +22,15 @@ $(document).ready(function(){
         Swal.fire({
           type : "success",
           title : "Upload Successfully!",
-          text : "Enjoy with your skin"
+          text : "Enjoy with your skin",
+          heightAuto : false
         });
       } else {
         Swal.fire({
           type : "error",
           title : "Something went wrong!",
-          text : res.error
+          text : res.error,
+          heightAuto : false
         });
       }
     }).fail(function(){
