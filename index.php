@@ -1,5 +1,5 @@
 <?php
-  if(!file_exists('config.nogit.php')){ session_start(); session_destroy(); die(header('Location: Installation')); }
+  if(!file_exists('config.nogit.php')){ session_start(); session_destroy(); die(header('Location: installation')); }
 
   require_once(__DIR__ . '/resources/server/libraries.php');
   session_start();
