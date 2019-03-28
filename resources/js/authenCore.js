@@ -13,11 +13,11 @@ $(document).ready(function(){
       if(res.success){
         Swal.fire({
           type : "success",
-          title : "Login Successfully!",
-          text : "Enjoy with your skin",
+          title : "Login Successful!",
+          text : "Enjoy your skins",
           heightAuto : false
         });
-        setTimeout(function(){ location.reload(); }, 1000);
+        setTimeout(function(){ location.reload(); }, 350);
       } else if(res.error.code == 404){
         Swal.fire({
           type : "error",

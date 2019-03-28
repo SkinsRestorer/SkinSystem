@@ -49,7 +49,7 @@
     curl_close($ch);
     if($response == false){
       /* cURL ERROR */
-      printErrorAndDie('Please re-upload or contact WebMaster! (EndPoint Down!)');
+      printErrorAndDie('Please re-upload or contact WebMaster!');
     }
 
     $json = json_decode($response, true);
@@ -58,7 +58,7 @@
 
     /* MineSkin API returned unusable data */
     if(empty($json['data']['texture']['value']) || empty($json['data']['texture']['signature'])){
-      printErrorAndDie('Please re-upload or contact WebMaster! (EndPoint Down!)');
+      printErrorAndDie('Please re-upload or contact WebMaster!');
     }
 
     /* Assign data for putting to SkinsRestorer Storage */

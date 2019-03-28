@@ -13,13 +13,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>SkinSystem</title>
-
     <!-- Libraries -->
     <link rel="shortcut icon" href="favicon.ico">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
-    <link rel="stylesheet" href="resources/css/styles.css">
-
+    <?php echo '<link id="stylesheetSelector" rel="stylesheet" href="resources/css/'.
+    ($_COOKIE['theme']!='' ? $_COOKIE['theme'] : ($config['deftheme']!='' ? $config['deftheme'] : 'light')).'.css">' ?>
+    <!-- pick theme from cookie; if cookie invalid, pick default theme from config file; if config invalid, choose light theme -->
+    <script type="text/javascript">
+      function getCookie(cname) {
+        var b = document.cookie.match('(^|[^;]+)\\s*' + cname + '\\s*=\\s*([^;]+)');
+        return b ? b.pop() : '';
+      } function setCookie(cname, cvalue) {
+        var d = new Date(); d.setTime(d.getTime() + (365*24*60*60*1000)); // cookies will last a year
+        document.cookie = cname + "=" + cvalue + ";expires="+ d.toUTCString() + ";path=/";
+      } function toggleTheme() {
+        if (getCookie("theme") == "dark") { setCookie("theme", "light"); }
+        else { setCookie("theme", "dark"); }
+        location.reload();
+      } // skinViewer height shall match uploadSkin
+      window.onresize = function () {
+        document.getElementById('skinViewerContainer').style.height = document.getElementById('uploadSkinForm').clientHeight+'px';
+      }
+    </script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/94/three.min.js"></script>
@@ -36,14 +51,19 @@
               <div class="card-header bg-primary text-white">
                 <div class="row mx-2 align-items-center">
                   <h5 class="mb-0">SkinSystem 
-                    <small style="font-size: 60%;">v.1.6
-                      <?php if($config['version'] < getLatestVersion()){ echo ' (New version avaliable)'; } ?>
+                    <small style="font-size: 60%;"><a id="versionDisplay" href="https://github.com/riflowth/SkinSystem/releases/tag/1.6">v.1.6</a> 
+                      <?php if($config['version'] < getLatestVersion()){ echo ' <a href="https://github.com/riflowth/SkinSystem/releases/latest">(New version avaliable)</a>'; } ?>
                     </small>
                   </h5>
-                  <?php if($config['authme']['enabled'] == true && !empty($_SESSION['username'])){ ?>
-                    <h6 class="mb-0 ml-auto"><i class="fas fa-user"></i> <?php echo $_SESSION['username']; ?></h6>
-                    <a class="btn btn-sm btn-light ml-2 rounded-circle" href="resources/server/authenCore.php?logout"><i class="fas fa-sign-out-alt"></i></a>
-                  <?php } ?>
+                  <h6 class="mb-0 ml-auto">
+                    <?php if($config['authme']['enabled'] == true && !empty($_SESSION['username'])){ 
+                      $SkullURL = '/skin/?vr=0&hr=0&headOnly=true&ratio=4&user='.$_SESSION['username'];
+                      echo '<a class="skinDownload" href="/skin/?format=raw&dl=true&user='.$_SESSION['username'].
+                      '"><img class="skinDownload" src="'.$SkullURL.'">    '.htmlspecialchars($_SESSION['username'], ENT_QUOTES).'</a>'; ?>
+                      <a class="btn btn-sm btn-light ml-2 rounded-circle" href="resources/server/authenCore.php?logout"><i class="fas fa-sign-out-alt"></i></a>
+                    <?php } ?>
+                  </h6>
+                  <a class="btn btn-sm btn-light ml-2 rounded-circle" onclick="toggleTheme();"><i class="fas fa-adjust"></i></a>
                 </div>
               </div>
               <div class="card-body">
@@ -64,8 +84,8 @@
                                 </div>
                               </div>
                             <?php } ?>
-                            <div class="form-group">
-                              <h5 class="mb-0 mr-3 custom-control-inline"><span class="badge badge-info">Skintype</span></h5>
+                            <div class="form-group" style="display: none;">
+                              <h5 class="mb-0 mr-3 custom-control-inline"><span class="badge badge-info">Skin Type</span></h5>
                               <div class="custom-control custom-radio custom-control-inline">
                                 <input id="skintype-steve" class="custom-control-input" name="isSlim" value="false" type="radio">
                                 <label class="custom-control-label" for="skintype-steve">Steve</label>
@@ -76,7 +96,7 @@
                               </div>
                             </div>
                             <div class="form-group mb-4">
-                              <h5 class="mb-0 mr-3 custom-control-inline"><span class="badge badge-info">Uploadtype</span></h5>
+                              <h5 class="mb-0 mr-3 custom-control-inline"><span class="badge badge-info">Upload Type</span></h5>
                               <div class="custom-control custom-radio custom-control-inline">
                                 <input id="uploadtype-file" class="custom-control-input" name="uploadtype" value="file" type="radio" checked>
                                 <label class="custom-control-label" for="uploadtype-file">File</label>
@@ -93,12 +113,12 @@
                               </div>
                             </div>
                             <div id="form-input-url" class="form-group row" style="display: none;">
-                              <h5 class="col-lg-3"><span class="badge badge-success">Skin URL</span></h5>
-                              <div class="col-lg-9">
-                                <input id="input-url" class="form-control form-control-sm" name="url" type="text">
+                              <div class="col-lg-12">
+                                <input id="input-url" class="form-control form-control-sm" name="url" type="text" placeholder="Enter skin URL...">
                               </div>
                             </div>
                             <button class="btn btn-primary w-100"><strong>Upload!</strong></button>
+                            <small class="form-text text-muted" id="uploadDisclaimer">Skins are sent to <a href="https://mineskin.org">mineskin.org</a>, <a href="https://mojang.com">mojang.com</a>, and <?php echo '<a href="/">'.$_SERVER['HTTP_HOST'].'</a>' ?></small>
                           </form>
                         </div>
                       </div>
@@ -173,4 +193,5 @@
       </div>
     </section>
   </body>
+  <script type="text/javascript">window.onresize();</script>
 </html>
