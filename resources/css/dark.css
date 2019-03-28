@@ -34,6 +34,4 @@ html, body { height: 100%; }
 .swal2-content { margin-bottom: 15px!important }
 /*switch themes button, show clickable*/
 .btn-light { cursor: pointer; }
-.skinDownload { 
-  color: #c1c1c1!important; 
-  max-height: 29px!important; }
+.skinDownload { color: #c1c1c1!important; }

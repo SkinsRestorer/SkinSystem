@@ -83,13 +83,6 @@ $(document).ready(function(){
     $("#skintype-steve").prop("checked", !isSlim);
     render();
   });
-  
-  // skinURL = URL.createObjectURL(event.target.files[0]);
-  // skinChecker(function(){
-  //   $("#skintype-alex").prop("checked", isSlim);
-  //   $("#skintype-steve").prop("checked", !isSlim);
-  //   render();
-  // });
   /* Add some animate to a model in SkinPreview */
   var startTime = Date.now();
   var t;

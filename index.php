@@ -115,7 +115,7 @@
                               </div>
                             </div>
                             <button class="btn btn-primary w-100"><strong>Upload!</strong></button>
-                            <small class="form-text text-muted" id="uploadDisclaimer">Skins are sent to <a href="https://mineskin.org">mineskin.org</a>, <a href="https://mojang.com">mojang.com</a>, and <?php echo '<a href="/">'.$_SERVER['HTTP_HOST'].'</a>' ?></small>
+                            <small class="form-text text-muted" id="uploadDisclaimer">Skins are sent to <a href="https://mineskin.org">mineskin.org</a>, <a href="https://mojang.com">mojang.com</a>, and <a href="/"><?php echo $_SERVER['HTTP_HOST'] ?></a></small>
                           </form>
                         </div>
                       </div>

@@ -11,9 +11,7 @@ html, body { height: 100%; }
 .fas.fa-adjust { color: #212529!important; }
 #form-input-file.form-group, #form-input-url.form-group { height: 34px!important; }
 #input-url.form-control.form-control-sm { height: 37.5px!important; }
-.skinDownload { 
-  color: #fff!important; 
-  max-height: 29px!important; }
+.skinDownload { color: #fff!important; }
 
 /*get rid of confirmation button*/
 .swal2-actions { display: none!important; }
