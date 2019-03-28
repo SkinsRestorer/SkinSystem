@@ -23,8 +23,10 @@
       function setCookie(cname, cvalue) {
         var d = new Date(); d.setTime(d.getTime() + (365*24*60*60*1000)); // cookies will last a year
         document.cookie = cname + "=" + cvalue + ";expires="+ d.toUTCString() + ";path=/";
-      } function toggleTheme() {
-        var theme = document.getElementById("stylesheetSelector").getAttribute("name");
+      } 
+      var theme = document.getElementById("stylesheetSelector").getAttribute("name");
+      setCookie("theme", theme); // swap that stale cookie for a new one!
+      function toggleTheme() {
         if (theme == "dark") { setCookie("theme", "light"); }
         else { setCookie("theme", "dark"); }
         location.reload();
@@ -54,7 +56,7 @@
                     <?php if($config['authme']['enabled'] == true && !empty($_SESSION['username'])){ 
                       $SkullURL = '/skin/?vr=0&hr=0&headOnly=true&ratio=4&user='.$_SESSION['username'];
                       echo '<a class="skinDownload" href="/skin/?format=raw&dl=true&user='.$_SESSION['username'].
-                      '"><img class="skinDownload" src="'.$SkullURL.'">    '.htmlspecialchars($_SESSION['username'], ENT_QUOTES).'</a>'; ?>
+                      '"><img class="skinDownload" style="max-height:29px!important;" src="'.$SkullURL.'">    '.htmlspecialchars($_SESSION['username'], ENT_QUOTES).'</a>'; ?>
                       <a class="btn btn-sm btn-light ml-2 rounded-circle" href="resources/server/authenCore.php?logout"><i class="fas fa-sign-out-alt"></i></a>
                     <?php } ?>
                   </h6>
