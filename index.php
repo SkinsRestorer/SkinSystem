@@ -17,8 +17,8 @@
     <link rel="shortcut icon" href="favicon.ico">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
     <?php $theme = ($_COOKIE['theme']!='' ? $_COOKIE['theme'] : ($config['deftheme']!='' ? $config['deftheme'] : 'light'));
-    echo '<link id="stylesheetSelector" rel="stylesheet" name="'.$theme.'" href="resources/css/'.$theme.'.css">'; ?>
-    <!-- pick theme from cookie; if cookie invalid, pick default theme from config file; if config invalid, choose light theme -->
+    echo '<link id="stylesheetSelector" rel="stylesheet" name="'.$theme.'" href="resources/css/'.$theme.'.css">'; 
+    // pick theme from cookie; if cookie invalid, pick default theme from config file; if config invalid, choose light theme ?>
     <script type="text/javascript">
       function setCookie(cname, cvalue) {
         var d = new Date(); d.setTime(d.getTime() + (365*24*60*60*1000)); // cookies will last a year
