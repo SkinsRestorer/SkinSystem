@@ -16,23 +16,18 @@
     <!-- Libraries -->
     <link rel="shortcut icon" href="favicon.ico">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
-    <?php echo '<link id="stylesheetSelector" rel="stylesheet" href="resources/css/'.
-    ($_COOKIE['theme']!='' ? $_COOKIE['theme'] : ($config['deftheme']!='' ? $config['deftheme'] : 'light')).'.css">' ?>
+    <?php $theme = ($_COOKIE['theme']!='' ? $_COOKIE['theme'] : ($config['deftheme']!='' ? $config['deftheme'] : 'light'));
+    echo '<link id="stylesheetSelector" rel="stylesheet" name="'.$theme.'" href="resources/css/'.$theme.'.css">'; ?>
     <!-- pick theme from cookie; if cookie invalid, pick default theme from config file; if config invalid, choose light theme -->
     <script type="text/javascript">
-      function getCookie(cname) {
-        var b = document.cookie.match('(^|[^;]+)\\s*' + cname + '\\s*=\\s*([^;]+)');
-        return b ? b.pop() : '';
-      } function setCookie(cname, cvalue) {
+      function setCookie(cname, cvalue) {
         var d = new Date(); d.setTime(d.getTime() + (365*24*60*60*1000)); // cookies will last a year
         document.cookie = cname + "=" + cvalue + ";expires="+ d.toUTCString() + ";path=/";
       } function toggleTheme() {
-        if (getCookie("theme") == "dark") { setCookie("theme", "light"); }
+        var theme = document.getElementById("stylesheetSelector").getAttribute("name");
+        if (theme == "dark") { setCookie("theme", "light"); }
         else { setCookie("theme", "dark"); }
         location.reload();
-      } // skinViewer height shall match uploadSkin
-      window.onresize = function () {
-        document.getElementById('skinViewerContainer').style.height = document.getElementById('uploadSkinForm').clientHeight+'px';
       }
     </script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -129,6 +124,10 @@
                         <h6 class="card-header bg-info text-white"><i class="fas fa-eye text-dark"></i> Preview</h6>
                         <div class="card-body">
                           <div id="skinViewerContainer"></div>
+                          <script type="text/javascript">
+                            window.onresize = function () { // skinViewer height shall match uploadSkin
+                              document.getElementById('skinViewerContainer').style.height = document.getElementById('uploadSkinForm').clientHeight+'px'; }
+                          </script>
                         </div>
                       </div>
                     </div>
