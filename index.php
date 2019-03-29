@@ -48,19 +48,19 @@
               <div class="card-header bg-primary text-white">
                 <div class="row mx-2 align-items-center">
                   <h5 class="mb-0">SkinSystem 
-                    <small style="font-size: 60%;"><a id="versionDisplay" href="https://github.com/riflowth/SkinSystem/releases/tag/1.6">v.1.6</a> 
-                      <?php if($config['version'] < getLatestVersion()){ echo ' <a href="https://github.com/riflowth/SkinSystem/releases/latest">(New version avaliable)</a>'; } ?>
+                    <small style="font-size: 60%;"><a id="versionDisplay" title="Release 1.6" href="https://github.com/riflowth/SkinSystem/releases/tag/1.6">v.1.6</a> 
+                      <?php if($config['version'] < getLatestVersion()){ echo ' <a title="Latest Release" href="https://github.com/riflowth/SkinSystem/releases/latest">(New version avaliable)</a>'; } ?>
                     </small>
                   </h5>
                   <h6 class="mb-0 ml-auto">
                     <?php if($config['authme']['enabled'] == true && !empty($_SESSION['username'])){ 
-                      $SkullURL = '/skin/?vr=0&hr=0&headOnly=true&ratio=4&user='.$_SESSION['username'];
-                      echo '<a class="skinDownload" href="/skin/?format=raw&dl=true&user='.$_SESSION['username'].
-                      '"><img class="skinDownload" style="max-height:29px!important;" src="'.$SkullURL.'">    '.htmlspecialchars($_SESSION['username'], ENT_QUOTES).'</a>'; ?>
-                      <a class="btn btn-sm btn-light ml-2 rounded-circle" href="resources/server/authenCore.php?logout"><i class="fas fa-sign-out-alt"></i></a>
+                      $SkullURL = $_SERVER['REQUEST_URI'].'skin/?vr=0&hr=0&headOnly=true&ratio=4&user='.$_SESSION['username'];
+                      echo '<a class="skinDownload" title="Download skin" href="'.$_SERVER['REQUEST_URI'].'skin/?format=raw&dl=true&user='.$_SESSION['username'].
+                      '"><img class="skinDownload" style="max-height:29px!important;" src="'.$SkullURL.'">    '.htmlspecialchars($_SESSION['username'], ENT_QUOTES); ?></a>
+                      <a class="btn btn-sm btn-light ml-2 rounded-circle" title="Log out" href="resources/server/authenCore.php?logout"><i class="fas fa-sign-out-alt"></i></a>
                     <?php } ?>
                   </h6>
-                  <a class="btn btn-sm btn-light ml-2 rounded-circle" onclick="toggleTheme();"><i class="fas fa-adjust"></i></a>
+                  <a class="btn btn-sm btn-light ml-2 rounded-circle" title="Switch theme" onclick="toggleTheme();"><i class="fas fa-adjust"></i></a>
                 </div>
               </div>
               <div class="card-body">
