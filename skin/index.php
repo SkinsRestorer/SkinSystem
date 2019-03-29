@@ -207,7 +207,7 @@ if( basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"]) ) {
             if (!is_file($skinFile)) {file_put_contents($skinFile, file_get_contents($skinURL));}
             touch($skinFile);
             // cleanup of cache files every hour or so
-            $now = time();
+            global $seconds_to_cache; $now = time();
             if ($now - filemtime($cacheDir.'.lastCleanup') >= (60*60)) {
                 touch($cacheDir.'.lastCleanup');
                 foreach (glob($cacheDir.'*') as $file) {
