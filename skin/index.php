@@ -126,7 +126,7 @@ if( basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"]) ) {
      *
      */
     class render3DPlayer {
-        private $fallback_img = 'char.png'; // Use a not found skin whenever something goes wrong.
+        private $fallback_img = 'https://textures.minecraft.net/texture/dc1c77ce8e54925ab58125446ec53b0cdd3d0ca3db273eb908d5482787ef4016'; // Use a not found skin whenever something goes wrong.
         private $localSkinFile = null;
         private $playerName = null;
         private $playerSkin = false;
@@ -199,10 +199,12 @@ if( basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"]) ) {
          * returns a player skin file
          */
         public function getSkinFile() {
+            $cacheDir = __DIR__.'/cache/'; mkdir($cacheDir, 0775, true);
+            
             $skinName = query(2, 'SELECT Skin FROM Players WHERE Nick = ?', [$this->playerName])->fetch(PDO::FETCH_ASSOC)['Skin'];
             $skinLookup = query(2, 'SELECT Value FROM Skins WHERE Nick = ?', [$skinName])->fetch(PDO::FETCH_ASSOC)['Value'];
-            $cacheDir = __DIR__.'/cache/'; mkdir($cacheDir, 0775, true);
             $skinURL = json_decode(base64_decode($skinLookup), true)['textures']['SKIN']['url'];
+            if (!$skinURL) {$skinURL = $this->fallback_img;} 
             $skinFile = $cacheDir.end(explode('/', rtrim($skinURL, '/')));
             if (!is_file($skinFile)) {file_put_contents($skinFile, file_get_contents($skinURL));}
             touch($skinFile);
@@ -217,38 +219,15 @@ if( basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"]) ) {
             return $skinFile;
         }
 
-        /* Function grabs the player skin from the Mojang server and checks it.
-         * 
-         * Returns true on success, false on failure.
-         */
+         // Function grabs the player skin and checks it.
+         // Returns true on success, false on failure.
         private function getPlayerSkin() {
-            
-            // If a local file has been provided, use this instead of downloading one
-            if ($this->localSkinFile != null) {
-                $this->playerSkin = @imageCreateFromPng($this->localSkinFile);
-            } elseif (trim($this->playerName) == '') {
-                $this->playerSkin = imageCreateFromPng($this->fallback_img);
-                return false;
-            } else {
-                $skinURL = $this->getSkinFile();
-                if($skinURL !== false) {
-                    $this->playerSkin = @imageCreateFromPng($skinURL);
-                }
-                // If failed to get skin URL via UUID: Did you tried it multiple times? Because Mojang does not accept too many requests!
-            }
-            
-            if (!$this->playerSkin) {
-                // Player skin does not exist
+            $this->playerSkin = @imageCreateFromPng($this->getSkinFile());
+            if ((!$this->playerSkin) || (imagesy($this->playerSkin) % 32 != 0)) {
+                // Player skin does not exist or bad ratio created
                 $this->playerSkin = imageCreateFromPng($this->fallback_img);
                 return false;
             }
-        
-            if (imagesy($this->playerSkin) % 32 != 0) {
-                // Bad ratio created
-                $this->playerSkin = imageCreateFromPng($this->fallback_img);
-                return false;
-            }
-            
             return true;
         }
         
