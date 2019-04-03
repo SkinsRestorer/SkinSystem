@@ -10,7 +10,7 @@
   if(!empty($_POST['username']) && !empty($_POST['password'])){
     $username = strtolower($_POST['username']);
     $timeout = $config['am']['authsec']['threshold_hours']*60*60;
-    $cdir = '../../'.$config['cache_dir']; if (!is_dir($cdir)) {mkdir($cdir, 0775, true);}
+    $cdir = __DIR__.'/../../'.$config['cache_dir']; if (!is_dir($cdir)) {mkdir($cdir, 0775, true);}
     // rate limit by publicly assigned ip (prefix v6, whole v4)
     preg_match('/^(?:\w+[:.]){0,3}\w+/', $_SERVER['REMOTE_ADDR'], $addr);
     $blk[0] = $cdir.'.loginratelimit-addr-'.preg_replace('/[^ \w]+/', '-', $addr[0]);

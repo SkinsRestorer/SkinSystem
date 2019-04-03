@@ -1,5 +1,5 @@
 <?php $release_version = '1.7';
-  if(!file_exists('config.nogit.php')){ session_start(); session_destroy(); die(header('Location: installation?v='.$release_version)); }
+  if(!file_exists('config.nogit.php')){ session_start(); session_destroy(); die(header('Location: installation/?v='.$release_version)); }
   require_once('resources/server/libraries.php');
   if($config['version'] != $release_version) {
     require_once('installation/installation.php');
