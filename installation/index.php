@@ -1,5 +1,5 @@
 <?php
-  if(file_exists('../config.nogit.php')){ die(header('Location: ../')); }
+  if(file_exists(__DIR__ . '/../config.nogit.php')){ die(header('Location: ../')); }
 ?>
 <!doctype html>
 <html>
@@ -10,9 +10,8 @@
 
     <!-- Libraries -->
     <link rel="shortcut icon" href="../favicon.ico">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
-    <link rel="stylesheet" href="../resources/css/styles.css">
+    <?php echo '<link id="stylesheetSelector" rel="stylesheet" href="'.glob(__DIR__ . '/../resources/themes/*.css')[0].'">'; ?>
   </head>
   <body class="bg-light">
     <!-- Main Container -->
@@ -23,11 +22,12 @@
             <div class="card border-0 shadow">
               <div class="card-header bg-primary text-white">
                 <div class="row mx-2 align-items-center">
-                  <h5 class="mb-0"><i class="fas fa-wrench"></i> SkinSystem Installation <small style="font-size: 60%;">v.1.6</small></h5>
+                  <h5 class="mb-0"><i class="fas fa-wrench"></i> SkinSystem Installation <small style="font-size: 60%;">v.<?php echo $_GET['v']; ?></small></h5>
                 </div>
               </div>
             <div class="card-body">
               <form id="installation-form">
+                <input id="release-version" name="release-version" type="text" value="<?php echo $_GET['v']; ?>" style="display: none;" />
                 <div class="row">
                   <div class="col-lg-12 mb-lg-0">
                     <div id="alert" class="alert alert-danger" style="display: none;"><i class="fas fa-exclamation-circle"></i> <span>Error!</span></div>
@@ -37,17 +37,31 @@
                       <h6 class="card-header bg-info text-white"><i class="fas fa-check"></i> Choices</h6>
                       <div class="card-body">
                         <div class="form-group">
-                          <div class="custom-control custom-checkbox">
-                            <input id="authme-activation" class="custom-control-input" type="checkbox" name="am-activation">
-                            <label class="custom-control-label" for="authme-activation">Use with <strong>Authme</strong></label>
-                            <small class="form-text text-muted">Do you want to allow users to only login and manage accounts that they have access to? <strong>This option is highly recomended!</strong></small>
+                          <div class="row">
+                            <div class="col-sm" style="flex-grow:.1;padding-right:0px;">
+                              <h5 class="mb-0 mr-3 custom-control-inline" style="padding-top:5px;">
+                                <span class="badge badge-info">Default Theme</span>
+                              </h5>
+                            </div>
+                            <div class="col-sm" style="padding-left:0px;">
+                              <select id="thm-selection" name="thm-selection" class="form-control" style="height: 35px;padding: 5px;" onchange="document.getElementById('stylesheetSelector').href=__DIR__ . '/../resources/themes/'+this.value+'.css';">
+                                <?php foreach (glob(__DIR__ . '/../resources/themes/*.css') as $key => $value) {preg_match('/([^\/]*)\.css$/', $value, $vl); echo "<option>".$vl[1]."</option>";} ?>
+                              </select>
+                            </div>
                           </div>
                         </div>
-                        <div id="authenticationsecurity-activation-form" class="form-group" style="display: none;">
+                        <div class="form-group">
                           <div class="custom-control custom-checkbox">
-                            <input id="authenticationsecurity-activation" class="custom-control-input" type="checkbox" name="as-activation">
-                            <label class="custom-control-label" for="authenticationsecurity-activation"><strong>Authentication</strong> Security</label>
-                            <small class="form-text text-muted">Do you want to allow users can mistake their login for 3 times per day? <strong>This option is highly recomended!</strong></small>
+                            <input id="am-activation" class="custom-control-input" type="checkbox" name="am-activation">
+                            <label class="custom-control-label" for="am-activation"><strong>AuthMe</strong> Authentication</label>
+                            <small class="form-text text-muted">Do you want to authenticate users so they may only manage accounts they register? <strong>This option is highly recomended!</strong></small>
+                          </div>
+                        </div>
+                        <div id="as-activation-form" class="form-group" style="display: none;">
+                          <div class="custom-control custom-checkbox">
+                            <input id="as-activation" class="custom-control-input" type="checkbox" name="as-activation">
+                            <label class="custom-control-label" for="as-activation"><strong>Authentication</strong> Limit</label>
+                            <small class="form-text text-muted">Do you want to limit failed login attempts to a maximum of 3 times per day? <strong>This option is highly recomended!</strong></small>
                           </div>
                         </div>
                       </div>
@@ -60,14 +74,14 @@
                         <div class="form-group">
                           <label>Please select <strong>SkinsRestorer</strong> config.yml</label>
                           <div class="custom-file">
-                            <input id="sr-config-input" class="custom-file-input" type="file" name="sr-config">
+                            <input id="sr-config-input" class="custom-file-input" type="file" accept=".yml" name="sr-config">
                             <label class="custom-file-label text-truncate">Choose a file...</label>
                           </div>
                         </div>
                         <div id="am-config-form" class="form-group" style="display: none;">
-                          <label>Please select <strong>Authme</strong> config.yml</label>
+                          <label>Please select <strong>AuthMe</strong> config.yml</label>
                           <div class="custom-file">
-                            <input id="am-config-input" class="custom-file-input" type="file" name="am-config">
+                            <input id="am-config-input" class="custom-file-input" type="file" accept=".yml" name="am-config">
                             <label class="custom-file-label text-truncate">Choose a file...</label>
                           </div>
                         </div>
@@ -82,7 +96,6 @@
         </div>
       </div>
     </section>
-
     <!-- Libraries -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>

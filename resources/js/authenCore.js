@@ -18,11 +18,19 @@ $(document).ready(function(){
           heightAuto : false
         });
         setTimeout(function(){ location.reload(); }, 350);
-      } else if(res.error.code == 404){
+      } else if(res.error.code == 401){
         Swal.fire({
           type : "error",
-          title : "Something went wrong!",
-          text : "Please check your username or password",
+          title : "Invalid username/password!",
+          text : res.error.data,
+          heightAuto : false
+        });
+        console.log(res);
+      } else if(res.error.code == 429){
+        Swal.fire({
+          type : "error",
+          title : "You're rate limited!",
+          text : res.error.data,
           heightAuto : false
         });
         console.log(res);

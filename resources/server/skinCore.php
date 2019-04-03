@@ -3,7 +3,7 @@
   session_start();
 
   /* Initialize playername */
-  if($config['authme']['enabled'] == true && !empty($_SESSION['username'])){
+  if($config['am']['enabled'] == true && !empty($_SESSION['username'])){
     $playername = $_SESSION['username'];
   } else if(!empty($_POST['username'])){
     $playername = $_POST['username'];
@@ -80,19 +80,18 @@
     $timestamp = "9223243187835955807";
 
     /* Storage Writing (Skins Table) */
-    query(2,
+    query('sr',
       "INSERT INTO {$config['sr']['skintable']} (Nick, Value, Signature, timestamp) VALUES (?, ?, ?, ?) " .
       "ON DUPLICATE KEY UPDATE Nick=VALUES(Nick), Value=VALUES(Value), Signature=VALUES(Signature), " .
       "timestamp=VALUES(timestamp)",
       [$transformedName, $value, $signature, $timestamp]
     );
     /* Storage Writing (Players Table) */
-    query(2,
-      "INSERT INTO {$config['sr']['playretable']} (Nick, Skin) VALUES (?, ?) " .
+    query('sr',
+      "INSERT INTO {$config['sr']['playertable']} (Nick, Skin) VALUES (?, ?) " .
       "ON DUPLICATE KEY UPDATE Nick=VALUES(Nick), Skin=VALUES(Skin)",
       [$playername, $transformedName]
     );
-
     printDataAndDie();
   }
 

@@ -1,11 +1,14 @@
-<?php
-  if(!file_exists('config.nogit.php')){ session_start(); session_destroy(); die(header('Location: installation')); }
-
+<?php $release_version = '1.7';
+  if(!file_exists('config.nogit.php')){ session_start(); session_destroy(); die(header('Location: installation?v='.$release_version)); }
   require_once('resources/server/libraries.php');
+  if($config['version'] != $release_version) {
+    require_once('installation/installation.php');
+    $config = confupdater($config, $release_version);
+  }
   session_start();
 
   /* Set username session for non-authme system */
-  if(empty($_SESSION['username']) && $config['authme']['enabled'] == false){ $_SESSION['username'] = 'SkinSystemUser'; }
+  if(empty($_SESSION['username']) && $config['am']['enabled'] == false){ $_SESSION['username'] = 'SkinSystemUser'; }
 ?>
 <!doctype html>
 <html>
@@ -16,9 +19,10 @@
     <!-- Libraries -->
     <link rel="shortcut icon" href="favicon.ico">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
-    <?php $theme = ($_COOKIE['theme']!='' ? $_COOKIE['theme'] : ($config['deftheme']!='' ? $config['deftheme'] : 'light'));
-    echo '<link id="stylesheetSelector" rel="stylesheet" name="'.$theme.'" href="resources/css/'.$theme.'.css">'; 
-    // pick theme from cookie; if cookie invalid, pick default theme from config file; if config invalid, choose light theme ?>
+    <?php if (is_file('resources/themes/'.$_COOKIE['theme'].'.css')) { $theme = $_COOKIE['theme']; }
+    else { $theme = $config['def_theme']; }
+    echo '<link id="stylesheetSelector" rel="stylesheet" name="'.$theme.'" href="resources/themes/'.$theme.'.css">'; 
+    // pick theme from cookie; if cookie invalid, pick default theme from config ?>
     <script type="text/javascript">
       function setCookie(cname, cvalue) {
         var d = new Date(); d.setTime(d.getTime() + (365*24*60*60*1000)); // cookies will last a year
@@ -26,10 +30,11 @@
       } 
       var theme = document.getElementById("stylesheetSelector").getAttribute("name");
       setCookie("theme", theme); // swap that stale cookie for a new one!
-      function toggleTheme() {
-        if (theme == "dark") { setCookie("theme", "light"); }
-        else { setCookie("theme", "dark"); }
-        location.reload();
+      function rotateTheme() { // move a metaphorical carousel by one item
+        $.getJSON("resources/themes/",{}, function(lst){ 
+          setCookie("theme", lst[((lst.indexOf(theme+".css")+1)%lst.length)].slice(0, -4));
+          location.reload();
+        });
       }
     </script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -48,19 +53,20 @@
               <div class="card-header bg-primary text-white">
                 <div class="row mx-2 align-items-center">
                   <h5 class="mb-0">SkinSystem 
-                    <small style="font-size: 60%;"><a id="versionDisplay" title="Release 1.6" href="https://github.com/riflowth/SkinSystem/releases/tag/1.6">v.1.6</a> 
-                      <?php if($config['version'] < getLatestVersion()){ echo ' <a title="Latest Release" href="https://github.com/riflowth/SkinSystem/releases/latest">(New version avaliable)</a>'; } ?>
+                    <?php
+                    echo '<small style="font-size: 60%;"><a id="versionDisplay" title="Release '.$config['version'].'" href="https://github.com/riflowth/SkinSystem/releases/tag/'.$config['version'].'">v.'.$config['version'].'</a>';
+                      if($config['version'] < getLatestVersion()){ echo ' <a title="Latest Release" href="https://github.com/riflowth/SkinSystem/releases/latest">(New version avaliable)</a>'; } ?>
                     </small>
                   </h5>
                   <h6 class="mb-0 ml-auto">
-                    <?php if($config['authme']['enabled'] == true && !empty($_SESSION['username'])){ 
-                      $SkullURL = $_SERVER['REQUEST_URI'].'skin/?vr=0&hr=0&headOnly=true&ratio=4&user='.$_SESSION['username'];
-                      echo '<a class="skinDownload" title="Download skin" href="'.$_SERVER['REQUEST_URI'].'skin/?format=raw&dl=true&user='.$_SESSION['username'].
+                    <?php if($config['am']['enabled'] == true && !empty($_SESSION['username'])){ 
+                      $SkullURL = 'resources/server/skinRender.php?vr=0&hr=0&headOnly=true&ratio=4&user='.$_SESSION['username'];
+                      echo '<a class="skinDownload" title="Download skin" href="resources/server/skinRender.php?format=raw&dl=true&user='.$_SESSION['username'].
                       '"><img class="skinDownload" style="max-height:29px!important;" src="'.$SkullURL.'">    '.htmlspecialchars($_SESSION['username'], ENT_QUOTES); ?></a>
                       <a class="btn btn-sm btn-light ml-2 rounded-circle" title="Log out" href="resources/server/authenCore.php?logout"><i class="fas fa-sign-out-alt"></i></a>
                     <?php } ?>
                   </h6>
-                  <a class="btn btn-sm btn-light ml-2 rounded-circle" title="Switch theme" onclick="toggleTheme();"><i class="fas fa-adjust"></i></a>
+                  <a class="btn btn-sm btn-light ml-2 rounded-circle" title="Switch theme" onclick="rotateTheme();"><i class="fas fa-adjust"></i></a>
                 </div>
               </div>
               <div class="card-body">
@@ -73,7 +79,7 @@
                         <h6 class="card-header bg-info text-white"><i class="fas fa-file-upload text-dark"></i> Upload</h6>
                         <div class="card-body">
                           <form id="uploadSkinForm">
-                            <?php if($config['authme']['enabled'] == false){ ?>
+                            <?php if($config['am']['enabled'] == false){ ?>
                               <div class="form-group row">
                                 <h5 class="col-lg-3"><span class="badge badge-success">Username</span></h5>
                                 <div class="col-lg-9">
@@ -105,7 +111,7 @@
                             </div>
                             <div id="form-input-file" class="form-group">
                               <div class="custom-file">
-                                <input id="input-file" class="custom-file-input" name="file" type="file" accept="image/x-png,image/gif,image/jpeg" required>
+                                <input id="input-file" class="custom-file-input" name="file" type="file" accept="image/*" required>
                                 <label class="custom-file-label text-truncate">Choose skin...</label>
                               </div>
                             </div>
@@ -129,6 +135,7 @@
                           <script type="text/javascript">
                             window.onresize = function () { // skinViewer height shall match uploadSkin
                               document.getElementById('skinViewerContainer').style.height = document.getElementById('uploadSkinForm').clientHeight+'px'; }
+                            window.onresize();
                           </script>
                         </div>
                       </div>
@@ -137,28 +144,36 @@
                       <!-- Skin History -->
                       <div class="col-lg-12 mt-3">
                         <div class="card border-0 shadow">
-                          <h6 class="card-header bg-success text-white"><i class="fas fa-history text-dark"></i> History <small>- You can use this skins by click on it</small></h6>
+                          <h6 class="card-header bg-info text-white"><i class="fas fa-history text-dark"></i> History <small>- You can use these skins by clicking them</small></h6>
                           <div class="card-body">
-                            <div class="row">
-                              <div class="col-2">
-                                <img width="70px" src="https://api.mineskin.org/render/head?url=http://textures.minecraft.net/texture/92b6ec637d673537a2517a48d74d205737e0dee4497d6f64815b0e58f3071d09&skinName=">
-                              </div>
-                              <div class="col-2">
-                                <img width="70px" src="https://api.mineskin.org/render/head?url=http://textures.minecraft.net/texture/9ee0a3258bfd46aecf080f0325210949025f5e9132f623f03c0c8650ed489a82&skinName=">
-                              </div>
-                              <div class="col-2">
-                                <img width="70px" src="https://api.mineskin.org/render/head?url=http://textures.minecraft.net/texture/af38163eea863a9e9ce327ae117db3b1ce101124a155e1e70c368824d801ae1a&skinName=">
-                              </div>
-                              <div class="col-2">
-                                <img width="70px" src="https://api.mineskin.org/render/head?url=http://textures.minecraft.net/texture/ee485352624c6953f90f025b1c5cc040c76684f38474cdf7719bdccc97af4078&skinName=">
-                              </div>
-                              <div class="col-2">
-                                <img width="70px" src="https://api.mineskin.org/render/head?url=http://textures.minecraft.net/texture/eccc402ec034c8a6687781e0664797209c187965f8417c8b4725025dbf64b76f&skinName=">
-                              </div>
-                              <div class="col-2">
-                                <img width="70px" src="https://api.mineskin.org/render/head?url=http://textures.minecraft.net/texture/92b6ec637d673537a2517a48d74d205737e0dee4497d6f64815b0e58f3071d09&skinName=">
-                              </div>
-                            </div>
+                            <a id="mineskin-recent" href="<?php echo cacheGrab('https://api.mineskin.org/get/list/0?size=6','mineskin-recent','./',(10*60)); ?>" style="display:none;"></a>
+                            <div class="row" id="skinlist"></div>
+                            <script type="text/javascript">
+                              setCookie('skinHistoryType', 'mineskin');
+                              function getCookie(cname) {
+                                var value = "; " + document.cookie;
+                                var parts = value.split("; " + cname + "=");
+                                if (parts.length == 2) return parts.pop().split(";").shift();
+                              }
+                              var historytype = getCookie('skinHistoryType');
+                              if (historytype == 'personal') {
+                                
+                              } else if (historytype == 'server') {
+                                
+                              } else if (historytype == 'mineskin') {
+                                $.getJSON($('#mineskin-recent')[0].href,{}, function( lst ){ 
+                                  $.each( lst.skins.slice(0,6), function( key, val ) {
+                                    skinid = val.url.match(/\w+$/);
+                                    $('#skinlist').append('<div class="col-2 skinlist-mineskin"><img class="skinlistitem" style="max-width:75px;width:inherit;cursor:pointer;" title="'+
+                                      ('Select skin '+val.name).trim()+'" onclick="skinURL(\'resources/server/skinRender.php?format=raw&mojang='+skinid+'\');" src="resources/server/skinRender.php?mojang='+skinid+'"></div>');
+                                  });
+                                });
+                              }
+                              function skinURL(url) {
+                                $('#uploadtype-url').prop('checked', true).change();
+                                $('#input-url').val(url);
+                              }
+                            </script>
                           </div>
                         </div>
                       </div>
@@ -194,5 +209,4 @@
       </div>
     </section>
   </body>
-  <script type="text/javascript">window.onresize();</script>
 </html>
