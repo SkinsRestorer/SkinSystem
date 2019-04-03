@@ -3,7 +3,8 @@
   require_once('resources/server/libraries.php');
   if($config['version'] != $release_version) {
     require_once('installation/installation.php');
-    $config = confupdater($config, $release_version);
+    confupdater($config, $release_version);
+    die(header("Refresh:0"));
   }
   session_start();
 
