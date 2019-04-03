@@ -48,7 +48,6 @@
     $confarr = preg_replace(array_keys($repl), $repl, var_export(array_replace_recursive($defaults, $config), true));
     $byteswritten = file_put_contents(__DIR__ . '/../config.nogit.php', "<?php return".$confarr.";?>");
     if (!$byteswritten) {prntErrorAndDie('Did not create config file! ('.$byteswritten.'B written)');}
-    return $config;
   }
 
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {

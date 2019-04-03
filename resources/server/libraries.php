@@ -50,13 +50,21 @@
   }
 
   // downloads to cache if need be, removes unused cache files, return location of cache file.
-  function cacheGrab ($url, $nm, $dirhead='', $max_cache=false) {
+  function cacheGrab ($url, $nm, $dirhead='', $max_cache=false, $hchk=false) {
     global $config; $cdir = $dirhead.$config['cache_dir']; if (!is_dir($cdir)) {mkdir($cdir, 0775, true);}
     $file = $cdir.$nm; 
-    
+
     if (!$max_cache) {if (is_file($file)) {touch($file);}} // no max cache? touch so it's not caught by cleanup
     if (($max_cache && (time() - filemtime($file) >= $max_cache)) || !is_file($file)) {
-      file_put_contents($file, file_get_contents($url));
+      $filecont = file_get_contents($url);
+      if ($hchk) {
+        for ($i = 0; $i < 10; $i++) {
+          if (hash($hchk[0], $filecont) != $hchk[1]) {
+            $filecont = file_get_contents($url);
+          } else {break;}
+        }
+      }
+      file_put_contents($file, $filecont);
     } cacheClean($dirhead);
     return $file;
   }

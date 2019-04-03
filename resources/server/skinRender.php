@@ -123,7 +123,6 @@ if( basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"]) ) {
         else { // cache system for "rendered" skins
             unset($renderparams[0]); unset($renderparams[1]);
             $cdir = __DIR__ . '/../../'.$config['cache_dir']; mkdir($cdir, 0775, true); $cfile = $cdir.$skinHash.'-'.hash("md5", serialize($renderparams));
-            file_put_contents('something.txt', serialize($renderparams));
             if (file_get_contents($cfile) == '') { $player->get3DRender($skinRaw, $cfile); }
             echo file_get_contents($cfile);
             touch($cfile); cacheClean(__DIR__ . '/../../');
@@ -217,7 +216,7 @@ if( basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"]) ) {
                 $skinURL = json_decode(base64_decode($skinLookup), true)['textures']['SKIN']['url'];
             } if (strlen($skinURL) < 1) { $skinURL = $this->fallback_img; }
             if (!$mj256) { preg_match('/[^\/]+$/', $skinURL, $mj256); }
-            return [cacheGrab($skinURL, $mj256[0], __DIR__ . '/../../'), $mj256[0]];
+            return [cacheGrab($skinURL, $mj256[0], __DIR__ . '/../../', false, ['sha256', $mj256[0]]), $mj256[0]];
         }
 
         /* Function renders the 3d image
