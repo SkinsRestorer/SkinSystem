@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
     <?php $themelist = [];
     foreach (glob(__DIR__ . '/../resources/themes/*.css') as $thm) { preg_match('/([^\/]*)\.css$/', $thm, $vl); $themelist[] = $vl[1];}
-     echo '<link id="stylesheetSelector" rel="stylesheet" href="resource/themes/'.$themelist[0].'.css">'; ?>
+     echo '<link id="stylesheetSelector" rel="stylesheet" href="../resources/themes/'.$themelist[0].'.css">'; ?>
   </head>
   <body class="bg-light">
     <!-- Main Container -->
