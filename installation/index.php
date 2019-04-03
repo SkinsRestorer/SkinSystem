@@ -11,7 +11,9 @@
     <!-- Libraries -->
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
-    <?php echo '<link id="stylesheetSelector" rel="stylesheet" href="'.glob(__DIR__ . '/../resources/themes/*.css')[0].'">'; ?>
+    <?php $themelist = [];
+    foreach (glob(__DIR__ . '/../resources/themes/*.css') as $thm) { preg_match('/([^\/]*)\.css$/', $thm, $vl); $themelist[] = $vl[1];}
+     echo '<link id="stylesheetSelector" rel="stylesheet" href="resource/themes/'.$themelist[0].'.css">'; ?>
   </head>
   <body class="bg-light">
     <!-- Main Container -->
@@ -45,7 +47,7 @@
                             </div>
                             <div class="col-sm" style="padding-left:0px;">
                               <select id="thm-selection" name="thm-selection" class="form-control" style="height: 35px;padding: 5px;" onchange="document.getElementById('stylesheetSelector').href=__DIR__ . '/../resources/themes/'+this.value+'.css';">
-                                <?php foreach (glob(__DIR__ . '/../resources/themes/*.css') as $key => $value) {preg_match('/([^\/]*)\.css$/', $value, $vl); echo "<option>".$vl[1]."</option>";} ?>
+                                <?php foreach ($themelist as $theme) {echo "<option>".$theme."</option>";} ?>
                               </select>
                             </div>
                           </div>
