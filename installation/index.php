@@ -46,7 +46,7 @@
                               </h5>
                             </div>
                             <div class="col-sm" style="padding-left:0px;">
-                              <select id="thm-selection" name="thm-selection" class="form-control" style="height: 35px;padding: 5px;" onchange="document.getElementById('stylesheetSelector').href=__DIR__ . '/../resources/themes/'+this.value+'.css';">
+                              <select id="thm-selection" name="thm-selection" class="form-control" style="height: 35px;padding: 5px;" onchange="document.getElementById('stylesheetSelector').href='../resources/themes/'+this.value+'.css';">
                                 <?php foreach ($themelist as $theme) {echo "<option>".$theme."</option>";} ?>
                               </select>
                             </div>
