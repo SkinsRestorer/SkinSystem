@@ -61,9 +61,7 @@
                   </h5>
                   <h6 class="mb-0 ml-auto">
                     <?php if($config['am']['enabled'] == true && !empty($_SESSION['username'])){ 
-                      $SkullURL = 'resources/server/skinRender.php?vr=0&hr=0&headOnly=true&ratio=4&user='.$_SESSION['username'];
-                      echo '<a class="skinDownload" title="Download skin" href="resources/server/skinRender.php?format=raw&dl=true&user='.$_SESSION['username'].
-                      '"><img class="skinDownload" style="max-height:29px!important;" src="'.$SkullURL.'">    '.htmlspecialchars($_SESSION['username'], ENT_QUOTES); ?></a>
+                      echo '<i class="fas fa-user"></i> '.htmlspecialchars($_SESSION['username'], ENT_QUOTES); ?></a>
                       <a class="btn btn-sm btn-light ml-2 rounded-circle" title="Log out" href="resources/server/authenCore.php?logout"><i class="fas fa-sign-out-alt"></i></a>
                     <?php } ?>
                   </h6>
@@ -141,44 +139,6 @@
                         </div>
                       </div>
                     </div>
-                    <?php if(false){ ?>
-                      <!-- Skin History -->
-                      <div class="col-lg-12 mt-3">
-                        <div class="card border-0 shadow">
-                          <h6 class="card-header bg-info text-white"><i class="fas fa-history text-dark"></i> History <small>- You can use these skins by clicking them</small></h6>
-                          <div class="card-body">
-                            <a id="mineskin-recent" href="<?php echo cacheGrab('https://api.mineskin.org/get/list/0?size=6','mineskin-recent','./',(10*60)); ?>" style="display:none;"></a>
-                            <div class="row" id="skinlist"></div>
-                            <script type="text/javascript">
-                              setCookie('skinHistoryType', 'mineskin');
-                              function getCookie(cname) {
-                                var value = "; " + document.cookie;
-                                var parts = value.split("; " + cname + "=");
-                                if (parts.length == 2) return parts.pop().split(";").shift();
-                              }
-                              var historytype = getCookie('skinHistoryType');
-                              if (historytype == 'personal') {
-                                
-                              } else if (historytype == 'server') {
-                                
-                              } else if (historytype == 'mineskin') {
-                                $.getJSON($('#mineskin-recent')[0].href,{}, function( lst ){ 
-                                  $.each( lst.skins.slice(0,6), function( key, val ) {
-                                    skinid = val.url.match(/\w+$/);
-                                    $('#skinlist').append('<div class="col-2 skinlist-mineskin"><img class="skinlistitem" style="max-width:75px;width:inherit;cursor:pointer;" title="'+
-                                      ('Select skin '+val.name).trim()+'" onclick="skinURL(\'resources/server/skinRender.php?format=raw&mojang='+skinid+'\');" src="resources/server/skinRender.php?mojang='+skinid+'"></div>');
-                                  });
-                                });
-                              }
-                              function skinURL(url) {
-                                $('#uploadtype-url').prop('checked', true).change();
-                                $('#input-url').val(url);
-                              }
-                            </script>
-                          </div>
-                        </div>
-                      </div>
-                    <?php } ?>
                   </div>
                 <?php } else { ?>
                   <script src="resources/js/authenCore.js"></script>
