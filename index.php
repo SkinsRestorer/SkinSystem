@@ -88,7 +88,7 @@
                                 </div>
                               </div>
                             <?php } ?>
-                            <div class="form-group" style="display: none;">
+                            <div class="form-group">
                               <h5 class="mb-0 mr-3 custom-control-inline"><span class="badge badge-info">Skin Type</span></h5>
                               <div class="custom-control custom-radio custom-control-inline">
                                 <input id="skintype-steve" class="custom-control-input" name="isSlim" value="false" type="radio">
