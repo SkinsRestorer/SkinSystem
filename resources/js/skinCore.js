@@ -55,54 +55,6 @@ $(document).ready(function(){
     });
   });
 
-  /* Initialize MineSkin */
-  var skinRender = new SkinRender({
-    autoResize : true,
-    controls : {
-      enabled : false,
-      zoom : false,
-      rotate : false,
-      pan : false
-    },
-    canvas : {
-      height : $("#skinViewerContainer")[0].offsetHeight,
-      width : $("#skinViewerContainer")[0].offsetWidth
-    },
-    camera : {
-      x : 15,
-      y : 25,
-      z : 24,
-      target: [0, 17, 0]
-    }
-  }, $("#skinViewerContainer")[0]);
-
-  /* Add some animate to a model in SkinPreview */
-  var startTime = Date.now();
-  var t;
-  $("#skinViewerContainer").on("skinRender", function(e){
-    if(!e.detail.playerModel){ return; }
-    e.detail.playerModel.rotation.y += 0.01;
-    t = (Date.now() - startTime) / 1000;
-    e.detail.playerModel.children[2].rotation.x = Math.sin(t * 5) / 2;
-    e.detail.playerModel.children[3].rotation.x = -Math.sin(t * 5) / 2;
-    e.detail.playerModel.children[4].rotation.x = Math.sin(t * 5) / 2;
-    e.detail.playerModel.children[5].rotation.x = -Math.sin(t * 5) / 2;
-  });
-
-  /* RENDER FUNCTION */
-  function render(){
-    if(skinURL === undefined){ return; }
-
-    if($('[id^=minerender-canvas-]')[0]){
-      skinRender.clearScene();
-    }
-
-    skinRender.render({
-      url : skinURL,
-      slim : isSlim
-    });
-  }
-
   /* Check what type of skins (Alex or Steve) */
   function skinChecker(callback){
     var image = new Image();
@@ -141,7 +93,6 @@ $(document).ready(function(){
     skinChecker(function(){
       $("#skintype-alex").prop("checked", isSlim);
       $("#skintype-steve").prop("checked", !isSlim);
-      render();
     });
   });
 
@@ -152,14 +103,12 @@ $(document).ready(function(){
     skinChecker(function(){
       $("#skintype-alex").prop("checked", isSlim);
       $("#skintype-steve").prop("checked", !isSlim);
-      render();
     });
   });
 
   /* If user changes skintype radios */
   $("[id^=skintype-]").on("change", function(){
     isSlim = !isSlim;
-    render();
   });
 
   /* Change file name when user changes skin file */

@@ -40,8 +40,6 @@
     </script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/94/three.min.js"></script>
-    <script src="https://minerender.org/dist/skin.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
   </head>
   <body class="bg-light">
@@ -49,7 +47,7 @@
     <section class="bg-light h-100">
       <div class="container h-100">
         <div class="row h-100">
-          <div class="col-lg-<?php echo(!empty($_SESSION['username']) ? 8 : 6); ?> m-auto">
+          <div class="col-lg-6 m-auto">
             <div class="card border-0 shadow">
               <div class="card-header bg-primary text-white">
                 <div class="row mx-2 align-items-center">
@@ -71,9 +69,7 @@
               <div class="card-body">
                 <?php if(!empty($_SESSION['username'])){ ?>
                   <script src="resources/js/skinCore.js"></script>
-                  <div class="row">
-                    <!-- Uploader -->
-                    <div class="col-lg-8 pr-lg-2 mb-lg-0 mb-3">
+                    <div class="col-lg-16 pr-lg-2 mb-lg-0 mb-3">
                       <div class="card border-0 shadow">
                         <h6 class="card-header bg-info text-white"><i class="fas fa-file-upload text-dark"></i> Upload</h6>
                         <div class="card-body">
@@ -86,7 +82,7 @@
                                 </div>
                               </div>
                             <?php } ?>
-                            <div class="form-group" style="display: none;">
+                            <div class="form-group">
                               <h5 class="mb-0 mr-3 custom-control-inline"><span class="badge badge-info">Skin Type</span></h5>
                               <div class="custom-control custom-radio custom-control-inline">
                                 <input id="skintype-steve" class="custom-control-input" name="isSlim" value="false" type="radio">
@@ -123,22 +119,8 @@
                             <small class="form-text text-muted" id="uploadDisclaimer">Skins are sent to <a href="https://mineskin.org">mineskin.org</a>, <a href="https://mojang.com">mojang.com</a>, and <a href="/"><?php echo $_SERVER['HTTP_HOST'] ?></a></small>
                           </form>
                         </div>
-                      </div>
                     </div>
-                    <!-- Skin Viewer -->
-                    <div class="col-lg-4">
-                      <div class="card border-0 shadow">
-                        <h6 class="card-header bg-info text-white"><i class="fas fa-eye text-dark"></i> Preview</h6>
-                        <div class="card-body">
-                          <div id="skinViewerContainer"></div>
-                          <script type="text/javascript">
-                            window.onresize = function () { // skinViewer height shall match uploadSkin
-                              document.getElementById('skinViewerContainer').style.height = document.getElementById('uploadSkinForm').clientHeight+'px'; }
-                            window.onresize();
-                          </script>
-                        </div>
-                      </div>
-                    </div>
+                    <!-- Uploader -->
                   </div>
                 <?php } else { ?>
                   <script src="resources/js/authenCore.js"></script>
