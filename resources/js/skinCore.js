@@ -21,10 +21,11 @@ $(document).ready(function(){
       if(res.success){
         Swal.fire({
           type : "success",
-          title : "Upload Successfully!",
-          text : "Enjoy with your skin",
+          title : "Upload Successful!",
+          text : "Enjoy your skin",
           heightAuto : false
         });
+        setTimeout(function(){ location.reload(); }, 350);
       } else {
         Swal.fire({
           type : "error",
@@ -40,18 +41,18 @@ $(document).ready(function(){
 
   /* If user changes uploadtype */
   $("[id^=uploadtype-]").on("change", function(){
-    if($("#uploadtype-file")[0].checked == true){
-      $("#form-input-file").show();
-      $("#form-input-url").hide();
-      $("#input-url").prop("required", false);
-      $("#input-file").prop("required", true);
-    }
-    if($("#uploadtype-url")[0].checked == true){
-      $("#form-input-file").hide();
-      $("#form-input-url").show();
-      $("#input-url").prop("required", true);
-      $("#input-file").prop("required", false);
-    }
+    ['file', 'url'].forEach(function(nm) {
+      if ($("#uploadtype-"+nm)[0].checked == true) {
+        $("#form-input-"+nm).show();
+        $("#input-"+nm).prop("required", true);
+        $("#input-"+nm).trigger("change");
+        $("#input-"+nm).trigger("input");
+      }
+      else {
+        $("#form-input-"+nm).hide();
+        $("#input-"+nm).prop("required", false);
+      }
+    });
   });
 
   /* Initialize MineSkin */
@@ -74,7 +75,12 @@ $(document).ready(function(){
       target: [0, 17, 0]
     }
   }, $("#skinViewerContainer")[0]);
-
+  skinURL = document.querySelectorAll('a.skinDownload')[0].href;
+  skinChecker(function(){
+    $("#skintype-alex").prop("checked", isSlim);
+    $("#skintype-steve").prop("checked", !isSlim);
+    render();
+  });
   /* Add some animate to a model in SkinPreview */
   var startTime = Date.now();
   var t;
@@ -128,7 +134,6 @@ $(document).ready(function(){
           break;
         }
       }
-
       isSlim = allTransparent;
       if(callback !== undefined){ callback(); }
     }
@@ -137,7 +142,6 @@ $(document).ready(function(){
   /* If user changes skin file */
   $("#input-file").on("change", function(event){
     if($("#input-file")[0].files.length === 0){ return; }
-
     skinURL = URL.createObjectURL(event.target.files[0]);
     skinChecker(function(){
       $("#skintype-alex").prop("checked", isSlim);
@@ -147,10 +151,9 @@ $(document).ready(function(){
   });
 
   /* If user changes skin URL */
-  $("#input-url").on("change", function(){
+  $("#input-url").on("input", function(){
+    setTimeout(function(){ skinURL = $("#input-url").val(); }, 350);
     if(!$("#input-url").val()){ return; }
-
-    skinURL = $("#input-url").val();
     skinChecker(function(){
       $("#skintype-alex").prop("checked", isSlim);
       $("#skintype-steve").prop("checked", !isSlim);

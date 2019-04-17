@@ -1,10 +1,10 @@
 $(document).ready(function(){
-  $("#authme-activation").on("change", function(){
-    if($("#authme-activation")[0].checked == true){
-      $("#authenticationsecurity-activation-form").show();
+  $("#am-activation").on("change", function(){
+    if($("#am-activation")[0].checked == true){
+      $("#as-activation-form").show();
       $("#am-config-form").show();
     } else {
-      $("#authenticationsecurity-activation-form").hide();
+      $("#as-activation-form").hide();
       $("#am-config-form").hide();
     }
   });
@@ -21,7 +21,7 @@ $(document).ready(function(){
   });
 
   $("#installation-form").on("submit", function(e){
-    if($("#sr-config-input").val() == "" || ( $("#authme-activation")[0].checked == true && $("#am-config-input").val() == "" )){
+    if($("#sr-config-input").val() == "" || ( $("#am-activation")[0].checked == true && $("#am-config-input").val() == "" )){
       $("#alert").show();
       $("#alert").find("span").html("Please select <strong>config.yml!</strong>");
       return false;
@@ -43,8 +43,8 @@ $(document).ready(function(){
         $("#alert").show();
         $("#alert").removeClass("alert-danger").addClass("alert-success");
         $("#alert").find("i").removeClass("fas fa-exclamation-circle").addClass("fas fa-check-circle");
-        $("#alert").find("span").html("Installation success!, Please wait...");
-        setTimeout(function(){ location.reload(); }, 2000);
+        $("#alert").find("span").html("Installation success! Please wait...");
+        setTimeout(function(){ location.reload(); }, 350);
       } else {
         $("#alert").show();
         $("#alert").find("span").html(res.error);

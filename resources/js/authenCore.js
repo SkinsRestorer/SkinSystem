@@ -13,16 +13,24 @@ $(document).ready(function(){
       if(res.success){
         Swal.fire({
           type : "success",
-          title : "Login Successfully!",
-          text : "Enjoy with your skin",
+          title : "Login Successful!",
+          text : "Enjoy your skins",
           heightAuto : false
         });
-        setTimeout(function(){ location.reload(); }, 1000);
-      } else if(res.error.code == 404){
+        setTimeout(function(){ location.reload(); }, 350);
+      } else if(res.error.code == 401){
         Swal.fire({
           type : "error",
-          title : "Something went wrong!",
-          text : "Please check your username or password",
+          title : "Invalid username/password!",
+          text : res.error.data,
+          heightAuto : false
+        });
+        console.log(res);
+      } else if(res.error.code == 429){
+        Swal.fire({
+          type : "error",
+          title : "You're rate limited!",
+          text : res.error.data,
           heightAuto : false
         });
         console.log(res);
