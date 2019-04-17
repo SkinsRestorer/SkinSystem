@@ -67,7 +67,7 @@ MySQL:
 3. After putting `The SkinSystem` into your **web-root** directory you should see `The SkinSystem` on your website. You will see like this down below.
 
 <p align="center">
-  <img src="https://i.imgur.com/naeNvbO.png" alt="Installation view">
+  <img src="https://media.discordapp.net/attachments/567898623359189002/568105790984945697/unknown.png" alt="Installation view" height="300">
 </p>
 
 4. Just choose **config.yml** to install this system!
