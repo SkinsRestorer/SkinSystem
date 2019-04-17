@@ -10,7 +10,7 @@
   $srPDOinstance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
   /* When working with AuthMe or SkinsRestorer database */
-	function query($type, $mysqlcommand, $key = []){
+  function query($type, $mysqlcommand, $key = []){
     if($type == 'am'){
       global $amPDOinstance;
       $result = $amPDOinstance->prepare($mysqlcommand);
@@ -21,7 +21,7 @@
       $result->execute($key);
     }
     return $result;
-	}
+  }
 
   function printDataAndDie($data = []){
     if(!isset($data['success'])){ $data['success'] = empty($data['error']); }
