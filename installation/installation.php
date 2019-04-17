@@ -28,7 +28,14 @@
           'threshold_hours' => 24
         ]
       ],
-      'sr' => [],
+      'sr' => [
+        'host' => '',
+        'port' => '',
+        'database' => '',
+        'playertable' => '',
+        'username' => '',
+        'password' => ''
+      ],
       'cache_for_days' => 7,
       'cache_dir' => 'resources/cache/'
     ];
