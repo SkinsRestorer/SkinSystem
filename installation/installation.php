@@ -66,7 +66,7 @@
     if(empty($_FILES['sr-config']['tmp_name'])){ prntErrorAndDie('Invalid Request! (SkinsRestorer File)'); }
     $is_srconfig = preg_match('/MySQL:((?:\n\s+.*)*)/', file_get_contents($_FILES['sr-config']['tmp_name']), $re);
     if(!$is_srconfig){ prntErrorAndDie('This file isn\'t SkinsRestorer\'s config!'); }
-    preg_match_all('/\n\s*([^#\/:]+):[^\w.:]*([\w.: ]*[\w.:])/', $re[0], $re); 
+    preg_match_all('/\n\s*(\w+):\s*[\'"]?([\'"]{2}|[^\s\'"]+)/', $re[0], $re); 
     $kitms = ['enabled', 'host', 'port', 'database', 'skintable', 'playertable', 'username', 'password'];
     foreach ($re[1] as $k => $v) {$v = strtolower($v); if (in_array($v, $kitms)) {$config['sr'][$v]=$re[2][$k];};}
     if($config['sr']['enabled'] == false){ prntErrorAndDie('Please make sure SkinsRestorerDB system is enabled!:'.$config['sr'][0]); }
@@ -79,7 +79,7 @@
       if(empty($_FILES['am-config']['tmp_name'])){ prntErrorAndDie('Invalid Request! (AuthMe File)'); }
       $is_srconfig = preg_match('/DataSource:((?:\n\s+.*)*)/', file_get_contents($_FILES['am-config']['tmp_name']), $re);
       if(!$is_srconfig){ prntErrorAndDie('This file isn\'t AuthMe\'s config!'); }
-      preg_match_all('/\n\s*(?:mySQL)?([^#\/:]+):[^\w.:]*([\w.: ]*[\w.:])/', $re[0], $re);
+      preg_match_all('/\n\s*(?:mySQL)?([^#\/:]+):\s*[\'"]?([\'"]{2}|[^\s\'"]+)/', $re[0], $re);
       $kitms = ['backend', 'enabled', 'host', 'port', 'database', 'username', 'password'];
       foreach ($re[1] as $k => $v) {$v = strtolower($v); if (in_array($v, $kitms)) {$config['am'][$v]=$re[2][$k];};}
       if($config['am']['backend'] !== 'MYSQL'){ prntErrorAndDie('Please make sure AuthMeDB system is \'MYSQL\'!'); }
