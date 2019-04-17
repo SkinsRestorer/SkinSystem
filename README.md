@@ -32,9 +32,9 @@
 ## :eyeglasses: Examples
 
 <p align="center">
-  <img src="https://i.imgur.com/naeNvbO.png" alt="The SkinSystem Preview" width="350">
-  <img src="https://i.imgur.com/X3aSrnB.png" alt="The SkinSystem Preview" width="350">
-  <img src="https://i.imgur.com/thQrsxu.png" alt="The SkinSystem Preview" width="350">
+  <img src="https://media.discordapp.net/attachments/567898623359189002/568105790984945697/unknown.png" alt="The SkinSystem Preview" height="225">
+  <img src="https://media.discordapp.net/attachments/567898623359189002/567898647107338250/unknown.png" alt="The SkinSystem Preview" height="225">
+  <img src="https://media.discordapp.net/attachments/567898623359189002/567899210628726801/unknown.png" alt="The SkinSystem Preview" height="300">
   <p align="center"><b>Installation</b> view / <b>SkinUploader</b> view / <b>Authen</b> view (<i>when you use this system with Authme</i>)</p>
 </p>
 
