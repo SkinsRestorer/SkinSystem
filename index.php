@@ -40,6 +40,8 @@
     </script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/94/three.min.js"></script>
+    <script src="https://minerender.org/dist/skin.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
   </head>
   <body class="bg-light">
@@ -47,7 +49,7 @@
     <section class="bg-light h-100">
       <div class="container h-100">
         <div class="row h-100">
-          <div class="col-lg-6 m-auto">
+          <div class="col-lg-<?php echo(!empty($_SESSION['username']) ? 8 : 6); ?> m-auto">
             <div class="card border-0 shadow">
               <div class="card-header bg-primary text-white">
                 <div class="row mx-2 align-items-center">
@@ -59,7 +61,9 @@
                   </h5>
                   <h6 class="mb-0 ml-auto">
                     <?php if($config['am']['enabled'] == true && !empty($_SESSION['username'])){ 
-                      echo '<i class="fas fa-user"></i> '.htmlspecialchars($_SESSION['username'], ENT_QUOTES); ?></a>
+                      $SkullURL = 'resources/server/skinRender.php?vr=0&hr=0&headOnly=true&ratio=4&user='.$_SESSION['username'];
+                      echo '<a class="skinDownload" title="Download skin" href="resources/server/skinRender.php?format=raw&dl=true&user='.$_SESSION['username'].
+                      '"><img class="skinDownload" style="max-height:29px!important;" src="'.$SkullURL.'">    '.htmlspecialchars($_SESSION['username'], ENT_QUOTES); ?></a>
                       <a class="btn btn-sm btn-light ml-2 rounded-circle" title="Log out" href="resources/server/authenCore.php?logout"><i class="fas fa-sign-out-alt"></i></a>
                     <?php } ?>
                   </h6>
@@ -69,7 +73,9 @@
               <div class="card-body">
                 <?php if(!empty($_SESSION['username'])){ ?>
                   <script src="resources/js/skinCore.js"></script>
-                    <div class="col-lg-16 pr-lg-2 mb-lg-0 mb-3">
+                  <div class="row">
+                    <!-- Uploader -->
+                    <div class="col-lg-8 pr-lg-2 mb-lg-0 mb-3">
                       <div class="card border-0 shadow">
                         <h6 class="card-header bg-info text-white"><i class="fas fa-file-upload text-dark"></i> Upload</h6>
                         <div class="card-body">
@@ -119,8 +125,60 @@
                             <!-- <small class="form-text text-muted" id="uploadDisclaimer">Skins are sent to <a href="https://mineskin.org">mineskin.org</a>, <a href="https://mojang.com">mojang.com</a>, and <a href="/"><?php echo $_SERVER['HTTP_HOST'] ?></a></small> -->
                           </form>
                         </div>
+                      </div>
                     </div>
-                    <!-- Uploader -->
+                    <!-- Skin Viewer -->
+                    <div class="col-lg-4">
+                      <div class="card border-0 shadow">
+                        <h6 class="card-header bg-info text-white"><i class="fas fa-eye text-dark"></i> Preview</h6>
+                        <div class="card-body">
+                          <div id="skinViewerContainer"></div>
+                          <script type="text/javascript">
+                            window.onresize = function () { // skinViewer height shall match uploadSkin
+                              document.getElementById('skinViewerContainer').style.height = document.getElementById('uploadSkinForm').clientHeight+'px'; }
+                            window.onresize();
+                          </script>
+                        </div>
+                      </div>
+                    </div>
+                    <?php if(false){ ?>
+                      <!-- Skin History -->
+                      <div class="col-lg-12 mt-3">
+                        <div class="card border-0 shadow">
+                          <h6 class="card-header bg-info text-white"><i class="fas fa-history text-dark"></i> History <small>- You can use these skins by clicking them</small></h6>
+                          <div class="card-body">
+                            <a id="mineskin-recent" href="<?php echo cacheGrab('https://api.mineskin.org/get/list/0?size=6','mineskin-recent','./',(10*60)); ?>" style="display:none;"></a>
+                            <div class="row" id="skinlist"></div>
+                            <script type="text/javascript">
+                              setCookie('skinHistoryType', 'mineskin');
+                              function getCookie(cname) {
+                                var value = "; " + document.cookie;
+                                var parts = value.split("; " + cname + "=");
+                                if (parts.length == 2) return parts.pop().split(";").shift();
+                              }
+                              var historytype = getCookie('skinHistoryType');
+                              if (historytype == 'personal') {
+                                
+                              } else if (historytype == 'server') {
+                                
+                              } else if (historytype == 'mineskin') {
+                                $.getJSON($('#mineskin-recent')[0].href,{}, function( lst ){ 
+                                  $.each( lst.skins.slice(0,6), function( key, val ) {
+                                    skinid = val.url.match(/\w+$/);
+                                    $('#skinlist').append('<div class="col-2 skinlist-mineskin"><img class="skinlistitem" style="max-width:75px;width:inherit;cursor:pointer;" title="'+
+                                      ('Select skin '+val.name).trim()+'" onclick="skinURL(\'resources/server/skinRender.php?format=raw&mojang='+skinid+'\');" src="resources/server/skinRender.php?mojang='+skinid+'"></div>');
+                                  });
+                                });
+                              }
+                              function skinURL(url) {
+                                $('#uploadtype-url').prop('checked', true).change();
+                                $('#input-url').val(url);
+                              }
+                            </script>
+                          </div>
+                        </div>
+                      </div>
+                    <?php } ?>
                   </div>
                 <?php } else { ?>
                   <script src="resources/js/authenCore.js"></script>
