@@ -3,6 +3,20 @@
   if($config['am']['enabled'] == false){ printErrorAndDie('Unusable system!'); }
   session_start();
 
+  function isValidPassword($password, $hash){
+    global $config;
+    $method = strtolower($config['am']['hash']['method']);
+    $parts = explode('$', $hash);
+    if (in_array($method, hash_algos())) {
+      return(count($parts) === 4 && $parts[3] === hash($method,  hash($method, $password) . $parts[2]));
+    } elseif ($method === 'pbkdf2') {
+      $iter = $config['am']['hash']['pbkdf2rounds'];
+      $chash = 'pbkdf2_sha256$'.$iter.'$'.$parts[2].'$'.hash_pbkdf2('sha256', $password, $parts[2], (int)$iter, 64, false);
+      return(strtolower(substr($hash, 0, strlen($chash))) === strtolower($chash));
+    } else {
+      return(password_verify($password, $hash));
+    }
+  }
   /* logout Request */
   if(isset($_GET['logout'])){ session_destroy(); header('Location: ../../'); }
 
@@ -17,21 +31,23 @@
     // rate limit by username they are trying to log into (limit+1, limit IP before username)
     $blk[1] = $cdir.'.loginratelimit-user-'.preg_replace('/[^ \w]+/', '-', $username);
     $now = time();
-    if (max([filemtime($blk[0]), filemtime($blk[1])]) < $now) {
+    if (!is_file($blk[0]) or !is_file($blk[1]) or (max([filemtime($blk[0]), filemtime($blk[1])]) < $now)) {
       $password = $_POST['password'];
       /* Get user's password from AuthMe Storage */
       $pdo = query('am', 'SELECT password FROM authme WHERE username = ?', [$username]);
       /* Analyse AuthMe Password Algorithm */
-      $hashParts = explode('$', $pdo->fetch(PDO::FETCH_ASSOC)['password']);
-      if(count($hashParts) == 4 && hash('sha256',  hash('sha256', $password) . $hashParts[2]) == $hashParts[3]){
+      if(isValidPassword($password, $pdo->fetch(PDO::FETCH_ASSOC)['password'])){
         $_SESSION['username'] = $username;
         foreach ($blk as $rlfl) {if (is_file($rlfl)) { unlink($rlfl); }}
         printDataAndDie();
       } else {
         /* Login failed, they should stop soon! */
         foreach ($blk as $index => $rlfl) {
-          $failvl = filemtime($rlfl);
-          if (($failvl < ($now - $timeout)) or (!is_file($rlfl))) {$failvl = ($now - $timeout);} 
+          if (!is_file($rlfl) or filemtime($rlfl) < ($now - $timeout)) {
+            $failvl = ($now - $timeout);
+          } else {
+            $failvl = filemtime($rlfl);
+          }
           $failvl = ($failvl + ($timeout/($config['am']['authsec']['failed_attempts']+$index)) + 120);
           touch($rlfl, $failvl);
         }

@@ -22,6 +22,9 @@
         'database' => '',
         'username' => '',
         'password' => '',
+        'hash' => [
+          'method' => 'sha256'
+        ],
         'authsec' => [
           'enabled' => true,
           'failed_attempts' => 3,
@@ -32,6 +35,7 @@
         'host' => '',
         'port' => '',
         'database' => '',
+        'skintable' => '',
         'playertable' => '',
         'username' => '',
         'password' => ''
@@ -77,12 +81,19 @@
     if(!empty($_POST['am-activation'])){
       $config['am']['enabled'] = true;
       if(empty($_FILES['am-config']['tmp_name'])){ prntErrorAndDie('Invalid Request! (AuthMe File)'); }
-      $is_srconfig = preg_match('/DataSource:((?:\n\s+.*)*)/', file_get_contents($_FILES['am-config']['tmp_name']), $re);
+      $raw_amconfig = file_get_contents($_FILES['am-config']['tmp_name']);
+      $is_srconfig = preg_match('/DataSource:((?:\n\s+.*)*)/', $raw_amconfig, $re);
       if(!$is_srconfig){ prntErrorAndDie('This file isn\'t AuthMe\'s config!'); }
       preg_match_all('/\n\s*(?:mySQL)?([^#\/:]+):\s*[\'"]?([\'"]{2}|[^\s\'"]+)/', $re[0], $re);
       $kitms = ['backend', 'enabled', 'host', 'port', 'database', 'username', 'password'];
       foreach ($re[1] as $k => $v) {$v = strtolower($v); if (in_array($v, $kitms)) {$config['am'][$v]=$re[2][$k];};}
       if($config['am']['backend'] !== 'MYSQL'){ prntErrorAndDie('Please make sure AuthMeDB system is \'MYSQL\'!'); }
+      if(preg_match('/\n\s*passwordHash:\s*[\'"]?([\'"]{2}|[^\s\'"]+)/', $raw_amconfig, $re)){
+        $config['am']['hash']['method'] = strtolower($re[1]);
+        if ($config['am']['hash']['method'] === 'pbkdf2') {
+          if(preg_match('/\n\s*pbkdf2Rounds:\s*[\'"]?([\'"]{2}|[^\s\'"]+)/', $raw_amconfig, $re)){$config['am']['hash']['pbkdf2rounds'] = $re[1];}
+        }
+      }
     } 
     unset($config['am']['backend']);
 
