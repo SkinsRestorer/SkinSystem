@@ -122,7 +122,14 @@
                               </div>
                             </div>
                             <button class="btn btn-primary w-100"><strong>Upload!</strong></button>
-                            <!-- <small class="form-text text-muted" id="uploadDisclaimer">Skins are sent to <a href="https://mineskin.org">mineskin.org</a>, <a href="https://mojang.com">mojang.com</a>, and <a href="/"><?php echo $_SERVER['HTTP_HOST'] ?></a></small> -->
+                            <small class="form-text text-muted" id="uploadDisclaimer"<?php 
+                              if ($config['data_warn'] === 'no' or ($config['data_warn'] === 'eu' and file_get_contents(cacheGrab('https://ipapi.co/'.IP.'/in_eu', 'in_eu-'.IP)) !== 'True')) {
+                                echo ' style="display: none;"';
+                              }
+                            ?>>Skins are sent to <a href="https://mineskin.org">mineskin.org</a>, <a href="https://mojang.com">mojang.com</a>, and <a href="/"><?php echo $_SERVER['HTTP_HOST'] ?></a></small>
+                            <script type="text/javascript">
+                              console.log("in_eu: <?php echo $in_eu; ?>")
+                            </script>
                           </form>
                         </div>
                       </div>

@@ -15,6 +15,7 @@
     $defaults = [
       'version' => false,
       'def_theme' => $thm[1],
+      'data_warn' => 'no',
       'am' => [
         'enabled' => false,
         'host' => '',
@@ -54,7 +55,8 @@
       '/(\s+)\'am\' => \[/' => '$1/* AuthMe Configuration */$0',
       '/(\s+)\'sr\' => \[/' => '$1/* SkinsRestorer Configuration */$0',
       '/(\s+)\'cache_for_days\' => /' => '$1/* Cache Configuration */$0',
-      '/(\s+)\'def_theme\' => /' => '$1/* Default theme for new users */$0'
+      '/(\s+)\'def_theme\' => /' => '$1/* Default theme for new users */$0',
+      '/(\s+)\'data_warn\' => /' => "$1/* Warn all/eu/no users of data usage. 'eu' queries https://ipapi.co/<ip address>/in_eu */$0"
     ];
     $confarr = preg_replace(array_keys($repl), $repl, var_export(array_replace_recursive($defaults, $config), true));
     $byteswritten = file_put_contents(__DIR__ . '/../config.nogit.php', "<?php return".$confarr.";?>");
