@@ -23,9 +23,9 @@
 ## :eyeglasses: Examples
 
 <p align="center">
-  <img src="https://media.discordapp.net/attachments/567898623359189002/568105790984945697/unknown.png" alt="The SkinSystem Preview" height="225">
-  <img src="https://media.discordapp.net/attachments/567898623359189002/567899210628726801/unknown.png" alt="The SkinSystem Preview" height="225">
-  <img src="https://media.discordapp.net/attachments/567898623359189002/567898647107338250/unknown.png" alt="The SkinSystem Preview" height="225">
+  <img src="https://i.imgur.com/5baEOlG.png" alt="The SkinSystem Preview" height="200">
+  <img src="https://i.imgur.com/AbZgB5n.png" alt="The SkinSystem Preview" height="200">
+  <img src="https://i.imgur.com/grNDVYA.png" alt="The SkinSystem Preview" height="200">
   <p align="center"><b>Installation</b> view / <b>SkinUploader</b> view / <b>Authen</b> view (<i>when you use this system with Authme</i>)</p>
 </p>
 
@@ -42,7 +42,7 @@
 
 ## :wrench: Installation
 
-#### If you use **Ubuntu 18.04**+, you may run **this command** to *automagically* install apache+mysql+git+curl, set apache2 webpage, and generate MySQL credentials:
+:grey_exclamation: If you use **Ubuntu 18.04**+, you may run **this command** to *automagically* install apache+mysql+git+curl, set apache2 webpage, and generate MySQL credentials:
 
 ```bash
 sudo bash -c "apt-get update && apt-get install curl -y && curl -s https://raw.githubusercontent.com/riflowth/SkinSystem/master/installscripts/UbuntuInstall.sh | bash -s"
@@ -79,7 +79,9 @@ If you don't have a database password, You should fill `''` into `Password` sect
 1. Load The SkinSystem from your webserver. You should be shown an installation page looking something like this:
 
 <p align="center">
-  <img src="https://media.discordapp.net/attachments/567898623359189002/568105790984945697/unknown.png" alt="Installation view" height="300">
+  <img src="https://i.imgur.com/naeNvbO.png" alt="Installation view" height="240">
+  <img src="https://i.imgur.com/zIKwLTu.png" alt="Installation view" height="240">
+  <p align="center">( <b>Light</b> theme / <b>Dark</b> theme )</p>
 </p>
 
 2. Select **config.yml** for SkinsRestorer(and AuthMe), making sure database is enabled and working.
