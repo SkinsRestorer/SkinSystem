@@ -75,12 +75,17 @@ $(document).ready(function(){
       target: [0, 17, 0]
     }
   }, $("#skinViewerContainer")[0]);
-  //skinURL = document.querySelectorAll('a.skinDownload')[0].href;
-  skinChecker(function(){
-    $("#skintype-alex").prop("checked", isSlim);
-    $("#skintype-steve").prop("checked", !isSlim);
-    render();
-  });
+  
+  /* On skin load */
+  if (document.querySelectorAll('a.skinDownload')[0].href) {
+    skinURL = document.querySelectorAll('a.skinDownload')[0].href;
+    skinChecker(function(){
+      $("#skintype-alex").prop("checked", isSlim);
+      $("#skintype-steve").prop("checked", !isSlim);
+      render();
+    });
+  }
+
   /* Add some animate to a model in SkinPreview */
   var startTime = Date.now();
   var t;
