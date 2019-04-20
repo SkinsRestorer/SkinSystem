@@ -76,7 +76,7 @@ $(document).ready(function(){
     }
   }, $("#skinViewerContainer")[0]);
   
-  /* On skin load */
+  /* On page load, load playerskin */
   if (document.querySelectorAll('a.skinDownload')[0].href) {
     skinURL = document.querySelectorAll('a.skinDownload')[0].href;
     skinChecker(function(){
