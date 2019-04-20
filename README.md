@@ -23,9 +23,9 @@
 ## :eyeglasses: Examples
 
 <p align="center">
-  <img src="https://i.imgur.com/5baEOlG.png" alt="The SkinSystem Preview" height="200">
-  <img src="https://i.imgur.com/AbZgB5n.png" alt="The SkinSystem Preview" height="200">
-  <img src="https://i.imgur.com/grNDVYA.png" alt="The SkinSystem Preview" height="200">
+  <img src="https://i.imgur.com/5baEOlG.png" alt="The SkinSystem Preview" height="230">
+  <img src="https://i.imgur.com/AbZgB5n.png" alt="The SkinSystem Preview" height="230">
+  <img src="https://i.imgur.com/grNDVYA.png" alt="The SkinSystem Preview" height="230">
   <p align="center"><b>Installation</b> view / <b>SkinUploader</b> view / <b>Authen</b> view (<i>when you use this system with Authme</i>)</p>
 </p>
 
