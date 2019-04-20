@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-  The <b>SkinSystem</b> developed for cracked <strong>Minecraft's server</strong> allowing to change their player skin into a <strong>custom skin</strong>.
+  The <b>SkinSystem</b>; developed for cracked <strong>Minecraft servers</strong>, allowing for changes of player skins to something more <strong>custom</strong>.
 </p>
 
 <p align="center">
@@ -16,6 +16,17 @@
   <a href="https://github.com/riflowth/SkinSystem/releases"><img src="https://img.shields.io/github/downloads/riflowth/SkinSystem/total.svg" alt="Download"></a>
   <a href="https://www.paypal.me/wheprakhone"><img src="http://ionicabizau.github.io/badges/paypal.svg" alt="PayPal Donate"></a>
   <a href="https://www.spigotmc.org/resources/the-skinsystem.59403/"><img src="https://img.shields.io/badge/view%20on-spigotmc-orange.svg" alt="View on spigotmc.org"</a>
+</p>
+
+---
+
+## :eyeglasses: Examples
+
+<p align="center">
+  <img src="https://media.discordapp.net/attachments/567898623359189002/568105790984945697/unknown.png" alt="The SkinSystem Preview" height="225">
+  <img src="https://media.discordapp.net/attachments/567898623359189002/567899210628726801/unknown.png" alt="The SkinSystem Preview" height="225">
+  <img src="https://media.discordapp.net/attachments/567898623359189002/567898647107338250/unknown.png" alt="The SkinSystem Preview" height="225">
+  <p align="center"><b>Installation</b> view / <b>SkinUploader</b> view / <b>Authen</b> view (<i>when you use this system with Authme</i>)</p>
 </p>
 
 ---
@@ -29,20 +40,28 @@
 
 ---
 
-## :eyeglasses: Examples
-
-<p align="center">
-  <img src="https://i.imgur.com/naeNvbO.png" alt="The SkinSystem Preview" width="350">
-  <img src="https://i.imgur.com/X3aSrnB.png" alt="The SkinSystem Preview" width="350">
-  <img src="https://i.imgur.com/thQrsxu.png" alt="The SkinSystem Preview" width="350">
-  <p align="center"><b>Installation</b> view / <b>SkinUploader</b> view / <b>Authen</b> view (<i>when you use this system with Authme</i>)</p>
-</p>
-
----
-
 ## :wrench: Installation
 
-* **IMPORTANT** Don't forget to *enable* **Database** in your **SkinsRestorer** configuration, located here: `minecraftserver/plugins/SkinRestorer/config.yml`
+#### If you use **Ubuntu 18.04**+, you may run **this command** to *automagically* install apache+mysql+git+curl, set apache2 webpage, and generate MySQL credentials:
+
+```bash
+sudo bash -c "apt-get update && apt-get install curl -y && curl -s https://raw.githubusercontent.com/riflowth/SkinSystem/master/installscripts/UbuntuInstall.sh | bash -s"
+```
+
+#### **otherwise**, follow **these directions**:
+
+1. Install MySQL
+2. Install and configure a webserver that supports php, php-curl, php-mysql, and php-gd. (apache2 may be used)
+3. Make sure your webserver is accessible.
+4. Create databases `skinsrestorer` and `authme`. [Commands](https://gist.github.com/ITZVGcGPmO/a3dffa0db198919ae002efcad444ae34)
+5. Download the latest **release** version from [**here!**](https://github.com/riflowth/SkinSystem/releases)
+6. Put all of `The SkinSystem` into your **web-root** directory.
+
+### :star: Let's start!!!
+
+* **IMPORTANT** Enable **Database** in your **AuthMe** configuration. (Optional)
+
+* **IMPORTANT** Enable **Database** in your **SkinsRestorer** configuration. 
 Example configuration:
 ```YML
 MySQL:
@@ -55,25 +74,18 @@ MySQL:
   Username: root
   Password: ''
 ```
-* Configuration option:
-  * Turn on a database by change `false` to `true` on the Enabled section.
-  * The Database section, You can input a name anything you want.
-  * **IMPORTANT** Don't forget to input your `Host`, `Port`, `Username`, `Password` into it. If you don't have a database password, You should fill `''` into `Password` section like me.
+If you don't have a database password, You should fill `''` into `Password` section.
 
-### :star: Let's start!!!
-
-1. Download **release** version from [**here!**](https://github.com/riflowth/SkinSystem/releases)
-2. Put all of `The SkinSystem` in your **web-root** directory.
-3. After putting `The SkinSystem` into your **web-root** directory you should see `The SkinSystem` on your website. You will see like this down below.
+1. Load The SkinSystem from your webserver. You should be shown an installation page looking something like this:
 
 <p align="center">
-  <img src="https://i.imgur.com/naeNvbO.png" alt="Installation view">
+  <img src="https://media.discordapp.net/attachments/567898623359189002/568105790984945697/unknown.png" alt="Installation view" height="300">
 </p>
 
-4. Just choose **config.yml** to install this system!
-5. Now have fun with *changing* your skin! **Have a good time**. :smiley:
+2. Select **config.yml** for SkinsRestorer(and AuthMe), making sure database is enabled and working.
+3. Now have fun with *changing* your skin! **Have a good time**. :smiley:
 
-* **IMPORTANT** You can change configuration later on `skinsystem/config.nogit.php`
+* **IMPORTANT** You can change the configuration later at `skinsystem/config.nogit.php`
 
 ---
 
