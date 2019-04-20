@@ -128,7 +128,7 @@
                               }
                             ?>>Skins are sent to <a href="https://mineskin.org">mineskin.org</a>, <a href="https://mojang.com">mojang.com</a>, and <a href="/"><?php echo $_SERVER['HTTP_HOST'] ?></a></small>
                             <script type="text/javascript">
-                              console.log("in_eu: <?php echo $in_eu; ?>")
+                              console.log("in_eu: <?php echo !empty($in_eu) ? $in_eu : 'false'; ?>");
                             </script>
                           </form>
                         </div>
