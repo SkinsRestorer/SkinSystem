@@ -5,7 +5,7 @@
   /* Initialize playername */
   if($config['am']['enabled'] == true && !empty($_SESSION['username'])){
     $playername = $_SESSION['username'];
-  } else if(!empty($_POST['username'])){
+  } else if($config['am']['enabled'] != true && !empty($_POST['username'])){
     $playername = $_POST['username'];
   }
   if(empty($playername)){

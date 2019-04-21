@@ -1,9 +1,9 @@
-<?php $release_version = '1.7';
-  if(!file_exists('config.nogit.php')){ session_start(); session_destroy(); die(header('Location: installation/?v='.$release_version)); }
+<?php define('VER', '1.7');
+  if(!file_exists('config.nogit.php')){ session_start(); session_destroy(); die(header('Location: installation/?v='.VER)); }
   require_once('resources/server/libraries.php');
-  if($config['version'] != $release_version) {
+  if($config['version'] != VER) {
     require_once('installation/installation.php');
-    confupdater($config, $release_version);
+    confupdater($config, VER);
     die(header("Refresh:0"));
   }
   session_start();
@@ -38,6 +38,16 @@
         });
       }
     </script>
+    <?php 
+    $jslbs = ['https://code.jquery.com/jquery-3.3.1.min.js' => '',
+              'https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js',
+              'https://cdnjs.cloudflare.com/ajax/libs/three.js/94/three.min.js',
+              'https://minerender.org/dist/skin.min.js',
+              'https://cdn.jsdelivr.net/npm/sweetalert2@8']
+      // foreach ($jslbs as $key) {
+      //   # code...
+      // }
+    ?>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/94/three.min.js"></script>

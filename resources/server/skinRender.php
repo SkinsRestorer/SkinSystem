@@ -22,8 +22,7 @@
      * displayHair - Either or not to display hairs. Set to "false" to NOT display hairs. (true by default)
      * headOnly - Either or not to display the ONLY the head. Set to "true" to display ONLY the head. (false by default)
      *
-     * format - The format in which the image is to be rendered. PNG ("png") is used by default, "svg" to use a vector version, 
-     * "base64" for an encoded base64 string of the png image, "raw" for the raw skin image(skip rendering). (png by default)
+     * format - The format in which the image is to be rendered. PNG ("png") is used by default, "svg" to use a vector version, "base64" for an encoded base64 string of the png image, "raw" for the raw skin image(skip rendering). (png by default)
      *
      * ratio - The size of the "png" image. The default and minimum value is 2. (12 by default)
      * 
@@ -214,7 +213,30 @@ if( basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"]) ) {
                 $skinName = query('sr', 'SELECT Skin FROM Players WHERE Nick = ?', [$this->playerName])->fetch(PDO::FETCH_ASSOC)['Skin'];
                 $skinLookup = query('sr', 'SELECT Value FROM Skins WHERE Nick = ?', [$skinName])->fetch(PDO::FETCH_ASSOC)['Value'];
                 $skinURL = json_decode(base64_decode($skinLookup), true)['textures']['SKIN']['url'];
-            } if (strlen($skinURL) < 1) { $skinURL = $this->fallback_img; }
+            } if (strlen($skinURL) < 1) {
+                $skinName = file_get_contents('https://api.mojang.com/users/profiles/minecraft/'.$this->playerName)
+                $skinName = query('sr', 'SELECT Skin FROM Players WHERE Nick = ?', [$this->playerName])->fetch(PDO::FETCH_ASSOC)['Skin'];
+                $skinLookup = query('sr', 'SELECT Value FROM Skins WHERE Nick = ?', [$skinName])->fetch(PDO::FETCH_ASSOC)['Value'];
+                $skinURL = json_decode(base64_decode($skinLookup), true)['textures']['SKIN']['url'];
+
+                printErrorAndDie();
+                // if (condition) {
+                //     /* Storage Writing (Skins Table) */
+                //     query('sr',
+                //       "INSERT INTO {$config['sr']['skintable']} (Nick, Value, Signature, timestamp) VALUES (?, ?, ?, ?) " .
+                //       "ON DUPLICATE KEY UPDATE Nick=VALUES(Nick), Value=VALUES(Value), Signature=VALUES(Signature), " .
+                //       "timestamp=VALUES(timestamp)",
+                //       [$transformedName, $value, $signature, $timestamp]
+                //     );
+                //     /* Storage Writing (Players Table) */
+                //     query('sr',
+                //       "INSERT INTO {$config['sr']['playertable']} (Nick, Skin) VALUES (?, ?) " .
+                //       "ON DUPLICATE KEY UPDATE Nick=VALUES(Nick), Skin=VALUES(Skin)",
+                //       [$playername, $transformedName]
+                //     );
+                // }
+            }
+            if (strlen($skinURL) < 1) { $skinURL = $this->fallback_img; }
             if (!$mj256) { preg_match('/[^\/]+$/', $skinURL, $mj256); }
             return [cacheGrab($skinURL, $mj256[0], __DIR__ . '/../../', false, ['sha256', $mj256[0]]), $mj256[0]];
         }

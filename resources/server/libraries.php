@@ -34,21 +34,8 @@
 
   /* GitHub getLastestVersion */
   function getLatestVersion(){
-    global $response;
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, 'https://api.github.com/repos/riflowth/SkinSystem/releases/latest');
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_USERAGENT, 'The SkinSystem');
-    $response = curl_exec($ch);
-    curl_close($ch);
-    if($response === false){
-      $response = 'cURL ERROR : ' . curl_error($ch);
-    } else {
-      $response = json_decode($response, true);
-      $response = $response['tag_name'];
-    }
-    return $response;
+    $nwVer = cacheGrab('https://api.github.com/repos/riflowth/SkinSystem/releases/latest','latest_version',__DIR__.'/../../',(24*60*60));
+    return json_decode(file_get_contents($nwVer), true)['tag_name'];
   }
 
   // downloads to cache if need be, removes unused cache files, return location of cache file.

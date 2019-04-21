@@ -20,7 +20,7 @@ $(document).ready(function(){
         setTimeout(function(){ location.reload(); }, 350);
       } else if(res.error.code == 401){
         Swal.fire({
-          type : "error",
+          type : "warning",
           title : "Invalid username/password!",
           text : res.error.data,
           heightAuto : false
@@ -38,7 +38,7 @@ $(document).ready(function(){
         Swal.fire({
           type : "error",
           title : "Something went wrong!",
-          text : "Please re-login or contact WebMaster",
+          text : "Please check status.mineskin.org or contact WebMaster",
           heightAuto : false
         });
         console.log(res.data);
