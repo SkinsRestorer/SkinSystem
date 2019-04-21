@@ -75,7 +75,6 @@ $(document).ready(function(){
       target: [0, 17, 0]
     }
   }, $("#skinViewerContainer")[0]);
-  
   /* Add some animate to a model in SkinPreview */
   var startTime = Date.now();
   var t;
