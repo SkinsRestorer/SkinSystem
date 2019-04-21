@@ -76,16 +76,6 @@ $(document).ready(function(){
     }
   }, $("#skinViewerContainer")[0]);
   
-  /* On page load, load playerskin */
-  if (document.querySelectorAll('a.skinDownload')[0].href) {
-    skinURL = document.querySelectorAll('a.skinDownload')[0].href;
-    skinChecker(function(){
-      $("#skintype-alex").prop("checked", isSlim);
-      $("#skintype-steve").prop("checked", !isSlim);
-      render();
-    });
-  }
-
   /* Add some animate to a model in SkinPreview */
   var startTime = Date.now();
   var t;
@@ -99,18 +89,37 @@ $(document).ready(function(){
     e.detail.playerModel.children[5].rotation.x = -Math.sin(t * 5) / 2;
   });
 
+  /* Display user's current skin */
+  if ($("#skinDownloadUrl").length) {renderUser(self.name);} // if logged in with authme
+  $("#input-username").on("input", function(e) { // select by textbox
+    renderUser($(e.target).val(), true);
+  });
+  function renderUser(username, delay=false) {
+    skinURL = 'resources/server/skinRender.php?format=raw&dl=true&user='+username;
+    render(delay);
+  }
+
   /* RENDER FUNCTION */
-  function render(){
-    if(skinURL === undefined){ return; }
-
-    if($('[id^=minerender-canvas-]')[0]){
-      skinRender.clearScene();
+  var rendDelay;
+  function render(delay=false){
+    if (delay) {
+      if (rendDelay) {window.clearTimeout(rendDelay);}
+      rendDelay = window.setTimeout(render, 500);
     }
-
-    skinRender.render({
-      url : skinURL,
-      slim : isSlim
-    });
+    else {
+      skinChecker(function(){
+        $("#skintype-alex").prop("checked", isSlim);
+        $("#skintype-steve").prop("checked", !isSlim);
+      });
+      if(skinURL === undefined){ return; }
+      if($('[id^=minerender-canvas-]')[0]){
+        skinRender.clearScene();
+      }
+      skinRender.render({
+        url : skinURL,
+        slim : isSlim
+      });
+    }
   }
 
   /* Check what type of skins (Alex or Steve) */
@@ -148,22 +157,14 @@ $(document).ready(function(){
   $("#input-file").on("change", function(event){
     if($("#input-file")[0].files.length === 0){ return; }
     skinURL = URL.createObjectURL(event.target.files[0]);
-    skinChecker(function(){
-      $("#skintype-alex").prop("checked", isSlim);
-      $("#skintype-steve").prop("checked", !isSlim);
-      render();
-    });
+    render();
   });
 
   /* If user changes skin URL */
   $("#input-url").on("input", function(){
     setTimeout(function(){ skinURL = $("#input-url").val(); }, 350);
     if(!$("#input-url").val()){ return; }
-    skinChecker(function(){
-      $("#skintype-alex").prop("checked", isSlim);
-      $("#skintype-steve").prop("checked", !isSlim);
-      render();
-    });
+    render(true);
   });
 
   /* If user changes skintype radios */
