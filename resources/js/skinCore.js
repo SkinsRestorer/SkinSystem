@@ -90,31 +90,33 @@ $(document).ready(function(){
   });
 
   /* Display user's current skin */
-  if ($("#skinDownloadUrl").length) {renderUser(self.name);} // if logged in with authme
+  if ($("#skinDownloadUrl").length) {renderUser($("#skinDownloadUrl").attr("name"));} // if logged in with authme
   $("#input-username").on("input", function(e) { // select by textbox
     renderUser($(e.target).val(), true);
   });
   function renderUser(username, delay=false) {
-    skinURL = 'resources/server/skinRender.php?format=raw&dl=true&user='+username;
-    render(delay);
+    skinURL = 'resources/server/skinRender.php?format=raw&user='+username;
+    render(true, delay);
   }
 
   /* RENDER FUNCTION */
   var rendDelay;
-  function render(delay=false){
+  function render(checkskin=true, delay=false){
+    if(skinURL === undefined){ return; }
     if (delay) {
       if (rendDelay) {window.clearTimeout(rendDelay);}
       rendDelay = window.setTimeout(render, 500);
     }
     else {
-      skinChecker(function(){
+      if (checkskin) {
+        isSlim = skinChecker();
         $("#skintype-alex").prop("checked", isSlim);
         $("#skintype-steve").prop("checked", !isSlim);
-      });
-      if(skinURL === undefined){ return; }
+      }
       if($('[id^=minerender-canvas-]')[0]){
         skinRender.clearScene();
       }
+      console.log
       skinRender.render({
         url : skinURL,
         slim : isSlim
@@ -123,7 +125,7 @@ $(document).ready(function(){
   }
 
   /* Check what type of skins (Alex or Steve) */
-  function skinChecker(callback){
+  function skinChecker(){
     var image = new Image();
     image.crossOrigin = "Anonymous";
     image.src = skinURL;
@@ -148,8 +150,7 @@ $(document).ready(function(){
           break;
         }
       }
-      isSlim = allTransparent;
-      if(callback !== undefined){ callback(); }
+      return(allTransparent);
     }
   }
 
@@ -164,13 +165,13 @@ $(document).ready(function(){
   $("#input-url").on("input", function(){
     setTimeout(function(){ skinURL = $("#input-url").val(); }, 350);
     if(!$("#input-url").val()){ return; }
-    render(true);
+    render(true, true);
   });
 
   /* If user changes skintype radios */
   $("[id^=skintype-]").on("change", function(){
     isSlim = !isSlim;
-    render();
+    render(false);
   });
 
   /* Change file name when user changes skin file */
