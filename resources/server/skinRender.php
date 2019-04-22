@@ -6,9 +6,12 @@
      * Translations done by Carlos Ferreira.
      * Later adapted by Gijs "Gyzie" Oortgiese (http://www.gijsoortgiese.com/). Started on the 6st of July 2014.
      * Fixing various issues.
+     * Later changed by ITZVGcGPmO (https://github.com/ITZVGcGPmO) April 2019.
+     * Adapted for SkinSystem.
      *
      **** GET Parameters ****
-     * user - Minecraft's username for the skin to be rendered. (Required)
+     * user - A username for the skin to be rendered. (Required w/o "mojang")
+     * mojang - A texture from https://textures.minecraft.net to render. (Required w/o "user")
      * vr - Vertical Rotation. (-25 by default)
      * hr - Horizontal Rotation. (35 by default)
      *
@@ -22,7 +25,7 @@
      * displayHair - Either or not to display hairs. Set to "false" to NOT display hairs. (true by default)
      * headOnly - Either or not to display the ONLY the head. Set to "true" to display ONLY the head. (false by default)
      *
-     * format - The format in which the image is to be rendered. PNG ("png") is used by default, "svg" to use a vector version, "base64" for an encoded base64 string of the png image, "raw" for the raw skin image(skip rendering). (png by default)
+     * format - The format in which the image is to be rendered. "png", "svg", "base64", "raw". (png by default)
      *
      * ratio - The size of the "png" image. The default and minimum value is 2. (12 by default)
      * 
@@ -127,6 +130,9 @@
             echo file_get_contents($cfile);
             touch($cfile); cacheClean(__DIR__.'/../../');
         }
+    } else {
+        header('Content-Type: text/plain');
+        echo file_get_contents(__FILE__);
     }
     
     /* Render3DPlayer class
