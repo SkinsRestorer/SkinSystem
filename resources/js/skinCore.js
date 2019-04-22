@@ -109,23 +109,28 @@ $(document).ready(function(){
     }
     else {
       if (checkskin) {
-        isSlim = skinChecker();
-        $("#skintype-alex").prop("checked", isSlim);
-        $("#skintype-steve").prop("checked", !isSlim);
+        skinChecker(function(){
+          console.log('slimness: '+isSlim);
+          $("#skintype-alex").prop("checked", isSlim);
+          $("#skintype-steve").prop("checked", !isSlim);
+          render(false, delay)
+        });
       }
-      if($('[id^=minerender-canvas-]')[0]){
-        skinRender.clearScene();
+      else {
+        if($('[id^=minerender-canvas-]')[0]){
+          skinRender.clearScene();
+        }
+        console.log
+        skinRender.render({
+          url : skinURL,
+          slim : isSlim
+        });
       }
-      console.log
-      skinRender.render({
-        url : skinURL,
-        slim : isSlim
-      });
     }
   }
 
   /* Check what type of skins (Alex or Steve) */
-  function skinChecker(){
+  function skinChecker(callback){
     var image = new Image();
     image.crossOrigin = "Anonymous";
     image.src = skinURL;
@@ -136,7 +141,6 @@ $(document).ready(function(){
       detectCanvas.width = image.width;
       detectCanvas.height = image.height;
       detectCtx.drawImage(image, 0, 0);
-
       var px1 = detectCtx.getImageData(46, 52, 1, 12).data;
       var px2 = detectCtx.getImageData(54, 20, 1, 12).data;
       var allTransparent = true;
@@ -150,7 +154,8 @@ $(document).ready(function(){
           break;
         }
       }
-      return(allTransparent);
+      isSlim = allTransparent;
+      if(callback !== undefined){ callback(); }
     }
   }
 
