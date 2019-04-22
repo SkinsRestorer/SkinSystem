@@ -35,7 +35,25 @@
   /* GitHub getLastestVersion */
   function getLatestVersion(){
     $nwVer = cacheGrab('https://api.github.com/repos/riflowth/SkinSystem/releases/latest','latest_version',__DIR__.'/../../',(24*60*60));
-    return json_decode(file_get_contents($nwVer), true)['tag_name'];
+    return json_decode(curl($nwVer), true)['tag_name'];
+  }
+
+  function curl($url){
+    if (preg_match('/^https?:\/\//', $url)) {
+      $ch = curl_init();
+      curl_setopt($ch, CURLOPT_URL, $url);
+      curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+      curl_setopt($ch, CURLOPT_USERAGENT, 'The SkinSystem');
+      $response = curl_exec($ch);
+      curl_close($ch);
+      if($response === false){
+        printErrorAndDie('cURL ERROR : ' . curl_error($ch));
+      }
+      return($response);
+    } else {
+      return(file_get_contents($url));
+    }
   }
 
   // downloads to cache if need be, removes unused cache files, return location of cache file.
@@ -43,12 +61,12 @@
     global $config; $cdir = $dirhead.$config['cache_dir']; if (!is_dir($cdir)) {mkdir($cdir, 0775, true);}
     $file = $cdir.preg_replace('/[^\w\.]/', '_', $nm);
     if (!$max_cache) {if (is_file($file)) {touch($file);}} // no max cache? touch so it's not caught by cleanup
-    if (($max_cache && (time() - filemtime($file) >= $max_cache)) || !is_file($file)) {
-      $filecont = file_get_contents($url);
+    if (($max_cache && is_file($file) && (time() - filemtime($file) >= $max_cache)) || !is_file($file)) {
+      $filecont = curl($url);
       if ($hchk) {
         for ($i = 0; $i < 10; $i++) {
           if (hash($hchk[0], $filecont) != $hchk[1]) {
-            $filecont = file_get_contents($url);
+            $filecont = curl($url);
           } else {break;}
         }
       }
