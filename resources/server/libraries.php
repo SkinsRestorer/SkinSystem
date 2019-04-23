@@ -29,8 +29,32 @@
     if(!isset($data['success'])){ $data['success'] = empty($data['error']); }
     die(json_encode($data, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
   }
-
-  function printErrorAndDie($error){ printDataAndDie(['error' => $error]); }
+  function printErrorAndDie($error){
+    $data['error'] = $error;
+    $url = 'https://status.mojang.com/check';
+    $mjstatus = json_decode(curl(cacheGrab($url,$url,__DIR__.'/../../',60)), true);
+    foreach ($mjstatus as $key) {
+      foreach ($key as $site => $status) {
+        if ($status !== 'green') {
+          $data['footer'] = $data['footer']."\n".'<div class="col"><a href="https://help.mojang.com"><i class="fas fa-exclamation-circle" style="padding-right: 5px;"></i>'.$site.' is having issues</a></div>';
+          error_log($site.' is having issues (https://help.mojang.com)');
+        }
+      }
+    }
+    $url = 'https://status.mineskin.org';
+    $dta = curl(cacheGrab($url,$url,__DIR__.'/../../',(60*60)));
+    preg_match('/https:\/\/status\.mineskin\.org\/api\/getMonitorList\/\w+/', $dta, $match);
+    $ret = curl(cacheGrab($match[0],$match[0],__DIR__.'/../../',60));
+    foreach (json_decode($ret, true)['psp']['monitors'] as $value) {
+      if ($value['name'] == 'Mineskin API' and $value['statusClass'] != 'success') {
+        $expl = explode('/', $value['monitorId']);
+        $data['footer'] = $data['footer']."\n".'<div class="col"><a href="https://status.mineskin.org"><i class="fas fa-exclamation-circle" style="padding-right: 5px;"></i>'.$value['name'].' is having issues</a></div>';
+        error_log($value['name'].' is having issues (https://status.mineskin.org)');
+      }
+    }
+    if ($data['footer']) { $data['footer'] = '<div class="container">'.$data['footer'].'</div>'; }
+    printDataAndDie($data);
+  }
 
   /* GitHub getLastestVersion */
   function getLatestVersion(){

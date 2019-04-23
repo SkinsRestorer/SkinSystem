@@ -15,6 +15,7 @@ $(document).ready(function(){
           type : "success",
           title : "Login Successful!",
           text : "Enjoy your skins",
+          footer : res.footer,
           heightAuto : false
         });
         setTimeout(function(){ location.reload(); }, 350);
@@ -23,6 +24,7 @@ $(document).ready(function(){
           type : "warning",
           title : "Invalid username/password!",
           text : res.error.data,
+          footer : res.footer,
           heightAuto : false
         });
         console.log(res);
@@ -31,6 +33,7 @@ $(document).ready(function(){
           type : "error",
           title : "You're rate limited!",
           text : res.error.data,
+          footer : res.footer,
           heightAuto : false
         });
         console.log(res);
@@ -38,7 +41,8 @@ $(document).ready(function(){
         Swal.fire({
           type : "error",
           title : "Something went wrong!",
-          text : "Please check status.mineskin.org or contact WebMaster",
+          text : "Please try again or contact WebMaster",
+          footer : res.footer,
           heightAuto : false
         });
         console.log(res.data);

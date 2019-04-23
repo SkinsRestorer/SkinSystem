@@ -23,6 +23,7 @@ $(document).ready(function(){
           type : "success",
           title : "Upload Successful!",
           text : "Enjoy your skin",
+          footer : res.footer,
           heightAuto : false
         });
         setTimeout(function(){ location.reload(); }, 350);
@@ -31,6 +32,7 @@ $(document).ready(function(){
           type : "error",
           title : "Something went wrong!",
           text : res.error,
+          footer : res.footer,
           heightAuto : false
         });
       }
