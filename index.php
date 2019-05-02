@@ -1,9 +1,9 @@
-<?php $release_version = '1.7';
-  if(!file_exists('config.nogit.php')){ session_start(); session_destroy(); die(header('Location: installation/?v='.$release_version)); }
+<?php define('VER', '1.7');
+  if(!file_exists('config.nogit.php')){ session_start(); session_destroy(); die(header('Location: installation/?v='.VER)); }
   require_once('resources/server/libraries.php');
-  if($config['version'] != $release_version) {
+  if($config['version'] != VER) {
     require_once('installation/installation.php');
-    confupdater($config, $release_version);
+    confupdater($config, VER);
     die(header("Refresh:0"));
   }
   session_start();
@@ -19,8 +19,8 @@
     <title>SkinSystem</title>
     <!-- Libraries -->
     <link rel="shortcut icon" href="favicon.ico">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
-    <?php if (is_file('resources/themes/'.$_COOKIE['theme'].'.css')) { $theme = $_COOKIE['theme']; }
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <?php if (isset($_COOKIE['theme']) and is_file('resources/themes/'.$_COOKIE['theme'].'.css')) { $theme = $_COOKIE['theme']; }
     else { $theme = $config['def_theme']; }
     echo '<link id="stylesheetSelector" rel="stylesheet" name="'.$theme.'" href="resources/themes/'.$theme.'.css">'; 
     // pick theme from cookie; if cookie invalid, pick default theme from config ?>
@@ -38,11 +38,16 @@
         });
       }
     </script>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/94/three.min.js"></script>
-    <script src="https://minerender.org/dist/skin.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <?php foreach ([
+      'https://code.jquery.com/jquery-3.3.1.min.js' => 'f8da8f95b6ed33542a88af19028e18ae3d9ce25350a06bfc3fbf433ed2b38fefa5e639cddfdac703fc6caa7f3313d974b92a3168276b3a016ceb28f27db0714a',
+      'https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js' => 'f43dfd388488b509a66879608c35d7c1155f93dcec33ca875082f59f35552740d65e9a344a044d7ec534f0278a6bb6f0ed81047f73dcf615f7dcd76e0a482009',
+      'https://cdnjs.cloudflare.com/ajax/libs/three.js/94/three.min.js' => '64681777a4c1e6a8edbd353a439a3f2c9338a702cdcbc53c5d7261faf2590d7a76c02f004ab97858e7a2bdaab67e961cdd39d308bcf20ef56363c621bcd61a5e',
+      'https://raw.githubusercontent.com/InventivetalentDev/MineRender/v1.1.0/dist/skin.min.js' => '5acd05d47d28928779a88a13126a396fc1a57cda55fb82180db9e69dba009ad466156e1ca75562026c2ebcdf195adcfc178c78602468eafe3303b726706447b0',
+      'https://cdn.jsdelivr.net/npm/sweetalert2@8.8.5' => '2d90ae300e9e37ef219afa3c50f2261e220f83424a83d30286d53492becce0ea6f1dc1749b0cd47eec37c6a008f877b79e40ab48638efd1462f4aeff2a288c96'
+    ] as $url => $sha512){
+      $expl = explode('/', $url);
+      echo '<script src="'.cacheGrab($url, end($expl), './', false, ['sha512', $sha512]).'"></script>';
+    } ?>
   </head>
   <body class="bg-light">
     <!-- Main Container -->
@@ -62,7 +67,7 @@
                   <h6 class="mb-0 ml-auto">
                     <?php if($config['am']['enabled'] == true && !empty($_SESSION['username'])){ 
                       $SkullURL = 'resources/server/skinRender.php?vr=0&hr=0&headOnly=true&ratio=4&user='.$_SESSION['username'];
-                      echo '<a class="skinDownload" title="Download skin" href="resources/server/skinRender.php?format=raw&dl=true&user='.$_SESSION['username'].
+                      echo '<a class="skinDownload" id="skinDownloadUrl" title="Download skin" name="'.$_SESSION['username'].'" href="resources/server/skinRender.php?format=raw&dl=true&user='.$_SESSION['username'].
                       '"><img class="skinDownload" style="max-height:29px!important;" src="'.$SkullURL.'">    '.htmlspecialchars($_SESSION['username'], ENT_QUOTES); ?></a>
                       <a class="btn btn-sm btn-light ml-2 rounded-circle" title="Log out" href="resources/server/authenCore.php?logout"><i class="fas fa-sign-out-alt"></i></a>
                     <?php } ?>
@@ -127,9 +132,6 @@
                                 echo ' style="display: none;"';
                               }
                             ?>>Skins are sent to <a href="https://mineskin.org">mineskin.org</a>, <a href="https://mojang.com">mojang.com</a>, and <a href="/"><?php echo $_SERVER['HTTP_HOST'] ?></a></small>
-                            <script type="text/javascript">
-                              console.log("in_eu: <?php echo !empty($in_eu) ? $in_eu : 'false'; ?>");
-                            </script>
                           </form>
                         </div>
                       </div>

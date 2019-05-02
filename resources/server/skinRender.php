@@ -6,9 +6,12 @@
      * Translations done by Carlos Ferreira.
      * Later adapted by Gijs "Gyzie" Oortgiese (http://www.gijsoortgiese.com/). Started on the 6st of July 2014.
      * Fixing various issues.
+     * Later changed by ITZVGcGPmO (https://github.com/ITZVGcGPmO) April 2019.
+     * Adapted for SkinSystem.
      *
      **** GET Parameters ****
-     * user - Minecraft's username for the skin to be rendered. (Required)
+     * user - A username for the skin to be rendered. (Required w/o "mojang")
+     * mojang - A texture from https://textures.minecraft.net to render. (Required w/o "user")
      * vr - Vertical Rotation. (-25 by default)
      * hr - Horizontal Rotation. (35 by default)
      *
@@ -22,8 +25,7 @@
      * displayHair - Either or not to display hairs. Set to "false" to NOT display hairs. (true by default)
      * headOnly - Either or not to display the ONLY the head. Set to "true" to display ONLY the head. (false by default)
      *
-     * format - The format in which the image is to be rendered. PNG ("png") is used by default, "svg" to use a vector version, 
-     * "base64" for an encoded base64 string of the png image, "raw" for the raw skin image(skip rendering). (png by default)
+     * format - The format in which the image is to be rendered. "png", "svg", "base64", "raw". (png by default)
      *
      * ratio - The size of the "png" image. The default and minimum value is 2. (12 by default)
      * 
@@ -32,12 +34,12 @@
      * layers - Apply extra skin layers. (true by default)
      */
     
-if( basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"]) ) {
-    // Don't adjust the error reporting if we are an include file
-    error_reporting(E_ERROR);
-    //error_reporting(E_ALL);
-    //ini_set("display_errors", 1); // TODO not here - this is set in index.php
-}
+    if( basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"]) ) {
+        // Don't adjust the error reporting if we are an include file
+        error_reporting(E_ERROR);
+        //error_reporting(E_ALL);
+        //ini_set("display_errors", 1); // TODO not here - this is set in index.php
+    }
 
     /* Start Global variabal
      * These variabals are shared over multiple classes
@@ -116,17 +118,21 @@ if( basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"]) ) {
         $res = $player->getSkinFile();
         $skinRaw = $res[0]; $skinHash = $res[1];
         if ($_GET['dl'] == 'true') {header('Content-Disposition: attachment; filename='.
-            grabGetValue('user').'-'.hash("adler32", serialize($renderparams).$skinRaw).'.png');}
-        $conttype = ["svg"=>"image/svg+xml","base64"=>"text/plain","png"=>"image/png","raw"=>"image/png"];
-        header( 'Content-Type: '.$conttype[grabGetValue('format')] ); // send the content-type for a format
+            grabGetValue('user').'-'.hash('adler32', serialize($renderparams).$skinRaw).'.png');}
+        $conttype = ['svg'=>'image/svg+xml','base64'=>'text/plain','png'=>'image/png','raw'=>'image/png'];
+        header('Content-Type: '.$conttype[grabGetValue('format')]); // send content-type for any format
         if(grabGetValue('format') == 'raw'){ echo file_get_contents($skinRaw); }
         else { // cache system for "rendered" skins
             unset($renderparams[0]); unset($renderparams[1]);
-            $cdir = __DIR__ . '/../../'.$config['cache_dir']; mkdir($cdir, 0775, true); $cfile = $cdir.$skinHash.'-'.hash("md5", serialize($renderparams));
-            if (file_get_contents($cfile) == '') { $player->get3DRender($skinRaw, $cfile); }
+            $cdir = __DIR__.'/../../'.$config['cache_dir']; mkdir($cdir, 0775, true);
+            $cfile = $cdir.$skinHash.'-'.hash("md5", serialize($renderparams));
+            if (!is_file($cfile) or file_get_contents($cfile) == '') { $player->get3DRender($skinRaw, $cfile); }
             echo file_get_contents($cfile);
-            touch($cfile); cacheClean(__DIR__ . '/../../');
+            touch($cfile); cacheClean(__DIR__.'/../../');
         }
+    } else {
+        header('Content-Type: text/plain');
+        echo file_get_contents(__FILE__);
     }
     
     /* Render3DPlayer class
@@ -207,16 +213,34 @@ if( basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"]) ) {
          * returns a player skin file
          */
         public function getSkinFile() {
+            global $config;
             if ($this->mojang!=null) {
                 preg_match('/[^\/]+$/', $this->mojang, $mj256);
-                $skinURL = 'https://textures.minecraft.net/texture/'.$mj256[0];
-            } elseif ($this->playerName!=null) {
+                $skinURL = 'https://textures.minecraft.net/texture/'.$mj256[0];}
+            else if ($this->playerName!=null) { // get existing skin from skinsrestorer.
                 $skinName = query('sr', 'SELECT Skin FROM Players WHERE Nick = ?', [$this->playerName])->fetch(PDO::FETCH_ASSOC)['Skin'];
                 $skinLookup = query('sr', 'SELECT Value FROM Skins WHERE Nick = ?', [$skinName])->fetch(PDO::FETCH_ASSOC)['Value'];
                 $skinURL = json_decode(base64_decode($skinLookup), true)['textures']['SKIN']['url'];
-            } if (strlen($skinURL) < 1) { $skinURL = $this->fallback_img; }
+                if (!is_string($skinURL)) { // if cannot get skin from skinsrestorer, get skin from mojang.
+                    $mjdfskfl = __DIR__.'/../../'.$config['cache_dir'].'mojang_skin-'.strtolower($this->playerName);
+                    if (file_exists($mjdfskfl)) { // fetch cached mojang skin
+                        $skinURL = file_get_contents($mjdfskfl);
+                    } else { // fetch mojang version of skin
+                        $pf = json_decode(file_get_contents('https://api.mojang.com/users/profiles/minecraft/'.strtolower($this->playerName)), true);
+                        if(is_array($pf) and array_key_exists("id", $pf)) { 
+                            $ca = json_decode(file_get_contents('https://sessionserver.mojang.com/session/minecraft/profile/'.$pf["id"]), true);}
+                        // $ca = json_decode(file_get_contents(cacheGrab('https://sessionserver.mojang.com/session/minecraft/profile/ef5db304c36841089a352fd0a072b73d', 'test', __DIR__.'/../../')));
+                        if(is_array($ca) and array_key_exists("properties", $ca)) { 
+                            foreach($ca["properties"] as $element) {
+                                if(array_key_exists("name", $element) && $element["name"] == "textures") {
+                                    $content = base64_decode($element["value"]);
+                                    $skinArray = json_decode($content, true);
+                                    if(array_key_exists("textures", $skinArray) and array_key_exists("SKIN", $skinArray["textures"])){
+                                        file_put_contents($mjdfskfl, $skinArray["textures"]["SKIN"]["url"]);
+                                        $skinURL = $skinArray["textures"]["SKIN"]["url"];}}}}}}}
+            if (strlen($skinURL) < 1) { $skinURL = $this->fallback_img; } // if can't get skin, use steve.
             if (!$mj256) { preg_match('/[^\/]+$/', $skinURL, $mj256); }
-            return [cacheGrab($skinURL, $mj256[0], __DIR__ . '/../../', false, ['sha256', $mj256[0]]), $mj256[0]];
+            return [cacheGrab($skinURL, $mj256[0], __DIR__.'/../../', false, ['sha256', $mj256[0]]), $mj256[0]];
         }
 
         /* Function renders the 3d image

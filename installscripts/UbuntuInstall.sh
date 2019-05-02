@@ -1,13 +1,16 @@
 # "apt-get update && apt-get install curl -y && curl -s https://raw.githubusercontent.com/riflowth/SkinSystem/master/installscripts/UbuntuInstall.sh | bash -s"
-# This script installs apache, php, git, curl, overrides the default apache webpage, and creates mysql databases+user.
+# This script for Ubuntu 18.04+ installs apache, php, git, curl, overrides the default apache webpage, and creates mysql databases+user.
 echo "installing skinsystem (mysql, apache2, php, git)"
 apt-get update
 apt-get install mysql-server apache2 libapache2-mod-php php-curl php-mysql php-gd git -y
 cd /var/www
 git clone https://github.com/riflowth/SkinSystem
-rm -rf SkinSystem/.git
-rm -rf SkinSystem/.gitignore
-rm -rf SkinSystem/*.md
+cd SkinSytem
+git checkout `git tag | sort -V | grep -v "\-rc" | tail -1`
+rm -rf .git
+rm -rf .gitignore
+rm -rf *.md
+cd ..
 mv html html.backup$(date -I)
 mv SkinSystem html
 chmod 775 -R /var/www/html && chown -R www-data:www-data /var/www/html

@@ -5,11 +5,11 @@
   /* Initialize playername */
   if($config['am']['enabled'] == true && !empty($_SESSION['username'])){
     $playername = $_SESSION['username'];
-  } else if(!empty($_POST['username'])){
+  } else if($config['am']['enabled'] != true && !empty($_POST['username'])){
     $playername = $_POST['username'];
   }
   if(empty($playername)){
-    printErrorAndDie('Please re-upload or contact WebMaster!');
+    printErrorAndDie('Please re-upload or contact WebMaster! (playername empty)');
   }
 
   /* Check a request from users, Does it valid? --> If it valid do the statment below */
@@ -31,9 +31,8 @@
       if(!in_array($file['type'], $validFileType)){ printErrorAndDie('Please upload JPEG or PNG file!'); }
       list($skinWidth, $skinHeight) = getimagesize($file['tmp_name']);
       if(( $skinWidth != 64 && $skinHeight != 64 ) || ( $skinWidth != 64 && $skinHeight != 32 )){
-        printErrorAndDie('This is not Minecraft\'s skin!');
+        printErrorAndDie('This is not a valid Minecraft skin!');
       }
-
       $postparams['file'] = new CURLFile($file['tmp_name'], $file['type'], $file['name']);
       $endpointURL = 'https://api.mineskin.org/generate/upload';
     }
@@ -94,6 +93,5 @@
     );
     printDataAndDie();
   }
-
   printErrorAndDie('Please re-upload or contact WebMaster!');
 ?>
