@@ -16,6 +16,7 @@
   <a href="https://github.com/riflowth/SkinSystem/releases"><img src="https://img.shields.io/github/downloads/riflowth/SkinSystem/total.svg" alt="Download"></a>
   <a href="https://www.paypal.me/wheprakhone"><img src="http://ionicabizau.github.io/badges/paypal.svg" alt="PayPal Donate"></a>
   <a href="https://www.spigotmc.org/resources/the-skinsystem.59403/"><img src="https://img.shields.io/badge/view%20on-spigotmc-orange.svg" alt="View on spigotmc.org"</a>
+  <a href="https://gitter.im/SkinSystem/community"><img src="https://badges.gitter.im/SkinSystem/community.svg" alt="Join the chat"></a>
 </p>
 
 ---
