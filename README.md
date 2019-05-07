@@ -1,3 +1,12 @@
+<p align="center">
+  <a href="LICENSE"><img src="https://img.shields.io/github/license/riflowth/SkinSystem.svg" alt="MIT License"></a>
+  <a href="https://github.com/riflowth/SkinSystem/releases"><img src="https://img.shields.io/github/release/riflowth/skinsystem.svg" alt="Latest Release"></a>
+  <a href="https://www.spigotmc.org/resources/the-skinsystem.59403/"><img src="https://img.shields.io/badge/view%20on-spigotmc-orange.svg" alt="View on spigotmc.org"</a>
+  <a href="https://www.paypal.me/wheprakhone"><img src="http://ionicabizau.github.io/badges/paypal.svg" alt="PayPal Donate"></a>
+  <a href="https://discord.gg/nUwDEAN"><img src="https://img.shields.io/discord/186794372468178944.svg?label=discord" alt="Join Discord chat"></a>
+  <a href="https://gitter.im/SkinSystem/community"><img src="https://badges.gitter.im/SkinSystem/community.svg" alt="Join Gitter chat"></a>
+</p>
+
 ---
 
 <p align="center">
@@ -8,16 +17,6 @@
 
 <p align="center">
   The <b>SkinSystem</b>; developed for cracked <strong>Minecraft servers</strong>, allowing for changes of player skins to something more <strong>custom</strong>.
-</p>
-
-<p align="center">
-  <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/github/license/riflowth/SkinSystem.svg" alt="MIT License"></a>
-  <a href="https://github.com/riflowth/SkinSystem/releases"><img src="https://img.shields.io/github/release/riflowth/skinsystem.svg" alt="Release"></a>
-  <a href="https://github.com/riflowth/SkinSystem/releases"><img src="https://img.shields.io/github/downloads/riflowth/SkinSystem/total.svg" alt="Download"></a>
-  <a href="https://www.paypal.me/wheprakhone"><img src="http://ionicabizau.github.io/badges/paypal.svg" alt="PayPal Donate"></a>
-  <a href="https://www.spigotmc.org/resources/the-skinsystem.59403/"><img src="https://img.shields.io/badge/view%20on-spigotmc-orange.svg" alt="View on spigotmc.org"</a>
-  <a href="https://discord.gg/nUwDEAN"><img src="https://img.shields.io/discord/186794372468178944.svg?label=discord" alt="Join Discord chat"></a>
-  <a href="https://gitter.im/SkinSystem/community"><img src="https://badges.gitter.im/SkinSystem/community.svg" alt="Join Gitter chat"></a>
 </p>
 
 ---
