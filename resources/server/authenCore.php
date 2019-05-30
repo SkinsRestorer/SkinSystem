@@ -30,7 +30,7 @@
     // rate limit by username they are trying to log into (limit+1, limit IP before username)
     $blk[1] = $cdir.'.loginratelimit-user-'.$username;
     $now = time();
-    if (!is_file($blk[0]) or !is_file($blk[1]) or (max([filemtime($blk[0]), filemtime($blk[1])]) < $now)) {
+    if (!$config['am']['authsec']['enabled'] or !is_file($blk[0]) or !is_file($blk[1]) or (max([filemtime($blk[0]), filemtime($blk[1])]) < $now)) {
       $password = $_POST['password'];
       /* Get user's password from AuthMe Storage */
       $pdo = query('am', 'SELECT password FROM authme WHERE username = ?', [$username]);
