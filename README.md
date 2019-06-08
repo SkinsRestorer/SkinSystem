@@ -50,12 +50,6 @@
 sudo bash -c "apt-get update && apt-get install curl -y && curl -s https://raw.githubusercontent.com/riflowth/SkinSystem/master/installscripts/UbuntuInstall.sh | bash -s"
 ```
 
-:grey_exclamation: If you use **ispconfig**, you may run **this command**:
-
-```bash
-sudo bash -c "apt-get update && apt-get install curl -y && curl -s https://raw.githubusercontent.com/riflowth/SkinSystem/master/installscripts/ispconfigInstall.sh | bash -s"
-```
-
 #### **otherwise**, follow **these directions**:
 
 1. Install MySQL
