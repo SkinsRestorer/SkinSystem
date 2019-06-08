@@ -1,0 +1,5 @@
+https://discordapp.com/channels/186794372468178944/474606828924436481/586714090333011995
+<@249512988820766720> @MakeNekos NotNukes#7715
+For ispconfig framworks, the command will be as follows:-
+chmod 775 -R /var/www/mydomain.com/web && chown -R  webX:clientX /var/www/mydomain.com/web
+Replace mydomain.com with your domain, webX with your website id and clientX with your client id
