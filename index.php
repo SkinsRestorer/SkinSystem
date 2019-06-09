@@ -1,4 +1,4 @@
-<?php define('VER', '1.7');
+<?php define('VER', '1.7.1');
   if(!file_exists('config.nogit.php')){ session_start(); session_destroy(); die(header('Location: installation/?v='.VER)); }
   require_once('resources/server/libraries.php');
   if($config['version'] != VER) {
