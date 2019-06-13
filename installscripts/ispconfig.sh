@@ -5,7 +5,7 @@ apt-get update
 apt-get install mysql-server apache2 libapache2-mod-php php-curl php-mysql php-gd git -y
 cd /var/www
 git clone https://github.com/riflowth/SkinSystem
-cd SkinSytem
+cd SkinSystem
 git checkout ``git tag | sort -V | grep -v "\-rc" | tail -1``
 rm -rf .git
 rm -rf .gitignore
