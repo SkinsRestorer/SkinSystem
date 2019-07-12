@@ -1,11 +1,11 @@
-# "apt-get update && apt-get install curl -y && curl -s https://raw.githubusercontent.com/riflowth/SkinSystem/master/installscripts/ispconfigInstall.sh | bash -s"
+# "apt-get update && apt-get install curl -y && curl -s https://raw.githubusercontent.com/riflowth/SkinSystem/master/installscripts/ispconfig.sh | bash -s"
 # This script for ispconfig installs apache, php, git, curl, overrides the default apache webpage, and creates mysql databases+user.
 echo "installing skinsystem (mysql, apache2, php, git)"
 apt-get update
 apt-get install mysql-server apache2 libapache2-mod-php php-curl php-mysql php-gd git -y
 cd /var/www
 git clone https://github.com/riflowth/SkinSystem
-cd SkinSytem
+cd SkinSystem
 git checkout ``git tag | sort -V | grep -v "\-rc" | tail -1``
 rm -rf .git
 rm -rf .gitignore
