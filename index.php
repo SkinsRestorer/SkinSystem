@@ -1,4 +1,4 @@
-<?php define('VER', '1.7.1');
+<?php define('VER', '1.7.2_test');
   if(!file_exists('config.nogit.php')){ session_start(); session_destroy(); die(header('Location: installation/?v='.VER)); }
   require_once('resources/server/libraries.php');
   if($config['version'] != VER) {
@@ -37,6 +37,8 @@
           location.reload();
         });
       }
+      var l = {};
+      l.uplty1_lbl = "<?php echo L::upl_uplty1_lbl; ?>";
     </script>
     <?php foreach ([
       'https://code.jquery.com/jquery-3.3.1.min.js' => 'f8da8f95b6ed33542a88af19028e18ae3d9ce25350a06bfc3fbf433ed2b38fefa5e639cddfdac703fc6caa7f3313d974b92a3168276b3a016ceb28f27db0714a',
@@ -69,10 +71,10 @@
                       $SkullURL = 'resources/server/skinRender.php?vr=0&hr=0&headOnly=true&ratio=4&user='.$_SESSION['username'];
                       echo '<a class="skinDownload" id="skinDownloadUrl" title="'.L::mn_dlhov.'" name="'.$_SESSION['username'].'" href="resources/server/skinRender.php?format=raw&dl=true&user='.$_SESSION['username'].
                       '"><img class="skinDownload" style="max-height:29px!important;" src="'.$SkullURL.'">    '.htmlspecialchars($_SESSION['username'], ENT_QUOTES); ?></a>
-                      <a class="btn btn-sm btn-light ml-2 rounded-circle" title="Log out" href="resources/server/authenCore.php?logout"><i class="fas fa-sign-out-alt"></i></a>
+                      <a class="btn btn-sm btn-light ml-2 rounded-circle" title="<?php echo L::mn_lgout;?>" href="resources/server/authenCore.php?logout"><i class="fas fa-sign-out-alt"></i></a>
                     <?php } ?>
                   </h6>
-                  <a class="btn btn-sm btn-light ml-2 rounded-circle" title="Switch theme" onclick="rotateTheme();"><i class="fas fa-adjust"></i></a>
+                  <a class="btn btn-sm btn-light ml-2 rounded-circle" title="<?php echo L::mn_swthm;?>" onclick="rotateTheme();"><i class="fas fa-adjust"></i></a>
                 </div>
               </div>
               <div class="card-body">
@@ -82,51 +84,51 @@
                     <!-- Uploader -->
                     <div class="col-lg-8 pr-lg-2 mb-lg-0 mb-3">
                       <div class="card border-0 shadow">
-                        <h6 class="card-header bg-info text-white"><i class="fas fa-file-upload text-dark"></i> <?php echo L::mn_upl_title;?></h6>
+                        <h6 class="card-header bg-info text-white"><i class="fas fa-file-upload text-dark"></i> <?php echo L::upl_title;?></h6>
                         <div class="card-body">
                           <form id="uploadSkinForm">
                             <?php if($config['am']['enabled'] == false){ ?>
                               <div class="form-group row">
-                                <h5 class="col-lg-3"><span class="badge badge-success"><?php echo L::mn_upl_usrnm;?></span></h5>
+                                <h5 class="col-lg-3"><span class="badge badge-success"><?php echo L::upl_usrnm;?></span></h5>
                                 <div class="col-lg-9">
                                   <input id="input-username" class="form-control form-control-sm" name="username" type="text" required>
                                 </div>
                               </div>
                             <?php } ?>
                             <div class="form-group">
-                              <h5 class="mb-0 mr-3 custom-control-inline"><span class="badge badge-info"><?php echo L::mn_upl_sknty;?></</span></h5>
+                              <h5 class="mb-0 mr-3 custom-control-inline"><span class="badge badge-info"><?php echo L::upl_sknty;?></</span></h5>
                               <div class="custom-control custom-radio custom-control-inline">
                                 <input id="skintype-steve" class="custom-control-input" name="isSlim" value="false" type="radio">
-                                <label class="custom-control-label" for="skintype-steve"><?php echo L::mn_upl_sknty1;?></label>
+                                <label class="custom-control-label" for="skintype-steve"><?php echo L::upl_sknty1;?></label>
                               </div>
                               <div class="custom-control custom-radio custom-control-inline">
                                 <input id="skintype-alex" class="custom-control-input" name="isSlim" value="true" type="radio">
-                                <label class="custom-control-label" for="skintype-alex"><?php echo L::mn_upl_sknty2;?></label>
+                                <label class="custom-control-label" for="skintype-alex"><?php echo L::upl_sknty2;?></label>
                               </div>
                             </div>
                             <div class="form-group mb-4">
-                              <h5 class="mb-0 mr-3 custom-control-inline"><span class="badge badge-info"><?php echo L::mn_upl_uplty;?></span></h5>
+                              <h5 class="mb-0 mr-3 custom-control-inline"><span class="badge badge-info"><?php echo L::upl_uplty;?></span></h5>
                               <div class="custom-control custom-radio custom-control-inline">
                                 <input id="uploadtype-file" class="custom-control-input" name="uploadtype" value="file" type="radio" checked>
-                                <label class="custom-control-label" for="uploadtype-file"><?php echo L::mn_upl_uplty1;?></label>
+                                <label class="custom-control-label" for="uploadtype-file"><?php echo L::upl_uplty1;?></label>
                               </div>
                               <div class="custom-control custom-radio custom-control-inline">
                                 <input id="uploadtype-url" class="custom-control-input" name="uploadtype" value="url" type="radio">
-                                <label class="custom-control-label" for="uploadtype-url"><?php echo L::mn_upl_uplty2;?></label>
+                                <label class="custom-control-label" for="uploadtype-url"><?php echo L::upl_uplty2;?></label>
                               </div>
                             </div>
                             <div id="form-input-file" class="form-group">
                               <div class="custom-file">
                                 <input id="input-file" class="custom-file-input" name="file" type="file" accept="image/*" required>
-                                <label class="custom-file-label text-truncate"><?php echo L::mn_upl_uplty1_lbl;?></label>
+                                <label class="custom-file-label text-truncate"><?php echo L::upl_uplty1_lbl;?></label>
                               </div>
                             </div>
                             <div id="form-input-url" class="form-group row" style="display: none;">
                               <div class="col-lg-12">
-                                <input id="input-url" class="form-control form-control-sm" name="url" type="text" placeholder="<?php echo L::mn_upl_uplty2_lbl;?>">
+                                <input id="input-url" class="form-control form-control-sm" name="url" type="text" placeholder="<?php echo L::upl_uplty2_lbl;?>">
                               </div>
                             </div>
-                            <button class="btn btn-primary w-100"><strong><?php echo L::mn_upl_buttn;?></strong></button>
+                            <button class="btn btn-primary w-100"><strong><?php echo L::upl_buttn;?></strong></button>
                             <small class="form-text text-muted" id="uploadDisclaimer"<?php 
                               if ($config['data_warn'] === 'no' or ($config['data_warn'] === 'eu' and file_get_contents(cacheGrab('https://ipapi.co/'.IP.'/in_eu', 'in_eu-'.IP)) !== 'True')) {
                                 echo ' style="display: none;"';
@@ -154,7 +156,7 @@
                       <!-- Skin History -->
                       <div class="col-lg-12 mt-3">
                         <div class="card border-0 shadow">
-                          <h6 class="card-header bg-info text-white"><i class="fas fa-history text-dark"></i> History <small>- You can use these skins by clicking them</small></h6>
+                          <h6 class="card-header bg-info text-white"><i class="fas fa-history text-dark"></i> <?php echo L::mn_hstry;?></h6>
                           <div class="card-body">
                             <a id="mineskin-recent" href="<?php echo cacheGrab('https://api.mineskin.org/get/list/0?size=6','mineskin-recent','./',(10*60)); ?>" style="display:none;"></a>
                             <div class="row" id="skinlist"></div>
@@ -194,18 +196,18 @@
                   <div class="row">
                     <div class="col-lg-12">
                       <div class="card border-0 shadow">
-                        <h6 class="card-header bg-info text-white"><i class="fas fa-sign-in-alt"></i> Authenication</h6>
+                        <h6 class="card-header bg-info text-white"><i class="fas fa-sign-in-alt"></i> <?php echo L::auth_title;?></h6>
                         <div class="card-body">
                           <form id="loginForm">
                             <div class="input-group mb-3">
                               <div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-user"></i></span></div>
-                              <input id="login-username" class="form-control" name="username" type="text" placeholder="Username" required>
+                              <input id="login-username" class="form-control" name="username" type="text" placeholder="<?php echo L::auth_usrnm;?>" required>
                             </div>
                             <div class="input-group mb-3">
                               <div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-lock"></i></span></div>
-                              <input id="login-password" class="form-control" name="password" type="password" placeholder="Password" required>
+                              <input id="login-password" class="form-control" name="password" type="password" placeholder="<?php echo L::auth_psswd;?>" required>
                             </div>
-                            <button class="btn btn-success w-100"><strong>Login!</strong></button>
+                            <button class="btn btn-success w-100"><?php echo L::auth_login;?></button>
                           </form>
                         </div>
                       </div>

@@ -34,18 +34,26 @@
   }
 
   function printDataAndDie($data = []){
+    if (is_string($data)) { $data = ['title' => $data]; }
+    $defaults = ['type'=>'success','title'=>L::gnrl_sucsspop,'heightAuto'=>False,'showConfirmButton'=>False];
+    if (isset($data['refresh'])) { $data['refresh'] = 350;} // refresh in 350ms
+    $data = array_replace($defaults, $data);
     if(!isset($data['success'])){ $data['success'] = empty($data['error']); }
+    header('Content-Type: application/json');
     die(json_encode($data, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
   }
-  function printErrorAndDie($error){
-    $data['error'] = $error;
+  function printErrorAndDie($data = []){
+    if (is_string($data)) { $data = ['title' => $data]; }
+    $defaults = ['type'=>'error','title'=>L::gnrl_errorpop,'showCloseButton'=>True,'footer'=>''];
+    $data = array_replace($defaults, $data);
     $url = 'https://status.mojang.com/check';
     $mjstatus = json_decode(curl(cacheGrab($url,$url,__DIR__.'/../../',60)), true);
     foreach ($mjstatus as $key) {
       foreach ($key as $site => $status) {
         if ($status !== 'green') {
-          $data['footer'] = $data['footer']."\n".'<div class="col"><a href="https://help.mojang.com"><i class="fas fa-exclamation-circle" style="padding-right: 5px;"></i>'.$site.' is having issues</a></div>';
-          error_log($site.' is having issues (https://help.mojang.com)');
+          $msg = str_replace("%site%", $site, L::gnrl_srvofl);
+          $data['footer'] = $data['footer']."\n".'<div class="col"><a href="https://help.mojang.com"><i class="fas fa-exclamation-circle" style="padding-right: 5px;"></i>'.$msg.'</a></div>';
+          error_log($msg.' (https://help.mojang.com)');
         }
       }
     }
@@ -56,8 +64,9 @@
     foreach (json_decode($ret, true)['psp']['monitors'] as $value) {
       if ($value['name'] == 'Mineskin API' and $value['statusClass'] != 'success') {
         $expl = explode('/', $value['monitorId']);
-        $data['footer'] = $data['footer']."\n".'<div class="col"><a href="https://status.mineskin.org"><i class="fas fa-exclamation-circle" style="padding-right: 5px;"></i>'.$value['name'].' is having issues</a></div>';
-        error_log($value['name'].' is having issues (https://status.mineskin.org)');
+        $msg = str_replace("%site%", $value['name'], L::gnrl_srvofl);
+        $data['footer'] = $data['footer']."\n".'<div class="col"><a href="https://status.mineskin.org"><i class="fas fa-exclamation-circle" style="padding-right: 5px;"></i>'.$msg.'</a></div>';
+        error_log($msg.' (https://status.mineskin.org)');
       }
     }
     if ($data['footer']) { $data['footer'] = '<div class="container">'.$data['footer'].'</div>'; }
@@ -80,7 +89,7 @@
       $response = curl_exec($ch);
       curl_close($ch);
       if($response === false){
-        printErrorAndDie('cURL ERROR : ' . curl_error($ch));
+        printErrorAndDie(str_replace("%err%", curl_error($ch), L::gnrl_crlerr));
       }
       return($response);
     } else {
