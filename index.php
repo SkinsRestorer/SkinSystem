@@ -16,7 +16,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>SkinSystem</title>
+    <title><?php echo L::mn_title;?></title>
     <!-- Libraries -->
     <link rel="shortcut icon" href="favicon.ico">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
@@ -58,16 +58,16 @@
             <div class="card border-0 shadow">
               <div class="card-header bg-primary text-white">
                 <div class="row mx-2 align-items-center">
-                  <h5 class="mb-0">SkinSystem 
+                  <h5 class="mb-0"><?php echo L::ssys;?> 
                     <?php
-                    echo '<small style="font-size: 60%;"><a id="versionDisplay" title="Release '.$config['version'].'" href="https://github.com/riflowth/SkinSystem/releases/tag/'.$config['version'].'">v.'.$config['version'].'</a>';
-                      if($config['version'] < getLatestVersion()){ echo ' <a title="Latest Release" href="https://github.com/riflowth/SkinSystem/releases/latest">(New version avaliable)</a>'; } ?>
+                    echo '<small style="font-size: 60%;"><a id="versionDisplay" title="'.str_replace("%v%", $config['version'], L::mn_rlhov).'" href="https://github.com/riflowth/SkinSystem/releases/tag/'.$config['version'].'">v.'.$config['version'].'</a>';
+                      if($config['version'] !== getLatestVersion()){ echo ' <a title="'.L::mn_nwrel_hov.'" href="https://github.com/riflowth/SkinSystem/releases/latest">('.L::mn_nwrel.')</a>'; } ?>
                     </small>
                   </h5>
                   <h6 class="mb-0 ml-auto">
                     <?php if($config['am']['enabled'] == true && !empty($_SESSION['username'])){ 
                       $SkullURL = 'resources/server/skinRender.php?vr=0&hr=0&headOnly=true&ratio=4&user='.$_SESSION['username'];
-                      echo '<a class="skinDownload" id="skinDownloadUrl" title="Download skin" name="'.$_SESSION['username'].'" href="resources/server/skinRender.php?format=raw&dl=true&user='.$_SESSION['username'].
+                      echo '<a class="skinDownload" id="skinDownloadUrl" title="'.L::mn_dlhov.'" name="'.$_SESSION['username'].'" href="resources/server/skinRender.php?format=raw&dl=true&user='.$_SESSION['username'].
                       '"><img class="skinDownload" style="max-height:29px!important;" src="'.$SkullURL.'">    '.htmlspecialchars($_SESSION['username'], ENT_QUOTES); ?></a>
                       <a class="btn btn-sm btn-light ml-2 rounded-circle" title="Log out" href="resources/server/authenCore.php?logout"><i class="fas fa-sign-out-alt"></i></a>
                     <?php } ?>
@@ -82,56 +82,56 @@
                     <!-- Uploader -->
                     <div class="col-lg-8 pr-lg-2 mb-lg-0 mb-3">
                       <div class="card border-0 shadow">
-                        <h6 class="card-header bg-info text-white"><i class="fas fa-file-upload text-dark"></i> Upload</h6>
+                        <h6 class="card-header bg-info text-white"><i class="fas fa-file-upload text-dark"></i> <?php echo L::mn_upl_title;?></h6>
                         <div class="card-body">
                           <form id="uploadSkinForm">
                             <?php if($config['am']['enabled'] == false){ ?>
                               <div class="form-group row">
-                                <h5 class="col-lg-3"><span class="badge badge-success">Username</span></h5>
+                                <h5 class="col-lg-3"><span class="badge badge-success"><?php echo L::mn_upl_usrnm;?></span></h5>
                                 <div class="col-lg-9">
                                   <input id="input-username" class="form-control form-control-sm" name="username" type="text" required>
                                 </div>
                               </div>
                             <?php } ?>
                             <div class="form-group">
-                              <h5 class="mb-0 mr-3 custom-control-inline"><span class="badge badge-info">Skin Type</span></h5>
+                              <h5 class="mb-0 mr-3 custom-control-inline"><span class="badge badge-info"><?php echo L::mn_upl_sknty;?></</span></h5>
                               <div class="custom-control custom-radio custom-control-inline">
                                 <input id="skintype-steve" class="custom-control-input" name="isSlim" value="false" type="radio">
-                                <label class="custom-control-label" for="skintype-steve">Steve</label>
+                                <label class="custom-control-label" for="skintype-steve"><?php echo L::mn_upl_sknty1;?></label>
                               </div>
                               <div class="custom-control custom-radio custom-control-inline">
                                 <input id="skintype-alex" class="custom-control-input" name="isSlim" value="true" type="radio">
-                                <label class="custom-control-label" for="skintype-alex">Alex</label>
+                                <label class="custom-control-label" for="skintype-alex"><?php echo L::mn_upl_sknty2;?></label>
                               </div>
                             </div>
                             <div class="form-group mb-4">
-                              <h5 class="mb-0 mr-3 custom-control-inline"><span class="badge badge-info">Upload Type</span></h5>
+                              <h5 class="mb-0 mr-3 custom-control-inline"><span class="badge badge-info"><?php echo L::mn_upl_uplty;?></span></h5>
                               <div class="custom-control custom-radio custom-control-inline">
                                 <input id="uploadtype-file" class="custom-control-input" name="uploadtype" value="file" type="radio" checked>
-                                <label class="custom-control-label" for="uploadtype-file">File</label>
+                                <label class="custom-control-label" for="uploadtype-file"><?php echo L::mn_upl_uplty1;?></label>
                               </div>
                               <div class="custom-control custom-radio custom-control-inline">
                                 <input id="uploadtype-url" class="custom-control-input" name="uploadtype" value="url" type="radio">
-                                <label class="custom-control-label" for="uploadtype-url">URL</label>
+                                <label class="custom-control-label" for="uploadtype-url"><?php echo L::mn_upl_uplty2;?></label>
                               </div>
                             </div>
                             <div id="form-input-file" class="form-group">
                               <div class="custom-file">
                                 <input id="input-file" class="custom-file-input" name="file" type="file" accept="image/*" required>
-                                <label class="custom-file-label text-truncate">Choose skin...</label>
+                                <label class="custom-file-label text-truncate"><?php echo L::mn_upl_uplty1_lbl;?></label>
                               </div>
                             </div>
                             <div id="form-input-url" class="form-group row" style="display: none;">
                               <div class="col-lg-12">
-                                <input id="input-url" class="form-control form-control-sm" name="url" type="text" placeholder="Enter skin URL...">
+                                <input id="input-url" class="form-control form-control-sm" name="url" type="text" placeholder="<?php echo L::mn_upl_uplty2_lbl;?>">
                               </div>
                             </div>
-                            <button class="btn btn-primary w-100"><strong>Upload!</strong></button>
+                            <button class="btn btn-primary w-100"><strong><?php echo L::mn_upl_buttn;?></strong></button>
                             <small class="form-text text-muted" id="uploadDisclaimer"<?php 
                               if ($config['data_warn'] === 'no' or ($config['data_warn'] === 'eu' and file_get_contents(cacheGrab('https://ipapi.co/'.IP.'/in_eu', 'in_eu-'.IP)) !== 'True')) {
                                 echo ' style="display: none;"';
                               }
-                            ?>>Skins are sent to <a href="https://mineskin.org">mineskin.org</a>, <a href="https://mojang.com">mojang.com</a>, and <a href="/"><?php echo $_SERVER['HTTP_HOST'] ?></a></small>
+                            ?>><?php echo str_replace("%h%", $_SERVER['HTTP_HOST'], L::mn_discl);?></small>
                           </form>
                         </div>
                       </div>

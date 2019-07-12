@@ -1,5 +1,13 @@
 <?php
-  $config = require_once(__DIR__ . '/../../config.nogit.php');
+  require_once __DIR__.'/i18n.class.php';
+  $i18n = new i18n();
+  $i18n->setCachePath(__DIR__.'/../lang/cache');
+  $i18n->setFilePath(__DIR__.'/../lang/{LANGUAGE}.ini'); // language file path
+  $i18n->setFallbackLang('en');
+  $i18n->setMergeFallback(true); // make keys available from the fallback language
+  $i18n->init();
+  global $i18n;
+  $config = require_once(__DIR__.'/../../config.nogit.php');
   global $config;
   /* client remote address with ipv6 as (/64 block) prefix */
   define('IP', preg_replace('/^(?:((?:[[:xdigit:]]+(:)){1,4})[[:xdigit:]:]*|((?:\d+\.){3}\d+))$/', '\1\2\3', $_SERVER['REMOTE_ADDR']));
