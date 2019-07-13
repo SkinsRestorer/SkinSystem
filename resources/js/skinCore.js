@@ -5,9 +5,9 @@ $(document).ready(function(){
 
   /* OnSubmit uploadSkinForm */
   $("#uploadSkinForm").on("submit", function(e){
+    // Swal.showLoading();
     e.preventDefault();
     var formData = new FormData($("#uploadSkinForm")[0]);
-
     $.ajax({
       type : "POST",
       url : "resources/server/skinCore.php",
@@ -18,24 +18,10 @@ $(document).ready(function(){
       dataType : "JSON",
       encode : true,
     }).done(function(res){
-      if(res.success){
-        Swal.fire({
-          type : "success",
-          title : "Upload Successful!",
-          text : "Enjoy your skin",
-          footer : res.footer,
-          heightAuto : false
-        });
-        setTimeout(function(){ location.reload(); }, 350);
-      } else {
-        Swal.fire({
-          type : "error",
-          title : "Something went wrong!",
-          text : res.error,
-          footer : res.footer,
-          heightAuto : false
-        });
-      }
+      Swal.fire(res);
+      if (typeof(res.refresh) === 'number') {
+        setTimeout(function(){ location.reload(); }, res.refresh);
+      };
     }).fail(function(){
       console.log("[ERROR] AJAX FAILED!");
     });
@@ -188,7 +174,7 @@ $(document).ready(function(){
       $(this).next(".custom-file-label").html(fileName);
       console.log("File selected : " + fileName);
     } else {
-      $(this).next(".custom-file-label").html("Choose skin...");
+      $(this).next(".custom-file-label").html(l.uplty1_lbl);
       console.log("No file selected!");
     }
   });

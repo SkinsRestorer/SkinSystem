@@ -1,6 +1,6 @@
 <?php
   require_once(__DIR__ . '/libraries.php');
-  if($config['am']['enabled'] == false){ printErrorAndDie('Unusable system!'); }
+  if($config['am']['enabled'] == false){ printErrorAndDie(L::amcr_unusb); }
   session_start();
   // https://github.com/AuthMe/AuthMeReloaded/tree/master/samples/website_integration
   function isValidPassword($password, $hash){ 
@@ -38,7 +38,7 @@
       if(isValidPassword($password, $pdo->fetch(PDO::FETCH_ASSOC)['password'])){
         $_SESSION['username'] = $username;
         foreach ($blk as $rlfl) {if (is_file($rlfl)) { unlink($rlfl); }}
-        printDataAndDie();
+        printDataAndDie(['title'=>L::amcr_lgsc_title,'text'=>L::amcr_lgsc_text,'refresh'=>True]);
       } else {
         /* Login failed, they should stop soon! */
         foreach ($blk as $index => $rlfl) {
@@ -50,12 +50,11 @@
           $failvl = ($failvl + ($timeout/($config['am']['authsec']['failed_attempts']+$index)) + 120);
           touch($rlfl, $failvl);
         }
-        printErrorAndDie(['code' => 401, 'data' => 'Please check your username or password']);
+        printErrorAndDie(['type'=>'warning','title'=>L::amcr_cd401_title,'text'=>L::amcr_cd401_text]);
       }
     } else {
-      printErrorAndDie(['code' => 429, 'data' => 'Please come back later']);
+      printErrorAndDie(['title'=>L::amcr_cd429_title,'text'=>L::amcr_cd429_text]);
     }
   }
-
-  printErrorAndDie('Invalid Request!');
+  printErrorAndDie(L::amcr_invrq);
 ?>
