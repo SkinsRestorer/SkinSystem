@@ -52,7 +52,7 @@
         error_log($value['name'].' is having issues (https://status.mineskin.org)');
       }
     }
-    if ($data['footer']) { $data['footer'] = '<div class="container">'.$data['footer'].'</div>'; }
+    if (isset($data['footer'])) { $data['footer'] = '<div class="container">'.$data['footer'].'</div>'; }
     printDataAndDie($data);
   }
 
