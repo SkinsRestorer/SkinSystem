@@ -9,7 +9,7 @@
     $playername = $_POST['username'];
   }
   if(empty($playername)){
-    printErrorAndDie('Please re-upload or contact WebMaster! (playername empty)');
+    printErrorAndDie(str_replace("%rsn%", L::skcr_error_plnm, L::skcr_error));
   }
 
   /* Check a request from users, Does it valid? --> If it valid do the statment below */
@@ -28,10 +28,10 @@
       $file = $_FILES['file'];
       $validFileType = ['image/jpeg', 'image/png'];
       /* Check If the skin is a Minecraft's skin format */
-      if(!in_array($file['type'], $validFileType)){ printErrorAndDie('Please upload JPEG or PNG file!'); }
+      if(!in_array($file['type'], $validFileType)){ printErrorAndDie(L::skcr_skfmt); }
       list($skinWidth, $skinHeight) = getimagesize($file['tmp_name']);
       if(( $skinWidth != 64 && $skinHeight != 64 ) || ( $skinWidth != 64 && $skinHeight != 32 )){
-        printErrorAndDie('This is not a valid Minecraft skin!');
+        printErrorAndDie(L::skcr_invsk);
       }
       $postparams['file'] = new CURLFile($file['tmp_name'], $file['type'], $file['name']);
       $endpointURL = 'https://api.mineskin.org/generate/upload';
@@ -48,7 +48,7 @@
     curl_close($ch);
     if($response == false){
       /* cURL ERROR */
-      printErrorAndDie('Please re-upload or contact WebMaster!');
+      printErrorAndDie(str_replace("%rsn%", L::skcr_error_mscurl, L::skcr_error));
     }
 
     $json = json_decode($response, true);
@@ -57,7 +57,7 @@
 
     /* MineSkin API returned unusable data */
     if(empty($json['data']['texture']['value']) || empty($json['data']['texture']['signature'])){
-      printErrorAndDie('Please re-upload or contact WebMaster!');
+      printErrorAndDie(str_replace("%rsn%", L::skcr_error_msinvl, L::skcr_error));
     }
 
     /* Assign data for putting to SkinsRestorer Storage */
@@ -91,7 +91,7 @@
       "ON DUPLICATE KEY UPDATE Nick=VALUES(Nick), Skin=VALUES(Skin)",
       [$playername, $transformedName]
     );
-    printDataAndDie();
+    printDataAndDie(['title'=>L::skcr_upld_title, 'text'=>L::skcr_upld_text, 'refresh'=>True]);
   }
-  printErrorAndDie('Please re-upload or contact WebMaster!');
+  printErrorAndDie(str_replace("%rsn%", L::skcr_error_endprg, L::skcr_error));
 ?>
