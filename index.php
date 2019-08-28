@@ -48,7 +48,7 @@
       'https://cdn.jsdelivr.net/npm/sweetalert2@8.8.5' => '2d90ae300e9e37ef219afa3c50f2261e220f83424a83d30286d53492becce0ea6f1dc1749b0cd47eec37c6a008f877b79e40ab48638efd1462f4aeff2a288c96'
     ] as $url => $sha512){
       $expl = explode('/', $url);
-      echo '<script src="'.cacheGrab($url, end($expl), './', false, ['sha512', $sha512]).'"></script>';
+      echo '<script type="application/x-javascript" src="'.cacheGrab($url, end($expl), './', false, ['sha512', $sha512]).'"></script>';
     } ?>
   </head>
   <body class="bg-light">
