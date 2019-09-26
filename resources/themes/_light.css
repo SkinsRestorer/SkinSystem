@@ -1,0 +1,18 @@
+@import url("https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css");
+html, body { height: 100%; }
+
+/* BootStrap Overriding */
+.bg-light { background-color: #E9ECEF!important; }
+.bg-info { background-color: #00B8D8!important; }
+
+/* Others */
+#versionDisplay { color: #c9c7ff!important; }
+/*switch themes button, set correct color*/
+.fas.fa-adjust { color: #212529!important; }
+#form-input-file.form-group, #form-input-url.form-group { height: 34px!important; }
+#input-url, #input-skinid { height: 37.5px!important; }
+.skinDownload { color: #fff!important; }
+
+/*get rid of confirmation button*/
+.swal2-actions { display: none!important; }
+.swal2-content { margin-bottom: 15px!important }

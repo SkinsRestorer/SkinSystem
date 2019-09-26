@@ -1,2 +1,5 @@
 # Ignore config file
 *.nogit.php
+
+# Ignore favicon
+*.ico

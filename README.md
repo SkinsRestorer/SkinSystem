@@ -1,32 +1,69 @@
-![alt text](https://i.imgur.com/pjuawRU.jpg "banner")
-# [The SkinSystem](https://github.com/riflowth/SkinSystem) [![License: MIT](https://img.shields.io/github/license/riflowth/SkinSystem.svg)](https://opensource.org/licenses/MIT) [![Release](https://img.shields.io/github/release/riflowth/skinsystem.svg)](https://github.com/riflowth/SkinSystem/releases) [![Download](https://img.shields.io/github/downloads/riflowth/SkinSystem/total.svg)](https://github.com/riflowth/SkinSystem/releases)
-The **SkinSystem** developed for cracked Minecraft's server allowing to change their player skin into a custom skin.
+---
 
-- **For other languages, you should go to a [wiki page](https://github.com/riflowth/SkinSystem/wiki)**
-- **สำหรับผู้ที่ต้องการอ่านข้อมูลภาษาไทย สามารถเข้าไปอ่านได้ที่นี่ [คลิก](https://github.com/riflowth/SkinSystem/wiki)**
+<p align="center">
+  <a href="https://github.com/riflowth/SkinSystem">
+    <img src="https://i.imgur.com/pjuawRU.jpg" alt="SkinSystem" width="600">
+  </a>
+</p>
 
-## Introduction
-This plugin makes it more at ease for cracked players and Minecraft server's owner to find their *OWN CUSTOM SKIN* without having to search for it they can upload it to the website and have it applied instantly.
+<p align="center">
+  The <b>SkinSystem</b>; developed for cracked <strong>Minecraft servers</strong>, allowing for changes of player skins to something more <strong>custom</strong>.
+</p>
 
-## How does it work?
-The main key of this system are [SkinsRestorer](https://www.spigotmc.org/resources/skinsrestorer.2124/) and [MineSkin](https://mineskin.org/). First! this system needs to send skin image to the `MineSkin` and then they send back `value` and `signature` of the uploaded skin that's have registered from Mojang. Second! we use `SkinsRestorer` to assign `value` and `signature` of the skin that user has uploaded and then BOOM!! The player skin has changed!
+<p align="center">
+  <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/github/license/riflowth/SkinSystem.svg" alt="MIT License"></a>
+  <a href="https://github.com/riflowth/SkinSystem/releases"><img src="https://img.shields.io/github/release/riflowth/skinsystem.svg" alt="Release"></a>
+  <a href="https://github.com/riflowth/SkinSystem/releases"><img src="https://img.shields.io/github/downloads/riflowth/SkinSystem/total.svg" alt="Download"></a>
+  <a href="https://www.paypal.me/wheprakhone"><img src="http://ionicabizau.github.io/badges/paypal.svg" alt="PayPal Donate"></a>
+  <a href="https://www.spigotmc.org/resources/the-skinsystem.59403/"><img src="https://img.shields.io/badge/view%20on-spigotmc-orange.svg" alt="View on spigotmc.org"</a>
+  <a href="https://discord.gg/HTMGaFV"><img src="https://img.shields.io/discord/186794372468178944.svg?color=blue&label=discord&logo=discord" alt="Join the chat"></a>
+  <a href="https://gitter.im/SkinSystem/community"><img src="https://badges.gitter.im/SkinSystem/community.svg" alt="Join the chat"></a>
+</p>
 
-## Installation
-#### Requirements:
+---
+
+## :eyeglasses: Examples
+
+<p align="center">
+  <img src="https://i.imgur.com/5baEOlG.png" alt="The SkinSystem Preview" height="230">
+  <img src="https://i.imgur.com/AbZgB5n.png" alt="The SkinSystem Preview" height="230">
+  <img src="https://i.imgur.com/grNDVYA.png" alt="The SkinSystem Preview" height="230">
+  <p align="center"><b>Installation</b> view / <b>SkinUploader</b> view / <b>Authen</b> view (<i>when you use this system with Authme</i>)</p>
+</p>
+
+---
+
+## :memo: Requirements
+
 - [SkinsRestorer](https://www.spigotmc.org/resources/skinsrestorer.2124/)
 - [AuthMe](https://www.spigotmc.org/resources/authmereloaded.6269/) (Optional)
 - WebServer
 - Database
 
-#### Usage:
-You can instantly use it by download on [release page](https://github.com/riflowth/SkinSystem/releases) or `clone` this project. After download or clone please follow an instruction below.
+---
 
-1. Put all of `The SkinSystem` in your web-root directory.
-2. It is recommended to run the system on a separate domain/subdomain in the root folder of the host
-- |_ Right: https://host.tld/index.php
-- |_ Wrong: https://host.tld/skinSystem/index.php
+## :wrench: Installation
 
-3. Enable MYSQL in SkinRestorer configuration, located here: `minecraftserver/plugins/SkinRestorer/config.yml`
+:grey_exclamation: If you use **Ubuntu 18.04**+, you may run **this command** to *automagically* install apache+mysql+git+curl, set apache2 webpage, and generate MySQL credentials:
+
+```bash
+sudo bash -c "apt-get update && apt-get install curl -y && curl -s https://raw.githubusercontent.com/riflowth/SkinSystem/master/installscripts/UbuntuInstall.sh | bash -s"
+```
+
+#### **otherwise**, follow **these directions**:
+
+1. Install MySQL
+2. Install and configure a webserver that supports php, php-curl, php-mysql, and php-gd. (apache2 may be used)
+3. Make sure your webserver is accessible.
+4. Create databases `skinsrestorer` and `authme`. [Commands](https://gist.github.com/ITZVGcGPmO/a3dffa0db198919ae002efcad444ae34)
+5. Download the latest **release** version from [**here!**](https://github.com/riflowth/SkinSystem/releases)
+6. Put all of `The SkinSystem` into your **web-root** directory.
+
+### :star: Let's start!!!
+
+* **IMPORTANT** Enable **Database** in your **AuthMe** configuration. (Optional)
+
+* **IMPORTANT** Enable **Database** in your **SkinsRestorer** configuration. 
 Example configuration:
 ```YML
 MySQL:
@@ -39,66 +76,45 @@ MySQL:
   Username: root
   Password: ''
 ```
-* Configuration option:
-  * Turn on a database by change `false` to `true` on the Enabled section.
-  * The Database section, You can input a name anything you want.
-  * **IMPORTANT** Don't forget to input your `Host`, `Port`, `Username`, `Password` into it. If you don't have a database password, You should fill `''` into `Password` section like me.
+If you don't have a database password, You should fill `''` into `Password` section.
 
-4. After putting The SkinSystem into your web-root directory you should see The SkinSystem on your website. You will see like this down below. So let's configure it correctly to get your started.
+1. Load The SkinSystem from your webserver. You should be shown an installation page looking something like this:
 
 <p align="center">
-  <img src="https://i.imgur.com/mLYt2p8.jpg" width="500" title="The SkinSystem">
-</p>
-<p align="center">
-  <img src="https://i.imgur.com/AsrGEIY.jpg" width="500" title="The SkinSystem">
-</p>
-<p align="center">
-  <img src="https://i.imgur.com/zwUkJvz.jpg" width="500" title="The SkinSystem">
-</p>
-<p align="center">
-  <img src="https://i.imgur.com/M7Z4kej.jpg" width="500" title="The SkinSystem">
+  <img src="https://i.imgur.com/naeNvbO.png" alt="Installation view" height="240">
+  <img src="https://i.imgur.com/zIKwLTu.png" alt="Installation view" height="240">
+  <p align="center">( <b>Light</b> theme / <b>Dark</b> theme )</p>
 </p>
 
-* **IMPORTANT** This is a configuration that uses on The SkinSystem. Please fill in a blank correctly.
-* **IMPORTANT** You can change it later on `skinsystem/lib/config.nogit.php`
+2. Select **config.yml** for SkinsRestorer(and AuthMe), making sure database is enabled and working.
+3. Now have fun with *changing* your skin! **Have a good time**. :smiley:
 
-5. Now have fun with changing your skin! Have a good time. :smiley:
+* **IMPORTANT** You can change the configuration later at `skinsystem/config.nogit.php`
 
-## Examples
-<p align="center">If you turn <b>the Authme</b> section to <b>false</b>, You will see like this down below.</p>
-<p align="center">
-  <img src="https://i.imgur.com/MBcVRK9.jpg" width="500" title="The SkinSystem">
-</p>
-<p align="center">If you turn <b>the Authme</b> section to <b>true</b>, You will see like this down below.</p>
-<p align="center">
-  <img src="https://i.imgur.com/MSsrweF.jpg" width="500" title="The SkinSystem">
-</p>
-<p align="center">
-  <img src="https://i.imgur.com/33Gkqi4.jpg" width="500" title="The SkinSystem">
-</p>
+---
 
-## Contributors
-- **[Krid Heprakhone](https://www.facebook.com/ohm.krid)**
-- **[lion328](https://github.com/lion328)**
-- **[syrainthegreat](http://www.facebook.com/jamespassaxz)**
-- **[NutpakornCat](https://github.com/nutpakorn-cat)**
-- **[xknat](https://github.com/xknat)**
-- **[InventivetalentDev](https://github.com/InventivetalentDev)**
-- **[aljaxus](https://github.com/LazosPlaying)**
+# :hammer: Collaborators
 
-This project will not succeed if we don't have a help from these people.
+[![](https://avatars3.githubusercontent.com/u/42472574?s=80&v=4)](https://www.facebook.com/Vectier) | [![](https://avatars3.githubusercontent.com/u/1367069?s=80&v=4)](https://github.com/lion328) | [![](https://avatars3.githubusercontent.com/u/24414483?s=80&v=4)](https://github.com/aljaxus) | [![](https://avatars2.githubusercontent.com/u/43493339?s=80&v=4)](https://github.com/SkinsRestorer/SkinsRestorerX) | [![](https://avatars2.githubusercontent.com/u/6525296?s=80&v=4)](https://github.com/InventivetalentDev) | [![](https://avatars2.githubusercontent.com/u/42504016?s=80&v=4)](https://github.com/ITZVGcGPmO)
+-|-|-|-|-|-
+[@VectierThailand](https://www.facebook.com/VectierThailand) | [@lion328](https://github.com/lion328) | [@aljaxus](https://github.com/aljaxus) | [@SkinsRestorer](https://github.com/SkinsRestorer/SkinsRestorerX) | [@InventivetalentDev](https://github.com/InventivetalentDev) | [@ITZVGcGPmO](https://github.com/ITZVGcGPmO)
 
-## Sponsors
-We want to say `Thank you` to all of them.
-- **[Vectier Thailand](https://www.facebook.com/VectierThailand/)** (Our team)
-- **[xknat](https://github.com/xknat)** (SkinsRestorer Team)
-- **Thanaphon Rangbunlue**
+---
 
-If this project makes your life better, *you can give me a pack of candy :)*
+## :thumbsup: Donations
 
-or leave your thumbs up on [Our team Facebook](https://www.facebook.com/VectierThailand/) :thumbsup:
+If The SkinSystem makes your life better, *you can give me a pack of candy :)*
 
-<a href="https://www.paypal.me/wheprakhone"><img src="https://raw.githubusercontent.com/riflowth/SkinSystem/master/src/donate-paypal.png" height="48px" width="auto"></a> <-- Click here
+- PayPal: https://www.paypal.me/wheprakhone
 
-## License
+or leave your thumbs up on [Our team Facebook](https://www.facebook.com/Vectier) :thumbsup:
+
+### [:trophy: Hall of Donators](DONATIONS.md)
+
+---
+
+## :pencil: License
+
 Our **SkinSystem** is licensed under the MIT License - see the [LICENSE.md](https://github.com/riflowth/SkinSystem/blob/master/LICENSE) file for details.
+
+---
