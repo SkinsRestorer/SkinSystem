@@ -83,8 +83,8 @@
     preg_match_all('/\n\s*(\w+):\s*[\'"]?([\'"]{2}|[^\s\'"]+)/', $re[0], $re); 
     $kitms = ['enabled', 'host', 'port', 'database', 'skintable', 'playertable', 'username', 'password'];
     foreach ($re[1] as $k => $v) {$v = strtolower($v); if (in_array($v, $kitms)) {$config['sr'][$v]=$re[2][$k];};}
-    if($config['sr']['enabled'] == false){ prntErrorAndDie(L::instl_srendb); }
-    if($config['sr']['password'] == "''"){ $config['sr']['password'] = ''; }
+    if(!isset($config['sr']) || $config['sr']['enabled'] == false){ prntErrorAndDie(L::instl_srendb); }
+    if(!isset($config['sr']) || $config['sr']['password'] == "''"){ $config['sr']['password'] = ''; }
     unset($config['sr']['enabled']);
 
     /* Get Data from AuthMe's config.yml */
