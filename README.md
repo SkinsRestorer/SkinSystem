@@ -90,6 +90,7 @@ If you don't have a database password, You should fill `''` into `Password` sect
 3. Now have fun with *changing* your skin! **Have a good time**. :smiley:
 
 * **IMPORTANT** You can change the configuration later at `skinsystem/config.nogit.php`
+* **You can use this [template](https://github.com/riflowth/SkinSystem/wiki/Configuration) for making config file manually**.
 
 ---
 
