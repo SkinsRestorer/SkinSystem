@@ -3,7 +3,7 @@
 * [**PayPal**](https://www.paypal.me/wheprakhone)
 * [**Facebook**](https://www.facebook.com/Vectier)
 
-Your contribution will be extremely appreciated! :heart:
+**Your contribution will be extremely appreciated!** :heart:
 
 # Backer
 
