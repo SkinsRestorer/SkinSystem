@@ -1,9 +1,9 @@
 :pray: We would like to say `Thank you` to all of them. If this project makes your life better, you can making a donation:
 
-* PayPal: https://www.paypal.me/wheprakhone
-* Facebook : https://www.facebook.com/Vectier
+* [**PayPal**](https://www.paypal.me/wheprakhone)
+* [**Facebook**](https://www.facebook.com/Vectier)
 
-Your contribution will be extremely appreciated! :heart:
+**Your contribution will be extremely appreciated!** :heart:
 
 # Backer
 
