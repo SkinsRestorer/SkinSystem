@@ -106,7 +106,7 @@ If you don't have a database password, You should fill `''` into `Password` sect
 
 If The SkinSystem makes your life better, *you can give me a pack of candy :)*
 
-- PayPal: https://www.paypal.me/wheprakhone
+- [**PayPal**](https://www.paypal.me/wheprakhone)
 
 or leave your thumbs up on [Our team Facebook](https://www.facebook.com/Vectier) :thumbsup:
 
