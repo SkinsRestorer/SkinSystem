@@ -18,3 +18,5 @@ Therefor we from SkinsRestorer Team have made a arrangement to make a monthly pa
     
 - **[Thanaphon Rangbunlue](https://survivalcity.in.th/)** (50 BAHT)
     > Render_X is everywhere!
+
+- **Ewritech** (400 THB)
