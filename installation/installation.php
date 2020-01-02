@@ -78,7 +78,7 @@
 
     /* Get Data from SkinsRestorer's config.yml */
     if(empty($_FILES['sr-config']['tmp_name'])){ prntErrorAndDie(str_replace("%rsn%", L::instl_invreq_srfile, L::instl_invreq)); }
-    $is_srconfig = preg_match('/MySQL:((?:\n\s+.*)*)/', file_get_contents($_FILES['sr-config']['tmp_name']), $re);
+    $is_srconfig = preg_match('/MySQL:((\s+.*)*)/', file_get_contents($_FILES['sr-config']['tmp_name']), $re);
     if(!$is_srconfig){ prntErrorAndDie(L::instl_srivfl); }
     preg_match_all('/\n\s*(\w+):\s*[\'"]?([\'"]{2}|[^\s\'"]+)/', $re[0], $re); 
     $kitms = ['enabled', 'host', 'port', 'database', 'skintable', 'playertable', 'username', 'password'];
