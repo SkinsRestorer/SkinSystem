@@ -87,10 +87,10 @@
       curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
       curl_setopt($ch, CURLOPT_USERAGENT, 'The SkinSystem');
       $response = curl_exec($ch);
-      curl_close($ch);
       if($response === false){
         printErrorAndDie(str_replace("%err%", curl_error($ch), L::gnrl_crlerr));
       }
+      curl_close($ch);
       return($response);
     } else {
       return(file_get_contents($url));
