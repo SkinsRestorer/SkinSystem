@@ -31,6 +31,7 @@
         'database' => '',
         'username' => '',
         'password' => '',
+        'table' => 'authme',
         'hash' => [
           'method' => 'sha256'
         ],
