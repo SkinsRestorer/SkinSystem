@@ -96,7 +96,7 @@
       $is_srconfig = preg_match('/DataSource:((?:\n\s+.*)*)/', $raw_amconfig, $re);
       if(!$is_srconfig){ prntErrorAndDie(L::instl_amivfl); }
       preg_match_all('/\n\s*(?:mySQL)?([^#\/:]+):\s*[\'"]?([\'"]{2}|[^\s\'"]+)/', $re[0], $re);
-      $kitms = ['backend', 'enabled', 'host', 'port', 'database', 'username', 'password'];
+      $kitms = ['backend', 'enabled', 'host', 'port', 'database', 'username', 'password', 'table'];
       foreach ($re[1] as $k => $v) {$v = strtolower($v); if (in_array($v, $kitms)) {$config['am'][$v]=$re[2][$k];};}
       if($config['am']['backend'] !== 'MYSQL'){ prntErrorAndDie(L::instl_amendb); }
       if(preg_match('/\n\s*passwordHash:\s*[\'"]?([\'"]{2}|[^\s\'"]+)/', $raw_amconfig, $re)){
