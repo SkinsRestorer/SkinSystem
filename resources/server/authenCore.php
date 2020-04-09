@@ -33,7 +33,8 @@
     if (!$config['am']['authsec']['enabled'] or !is_file($blk[0]) or !is_file($blk[1]) or (max([filemtime($blk[0]), filemtime($blk[1])]) < $now)) {
       $password = $_POST['password'];
       /* Get user's password from AuthMe Storage */
-      $pdo = query('am', 'SELECT password FROM authme WHERE username = ?', [$username]);
+      $authmeTable = $config['am']['table'];
+      $pdo = query('am', "SELECT password FROM $authmeTable WHERE username = ?", [$username]);
       /* Analyse AuthMe Password Algorithm */
       if(isValidPassword($password, $pdo->fetch(PDO::FETCH_ASSOC)['password'])){
         $_SESSION['username'] = $username;
