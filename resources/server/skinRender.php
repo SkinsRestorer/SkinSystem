@@ -218,8 +218,8 @@
                 preg_match('/[^\/]+$/', $this->mojang, $mj256);
                 $skinURL = 'https://textures.minecraft.net/texture/'.$mj256[0];}
             else if ($this->playerName!=null) { // get existing skin from skinsrestorer.
-                $skinName = query('sr', 'SELECT Skin FROM Players WHERE Nick = ?', [$this->playerName])->fetch(PDO::FETCH_ASSOC)['Skin'];
-                $skinLookup = query('sr', 'SELECT Value FROM Skins WHERE Nick = ?', [$skinName])->fetch(PDO::FETCH_ASSOC)['Value'];
+                $skinName = query('sr', 'SELECT Skin FROM . $config['sr']['playertable'] . WHERE Nick = ?', [$this->playerName])->fetch(PDO::FETCH_ASSOC)['Skin'];
+                $skinLookup = query('sr', 'SELECT Value FROM . $config['sr']['skintable'] . WHERE Nick = ?', [$skinName])->fetch(PDO::FETCH_ASSOC)['Value'];
                 $skinURL = json_decode(base64_decode($skinLookup), true)['textures']['SKIN']['url'];
                 if (!is_string($skinURL)) { // if cannot get skin from skinsrestorer, get skin from mojang.
                     $mjdfskfl = __DIR__.'/../../'.$config['cache_dir'].'mojang_skin-'.strtolower($this->playerName);
