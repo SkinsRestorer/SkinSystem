@@ -45,7 +45,7 @@
       'https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js' => 'f43dfd388488b509a66879608c35d7c1155f93dcec33ca875082f59f35552740d65e9a344a044d7ec534f0278a6bb6f0ed81047f73dcf615f7dcd76e0a482009',
       'https://cdnjs.cloudflare.com/ajax/libs/three.js/94/three.min.js' => '64681777a4c1e6a8edbd353a439a3f2c9338a702cdcbc53c5d7261faf2590d7a76c02f004ab97858e7a2bdaab67e961cdd39d308bcf20ef56363c621bcd61a5e',
       'https://raw.githubusercontent.com/InventivetalentDev/MineRender/v1.1.0/dist/skin.min.js' => '5acd05d47d28928779a88a13126a396fc1a57cda55fb82180db9e69dba009ad466156e1ca75562026c2ebcdf195adcfc178c78602468eafe3303b726706447b0',
-      'https://cdn.jsdelivr.net/npm/sweetalert2@9.15.3/dist/sweetalert2.all.min.js' => '2d90ae300e9e37ef219afa3c50f2261e220f83424a83d30286d53492becce0ea6f1dc1749b0cd47eec37c6a008f877b79e40ab48638efd1462f4aeff2a288c96'
+      'https://cdn.jsdelivr.net/npm/sweetalert2@9.15.3/dist/sweetalert2.all.min.js' => '8fe57850aa47a6012ff551b748895867ab7c919e1517880ad78aa83062aa12e55e6282b47015b126cdead46278320e5b9b0586a0fb815c752d4673e2c521cf72'
     ] as $url => $sha512){
       $expl = explode('/', $url);
       echo '<script src="'.cacheGrab($url, end($expl), './', false, ['sha512', $sha512]).'"></script>';
