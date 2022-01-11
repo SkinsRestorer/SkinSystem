@@ -42,31 +42,34 @@
     header('Content-Type: application/json');
     die(json_encode($data, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
   }
-  function printErrorAndDie($data = []){
+  function printErrorAndDie($data = [], $skip_skinstatus_links = false){
     if (is_string($data)) { $data = ['title' => $data]; }
     $defaults = ['type'=>'error','title'=>L::gnrl_errorpop,'showCloseButton'=>True,'footer'=>''];
     $data = array_replace($defaults, $data);
-    $url = 'https://status.mojang.com/check';
-    $mjstatus = json_decode(curl(cacheGrab($url,$url,__DIR__.'/../../',60)), true);
-    foreach ($mjstatus as $key) {
-      foreach ($key as $site => $status) {
-        if ($status !== 'green') {
-          $msg = str_replace("%site%", $site, L::gnrl_srvofl);
-          $data['footer'] = $data['footer']."\n".'<div class="col"><a href="https://help.mojang.com"><i class="fas fa-exclamation-circle" style="padding-right: 5px;"></i>'.$msg.'</a></div>';
-          error_log($msg.' (https://help.mojang.com)');
+
+    if (!$skip_skinstatus_links) {
+      $url = 'https://status.mojang.com/check';
+      $mjstatus = json_decode(curl(cacheGrab($url,$url,__DIR__.'/../../',60)), true);
+      foreach ($mjstatus as $key) {
+        foreach ($key as $site => $status) {
+          if ($status !== 'green') {
+            $msg = str_replace("%site%", $site, L::gnrl_srvofl);
+            $data['footer'] = $data['footer']."\n".'<div class="col"><a href="https://help.mojang.com"><i class="fas fa-exclamation-circle" style="padding-right: 5px;"></i>'.$msg.'</a></div>';
+            error_log($msg.' (https://help.mojang.com)');
+          }
         }
       }
-    }
-    $url = 'https://status.mineskin.org';
-    $dta = curl(cacheGrab($url,$url,__DIR__.'/../../',(60*60)));
-    preg_match('/https:\/\/status\.mineskin\.org\/api\/getMonitorList\/\w+/', $dta, $match);
-    $ret = curl(cacheGrab($match[0],$match[0],__DIR__.'/../../',60));
-    foreach (json_decode($ret, true)['psp']['monitors'] as $value) {
-      if ($value['name'] == 'Mineskin API' and $value['statusClass'] != 'success') {
-        $expl = explode('/', $value['monitorId']);
-        $msg = str_replace("%site%", $value['name'], L::gnrl_srvofl);
-        $data['footer'] = $data['footer']."\n".'<div class="col"><a href="https://status.mineskin.org"><i class="fas fa-exclamation-circle" style="padding-right: 5px;"></i>'.$msg.'</a></div>';
-        error_log($msg.' (https://status.mineskin.org)');
+      $url = 'https://status.mineskin.org';
+      $dta = curl(cacheGrab($url,$url,__DIR__.'/../../',(60*60)));
+      preg_match('/https:\/\/status\.mineskin\.org\/api\/getMonitorList\/\w+/', $dta, $match);
+      $ret = curl(cacheGrab($match[0],$match[0],__DIR__.'/../../',60));
+      foreach (json_decode($ret, true)['psp']['monitors'] as $value) {
+        if ($value['name'] == 'Mineskin API' and $value['statusClass'] != 'success') {
+          $expl = explode('/', $value['monitorId']);
+          $msg = str_replace("%site%", $value['name'], L::gnrl_srvofl);
+          $data['footer'] = $data['footer']."\n".'<div class="col"><a href="https://status.mineskin.org"><i class="fas fa-exclamation-circle" style="padding-right: 5px;"></i>'.$msg.'</a></div>';
+          error_log($msg.' (https://status.mineskin.org)');
+        }
       }
     }
     if (isset($data['footer'])) { $data['footer'] = '<div class="container">'.$data['footer'].'</div>'; }
@@ -86,9 +89,11 @@
       curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
       curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
       curl_setopt($ch, CURLOPT_USERAGENT, 'The SkinSystem');
+      curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0); 
+      curl_setopt($ch, CURLOPT_TIMEOUT, 5);
       $response = curl_exec($ch);
       if($response === false){
-        printErrorAndDie(str_replace("%err%", curl_error($ch), L::gnrl_crlerr));
+        printErrorAndDie(str_replace("%err%", curl_error($ch), L::gnrl_crlerr), true);
       }
       curl_close($ch);
       return($response);
