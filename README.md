@@ -14,7 +14,7 @@
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/github/license/riflowth/SkinSystem.svg" alt="MIT License"></a>
   <a href="https://github.com/riflowth/SkinSystem/releases"><img src="https://img.shields.io/github/release/riflowth/skinsystem.svg" alt="Release"></a>
   <a href="https://github.com/riflowth/SkinSystem/releases"><img src="https://img.shields.io/github/downloads/riflowth/SkinSystem/total.svg" alt="Download"></a>
-  <a href="https://www.paypal.me/wheprakhone"><img src="http://ionicabizau.github.io/badges/paypal.svg" alt="PayPal Donate"></a>
+  <a href="https://www.paypal.me/wheprakhone"><img src="https://ionicabizau.github.io/badges/paypal.svg" alt="PayPal Donate"></a>
   <a href="https://www.spigotmc.org/resources/the-skinsystem.59403/"><img src="https://img.shields.io/badge/view%20on-spigotmc-orange.svg" alt="View on spigotmc.org"</a>
   <a href="https://discord.gg/HTMGaFV"><img src="https://img.shields.io/discord/186794372468178944.svg?color=blue&label=discord&logo=discord" alt="Join the chat"></a>
   <a href="https://gitter.im/SkinSystem/community"><img src="https://badges.gitter.im/SkinSystem/community.svg" alt="Join the chat"></a>
@@ -37,7 +37,7 @@
 
 - [SkinsRestorer](https://www.spigotmc.org/resources/skinsrestorer.2124/)
 - [AuthMe](https://www.spigotmc.org/resources/authmereloaded.6269/) (Optional)
-- WebServer
+- Web Server
 - Database
 
 ---
@@ -48,7 +48,7 @@
 apache+mysql+git+curl, set apache2 webpage, and generate MySQL credentials:
 
 ```bash
-sudo bash -c "apt-get update && apt-get install curl -y && curl -s https://raw.githubusercontent.com/riflowth/SkinSystem/master/installscripts/UbuntuInstall.sh | bash -s"
+sudo bash -c "apt-get update && apt-get install curl -y && curl -s https://raw.githubusercontent.com/SkinsRestorer/skinsystem/main/installscripts/UbuntuInstall.sh | bash -s"
 ```
 
 #### **otherwise**, follow **these directions**:
@@ -58,7 +58,7 @@ sudo bash -c "apt-get update && apt-get install curl -y && curl -s https://raw.g
 3. Make sure your webserver is accessible.
 4. Create databases `skinsrestorer` and `authme`
    . [Commands](https://gist.github.com/ITZVGcGPmO/a3dffa0db198919ae002efcad444ae34)
-5. Download the latest **release** version from [**here!**](https://github.com/riflowth/SkinSystem/releases)
+5. Download the latest **release** version from [**here!**](https://github.com/SkinsRestorer/SkinSystem/releases)
 6. Put all of `The SkinSystem` into your **web-root** directory.
 
 ### :star: Let's start!!!

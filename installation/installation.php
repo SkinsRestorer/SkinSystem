@@ -9,7 +9,7 @@ $i18n->setFilePath('../resources/lang/{LANGUAGE}.ini'); // language file path
 $i18n->setFallbackLang('en');
 $i18n->setMergeFallback(true); // make keys available from the fallback language
 $i18n->init();
-function prntDataAndDie($data = [])
+function printDataAndDie($data = [])
 {
     if (!isset($data['success'])) {
         $data['success'] = empty($data['error']);
@@ -17,9 +17,9 @@ function prntDataAndDie($data = [])
     die(json_encode($data, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
 }
 
-function prntErrorAndDie($error)
+function printErrorAndDie($error)
 {
-    prntDataAndDie(['error' => $error]);
+    printDataAndDie(['error' => $error]);
 }
 
 /* Update config file */
@@ -83,26 +83,26 @@ function confupdater($config, $version)
     $confarr = preg_replace(array_keys($repl), $repl, var_export(array_replace_recursive($defaults, $config), true));
     $byteswritten = file_put_contents(__DIR__ . '/../config.nogit.php', "<?php return" . $confarr . ";?>");
     if (!$byteswritten) {
-        prntErrorAndDie(L::instl_noconf);
+        printErrorAndDie(L::instl_noconf);
     }
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($_POST['release-version'])) {
-        prntErrorAndDie(str_replace("%rsn%", L::instl_invreq_verusp, L::instl_invreq));
+        printErrorAndDie(str_replace("%rsn%", L::instl_invreq_verusp, L::instl_invreq));
     }
     if (empty($_POST['thm-selection'])) {
-        prntErrorAndDie(str_replace("%rsn%", L::instl_invreq_thmusp, L::instl_invreq));
+        printErrorAndDie(str_replace("%rsn%", L::instl_invreq_thmusp, L::instl_invreq));
     }
     $config['def_theme'] = $_POST['thm-selection'];
 
     /* Get Data from SkinsRestorer's config.yml */
     if (empty($_FILES['sr-config']['tmp_name'])) {
-        prntErrorAndDie(str_replace("%rsn%", L::instl_invreq_srfile, L::instl_invreq));
+        printErrorAndDie(str_replace("%rsn%", L::instl_invreq_srfile, L::instl_invreq));
     }
     $is_srconfig = preg_match('/MySQL:((\s+.*)*)/', file_get_contents($_FILES['sr-config']['tmp_name']), $re);
     if (!$is_srconfig) {
-        prntErrorAndDie(L::instl_srivfl);
+        printErrorAndDie(L::instl_srivfl);
     }
     preg_match_all('/\n\s*(\w+):\s*[\'"]?([\'"]{2}|[^\s\'"]+)/', $re[0], $re);
     $kitms = ['enabled', 'host', 'port', 'database', 'skintable', 'playertable', 'username', 'password'];
@@ -113,7 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         };
     }
     if (!isset($config['sr']) || $config['sr']['enabled'] == false) {
-        prntErrorAndDie(L::instl_srendb);
+        printErrorAndDie(L::instl_srendb);
     }
     if (!isset($config['sr']) || $config['sr']['password'] == "''") {
         $config['sr']['password'] = '';
@@ -124,12 +124,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!empty($_POST['am-activation'])) {
         $config['am']['enabled'] = true;
         if (empty($_FILES['am-config']['tmp_name'])) {
-            prntErrorAndDie(str_replace("%rsn%", L::instl_invreq_amfile, L::instl_invreq));
+            printErrorAndDie(str_replace("%rsn%", L::instl_invreq_amfile, L::instl_invreq));
         }
         $raw_amconfig = file_get_contents($_FILES['am-config']['tmp_name']);
         $is_srconfig = preg_match('/DataSource:((?:\n\s+.*)*)/', $raw_amconfig, $re);
         if (!$is_srconfig) {
-            prntErrorAndDie(L::instl_amivfl);
+            printErrorAndDie(L::instl_amivfl);
         }
         preg_match_all('/\n\s*(?:mySQL)?([^#\/:]+):\s*[\'"]?([\'"]{2}|[^\s\'"]+)/', $re[0], $re);
         $kitms = ['backend', 'enabled', 'host', 'port', 'database', 'username', 'password', 'table'];
@@ -140,7 +140,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             };
         }
         if ($config['am']['backend'] !== 'MYSQL') {
-            prntErrorAndDie(L::instl_amendb);
+            printErrorAndDie(L::instl_amendb);
         }
         if (preg_match('/\n\s*passwordHash:\s*[\'"]?([\'"]{2}|[^\s\'"]+)/', $raw_amconfig, $re)) {
             $config['am']['hash']['method'] = strtolower($re[1]);
@@ -160,6 +160,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     /* Set default properties, write file */
     confupdater($config, $_POST['release-version']);
-    prntDataAndDie();
+    printDataAndDie();
 }
-?>
