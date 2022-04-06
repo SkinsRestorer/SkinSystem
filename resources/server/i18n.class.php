@@ -7,7 +7,8 @@
  * License: MIT
  */
 
-class i18n {
+class i18n
+{
 
     /**
      * Language file path
@@ -98,7 +99,8 @@ class i18n {
      * @param string [$fallbackLang] This is the language which is used when there is no language file for all other user languages. It has the lowest priority.
      * @param string [$prefix] The class name of the compiled class that contains the translated texts. Defaults to 'L'.
      */
-    public function __construct($filePath = NULL, $cachePath = NULL, $fallbackLang = NULL, $prefix = NULL) {
+    public function __construct($filePath = NULL, $cachePath = NULL, $fallbackLang = NULL, $prefix = NULL)
+    {
         // Apply settings
         if ($filePath != NULL) {
             $this->filePath = $filePath;
@@ -117,7 +119,8 @@ class i18n {
         }
     }
 
-    public function init() {
+    public function init()
+    {
         if ($this->isInitialized()) {
             throw new BadMethodCallException('This object from class ' . __CLASS__ . ' is already initialized. It is not possible to init one object twice!');
         }
@@ -153,17 +156,17 @@ class i18n {
                 $config = array_replace_recursive($this->load($this->getConfigFilename($this->fallbackLang)), $config);
 
             $compiled = "<?php class " . $this->prefix . " {\n"
-            	. $this->compile($config)
-            	. 'public static function __callStatic($string, $args) {' . "\n"
-            	. '    return vsprintf(constant("self::" . $string), $args);'
-            	. "\n}\n}\n"
-            	. "function ".$this->prefix .'($string, $args=NULL) {'."\n"
-            	. '    $return = constant("'.$this->prefix.'::".$string);'."\n"
-            	. '    return $args ? vsprintf($return,$args) : $return;'
-            	. "\n}";
+                . $this->compile($config)
+                . 'public static function __callStatic($string, $args) {' . "\n"
+                . '    return vsprintf(constant("self::" . $string), $args);'
+                . "\n}\n}\n"
+                . "function " . $this->prefix . '($string, $args=NULL) {' . "\n"
+                . '    $return = constant("' . $this->prefix . '::".$string);' . "\n"
+                . '    return $args ? vsprintf($return,$args) : $return;'
+                . "\n}";
 
-			if( ! is_dir($this->cachePath))
-				mkdir($this->cachePath, 0755, true);
+            if (!is_dir($this->cachePath))
+                mkdir($this->cachePath, 0755, true);
 
             if (file_put_contents($this->cacheFilePath, $compiled) === FALSE) {
                 throw new Exception("Could not write cache file to path '" . $this->cacheFilePath . "'. Is it writable?");
@@ -175,62 +178,9 @@ class i18n {
         require_once $this->cacheFilePath;
     }
 
-    public function isInitialized() {
+    public function isInitialized()
+    {
         return $this->isInitialized;
-    }
-
-    public function getAppliedLang() {
-        return $this->appliedLang;
-    }
-
-    public function getCachePath() {
-        return $this->cachePath;
-    }
-
-    public function getFallbackLang() {
-        return $this->fallbackLang;
-    }
-
-    public function setFilePath($filePath) {
-        $this->fail_after_init();
-        $this->filePath = $filePath;
-    }
-
-    public function setCachePath($cachePath) {
-        $this->fail_after_init();
-        $this->cachePath = $cachePath;
-    }
-
-    public function setFallbackLang($fallbackLang) {
-        $this->fail_after_init();
-        $this->fallbackLang = $fallbackLang;
-    }
-
-    public function setMergeFallback($mergeFallback) {
-        $this->fail_after_init();
-        $this->mergeFallback = $mergeFallback;
-    }
-
-    public function setPrefix($prefix) {
-        $this->fail_after_init();
-        $this->prefix = $prefix;
-    }
-
-    public function setForcedLang($forcedLang) {
-        $this->fail_after_init();
-        $this->forcedLang = $forcedLang;
-    }
-
-    public function setSectionSeparator($sectionSeparator) {
-        $this->fail_after_init();
-        $this->sectionSeparator = $sectionSeparator;
-    }
-
-    /**
-     * @deprecated Use setSectionSeparator.
-     */
-    public function setSectionSeperator($sectionSeparator) {
-        $this->setSectionSeparator($sectionSeparator);
     }
 
     /**
@@ -246,7 +196,8 @@ class i18n {
      *
      * @return array with the user languages sorted by priority.
      */
-    public function getUserLangs() {
+    public function getUserLangs()
+    {
         $userLangs = array();
 
         // Highest priority: forced language
@@ -288,11 +239,13 @@ class i18n {
         return $userLangs2;
     }
 
-    protected function getConfigFilename($langcode) {
+    protected function getConfigFilename($langcode)
+    {
         return str_replace('{LANGUAGE}', $langcode, $this->filePath);
     }
 
-    protected function load($filename) {
+    protected function load($filename)
+    {
         $ext = substr(strrchr($filename, '.'), 1);
         switch ($ext) {
             case 'properties':
@@ -315,7 +268,8 @@ class i18n {
     /**
      * Recursively compile an associative array to PHP code.
      */
-    protected function compile($config, $prefix = '') {
+    protected function compile($config, $prefix = '')
+    {
         $code = '';
         foreach ($config as $key => $value) {
             if (is_array($value)) {
@@ -331,9 +285,75 @@ class i18n {
         return $code;
     }
 
-    protected function fail_after_init() {
+    public function getAppliedLang()
+    {
+        return $this->appliedLang;
+    }
+
+    public function getCachePath()
+    {
+        return $this->cachePath;
+    }
+
+    public function setCachePath($cachePath)
+    {
+        $this->fail_after_init();
+        $this->cachePath = $cachePath;
+    }
+
+    public function getFallbackLang()
+    {
+        return $this->fallbackLang;
+    }
+
+    public function setFallbackLang($fallbackLang)
+    {
+        $this->fail_after_init();
+        $this->fallbackLang = $fallbackLang;
+    }
+
+    public function setFilePath($filePath)
+    {
+        $this->fail_after_init();
+        $this->filePath = $filePath;
+    }
+
+    protected function fail_after_init()
+    {
         if ($this->isInitialized()) {
             throw new BadMethodCallException('This ' . __CLASS__ . ' object is already initalized, so you can not change any settings.');
         }
+    }
+
+    public function setMergeFallback($mergeFallback)
+    {
+        $this->fail_after_init();
+        $this->mergeFallback = $mergeFallback;
+    }
+
+    public function setPrefix($prefix)
+    {
+        $this->fail_after_init();
+        $this->prefix = $prefix;
+    }
+
+    public function setForcedLang($forcedLang)
+    {
+        $this->fail_after_init();
+        $this->forcedLang = $forcedLang;
+    }
+
+    /**
+     * @deprecated Use setSectionSeparator.
+     */
+    public function setSectionSeperator($sectionSeparator)
+    {
+        $this->setSectionSeparator($sectionSeparator);
+    }
+
+    public function setSectionSeparator($sectionSeparator)
+    {
+        $this->fail_after_init();
+        $this->sectionSeparator = $sectionSeparator;
     }
 }
