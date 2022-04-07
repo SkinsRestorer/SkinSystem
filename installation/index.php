@@ -58,13 +58,13 @@ $i18n->init();
                                         <div class="card-body">
                                             <div class="form-group">
                                                 <div class="row">
-                                                    <div class="col-sm" style="flex-grow:.1;padding-right:0px;">
+                                                    <div class="col-sm" style="flex-grow:.1;padding-right:0;">
                                                         <h5 class="mb-0 mr-3 custom-control-inline"
                                                             style="padding-top:5px;">
                                                             <span class="badge badge-info"><?php echo L::instl_dfthm; ?></span>
                                                         </h5>
                                                     </div>
-                                                    <div class="col-sm" style="padding-left:0px;">
+                                                    <div class="col-sm" style="padding-left:0;">
                                                         <select id="thm-selection" name="thm-selection"
                                                                 class="form-control" style="height: 35px;padding: 5px;"
                                                                 onchange="document.getElementById('stylesheetSelector').href='../resources/themes/'+this.value+'.css';">

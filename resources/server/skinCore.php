@@ -96,4 +96,3 @@ if (!empty($_POST['isSlim']) && !empty($_POST['uploadtype']) && isset($_FILES['f
     printDataAndDie(['title' => L::skcr_upld_title, 'text' => L::skcr_upld_text, 'refresh' => True]);
 }
 printErrorAndDie(str_replace("%rsn%", L::skcr_error_endprg, L::skcr_error));
-?>

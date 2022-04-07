@@ -11,11 +11,11 @@
 </p>
 
 <p align="center">
-  <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/github/license/riflowth/SkinSystem.svg" alt="MIT License"></a>
-  <a href="https://github.com/riflowth/SkinSystem/releases"><img src="https://img.shields.io/github/release/riflowth/skinsystem.svg" alt="Release"></a>
-  <a href="https://github.com/riflowth/SkinSystem/releases"><img src="https://img.shields.io/github/downloads/riflowth/SkinSystem/total.svg" alt="Download"></a>
+  <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/github/license/SkinsRestorer/skinsystem.svg" alt="MIT License"></a>
+  <a href="https://github.com/SkinsRestorer/skinsystem/releases"><img src="https://img.shields.io/github/release/SkinsRestorer/skinsystem.svg" alt="Release"></a>
+  <a href="https://github.com/SkinsRestorer/skinsystem/releases"><img src="https://img.shields.io/github/downloads/SkinsRestorer/skinsystem/total.svg" alt="Download"></a>
   <a href="https://www.paypal.me/wheprakhone"><img src="https://ionicabizau.github.io/badges/paypal.svg" alt="PayPal Donate"></a>
-  <a href="https://www.spigotmc.org/resources/the-skinsystem.59403/"><img src="https://img.shields.io/badge/view%20on-spigotmc-orange.svg" alt="View on spigotmc.org"</a>
+  <a href="https://www.spigotmc.org/resources/the-skinsystem.59403/"><img src="https://img.shields.io/badge/view%20on-spigotmc-orange.svg" alt="View on spigotmc.org"></a>
   <a href="https://discord.gg/HTMGaFV"><img src="https://img.shields.io/discord/186794372468178944.svg?color=blue&label=discord&logo=discord" alt="Join the chat"></a>
   <a href="https://gitter.im/SkinSystem/community"><img src="https://badges.gitter.im/SkinSystem/community.svg" alt="Join the chat"></a>
 </p>
@@ -28,7 +28,9 @@
   <img src="https://i.imgur.com/5baEOlG.png" alt="The SkinSystem Preview" height="230">
   <img src="https://i.imgur.com/AbZgB5n.png" alt="The SkinSystem Preview" height="230">
   <img src="https://i.imgur.com/grNDVYA.png" alt="The SkinSystem Preview" height="230">
-  <p align="center"><b>Installation</b> view / <b>SkinUploader</b> view / <b>Authen</b> view (<i>when you use this system with Authme</i>)</p>
+  <p align="center">
+    <b>Installation</b> view / <b>SkinUploader</b> view / <b>Authen</b> view (<i>when you use this system with Authme</i>)
+  </p>
 </p>
 
 ---
@@ -58,7 +60,7 @@ sudo bash -c "apt-get update && apt-get install curl -y && curl -s https://raw.g
 3. Make sure your webserver is accessible.
 4. Create databases `skinsrestorer` and `authme`
    . [Commands](https://gist.github.com/ITZVGcGPmO/a3dffa0db198919ae002efcad444ae34)
-5. Download the latest **release** version from [**here!**](https://github.com/SkinsRestorer/SkinSystem/releases)
+5. Download the latest **release** version from [**here!**](https://github.com/SkinsRestorer/skinsystem/releases)
 6. Put all of `The SkinSystem` into your **web-root** directory.
 
 ### :star: Let's start!!!
@@ -93,7 +95,7 @@ If you don't have a database password, You should fill `''` into `Password` sect
 3. Now have fun with *changing* your skin! **Have a good time**. :smiley:
 
 * **IMPORTANT** You can change the configuration later at `skinsystem/config.nogit.php`
-* **You can use this [template](https://github.com/riflowth/SkinSystem/wiki/Configuration) for making config file
+* **You can use this [template](https://github.com/SkinsRestorer/skinsystem/wiki/Configuration) for making config file
   manually**.
 
 ---
@@ -128,6 +130,6 @@ or leave your thumbs up on [Our team Facebook](https://www.facebook.com/Vectier)
 ## :pencil: License
 
 Our **SkinSystem** is licensed under the MIT License - see
-the [LICENSE.md](https://github.com/riflowth/SkinSystem/blob/master/LICENSE) file for details.
+the [LICENSE.md](https://github.com/SkinsRestorer/skinsystem/blob/main/LICENSE) file for details.
 
 ---
