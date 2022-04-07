@@ -1,7 +1,7 @@
 $(document).ready(function () {
     /* Initialize Variables */
-    var isSlim = false;
-    var skinURL;
+    let isSlim = false;
+    let skinURL;
 
     /* OnSubmit uploadSkinForm */
     $("#uploadSkinForm").on("submit", function (e) {
@@ -33,7 +33,7 @@ $(document).ready(function () {
     /* If user changes uploadtype */
     $("[id^=uploadtype-]").on("change", function () {
         ['file', 'url'].forEach(function (nm) {
-            if ($("#uploadtype-" + nm)[0].checked == true) {
+            if ($("#uploadtype-" + nm)[0].checked === true) {
                 $("#form-input-" + nm).show();
                 $("#input-" + nm).prop("required", true);
                 $("#input-" + nm).trigger("change");
@@ -46,7 +46,7 @@ $(document).ready(function () {
     });
 
     /* Initialize MineSkin */
-    var skinRender = new SkinRender({
+    const skinRender = new SkinRender({
         autoResize: true,
         controls: {
             enabled: false,
@@ -67,8 +67,8 @@ $(document).ready(function () {
     }, $("#skinViewerContainer")[0]);
 
     /* Add some animate to a model in SkinPreview */
-    var startTime = Date.now();
-    var t;
+    const startTime = Date.now();
+    let t;
     $("#skinViewerContainer").on("skinRender", function (e) {
         if (!e.detail.playerModel) {
             return;
@@ -95,7 +95,7 @@ $(document).ready(function () {
     }
 
     /* RENDER FUNCTION */
-    var rendDelay;
+    let rendDelay;
 
     function render(checkskin = true, delay = false) {
         if (skinURL === undefined) {

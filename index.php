@@ -36,12 +36,12 @@ if (empty($_SESSION['username']) && $config['am']['enabled'] == false) {
     // pick theme from cookie; if cookie invalid, pick default theme from config ?>
     <script type="text/javascript">
         function setCookie(cname, cvalue) {
-            var d = new Date();
+            const d = new Date();
             d.setTime(d.getTime() + (365 * 24 * 60 * 60 * 1000)); // cookies will last a year
             document.cookie = cname + "=" + cvalue + ";expires=" + d.toUTCString() + ";path=/";
         }
 
-        var theme = document.getElementById("stylesheetSelector").getAttribute("name");
+        const theme = document.getElementById("stylesheetSelector").getAttribute("name");
         setCookie("theme", theme); // swap that stale cookie for a new one!
         function rotateTheme() { // move a metaphorical carousel by one item
             $.getJSON("resources/themes/", {}, function (lst) {
@@ -50,7 +50,7 @@ if (empty($_SESSION['username']) && $config['am']['enabled'] == false) {
             });
         }
 
-        var l = {};
+        const l = {};
         l.uplty1_lbl = "<?php echo L::upl_uplty1_lbl; ?>";
     </script>
     <?php foreach ([
@@ -78,14 +78,16 @@ if (empty($_SESSION['username']) && $config['am']['enabled'] == false) {
                                 echo '<small style="font-size: 60%;"><a id="versionDisplay" title="' . str_replace("%v%", $config['version'], L::mn_rlhov) . '" href="https://github.com/riflowth/SkinSystem/releases/tag/' . $config['version'] . '">v.' . $config['version'] . '</a>';
                                 if ($config['version'] !== getLatestVersion()) {
                                     echo ' <a title="' . L::mn_nwrel_hov . '" href="https://github.com/riflowth/SkinSystem/releases/latest">(' . L::mn_nwrel . ')</a>';
-                                } ?>
-                                </small>
+                                }
+                                echo '</small>'
+                                ?>
                             </h5>
                             <h6 class="mb-0 ml-auto">
                                 <?php if ($config['am']['enabled'] == true && !empty($_SESSION['username'])){
                                 $SkullURL = 'resources/server/skinRender.php?vr=0&hr=0&headOnly=true&ratio=4&user=' . $_SESSION['username'];
                                 echo '<a class="skinDownload" id="skinDownloadUrl" title="' . L::mn_dlhov . '" name="' . $_SESSION['username'] . '" href="resources/server/skinRender.php?format=raw&dl=true&user=' . $_SESSION['username'] .
-                                    '"><img class="skinDownload" style="max-height:29px!important;" src="' . $SkullURL . '">    ' . htmlspecialchars($_SESSION['username'], ENT_QUOTES); ?></a>
+                                    '"><img class="skinDownload" style="max-height:29px!important;" src="' . $SkullURL . '">    ' . htmlspecialchars($_SESSION['username'], ENT_QUOTES) . '</a>'; ?>
+
                                 <a class="btn btn-sm btn-light ml-2 rounded-circle" title="<?php echo L::mn_lgout; ?>"
                                    href="resources/server/authenCore.php?logout"><i class="fas fa-sign-out-alt"></i></a>
                                 <?php } ?>
@@ -120,7 +122,7 @@ if (empty($_SESSION['username']) && $config['am']['enabled'] == false) {
                                                 <?php } ?>
                                                 <div class="form-group">
                                                     <h5 class="mb-0 mr-3 custom-control-inline"><span
-                                                                class="badge badge-info"><?php echo L::upl_sknty; ?></</span>
+                                                                class="badge badge-info"><?php echo L::upl_sknty; ?></span>
                                                     </h5>
                                                     <div class="custom-control custom-radio custom-control-inline">
                                                         <input id="skintype-steve" class="custom-control-input"
@@ -209,17 +211,17 @@ if (empty($_SESSION['username']) && $config['am']['enabled'] == false) {
                                                     setCookie('skinHistoryType', 'mineskin');
 
                                                     function getCookie(cname) {
-                                                        var value = "; " + document.cookie;
-                                                        var parts = value.split("; " + cname + "=");
-                                                        if (parts.length == 2) return parts.pop().split(";").shift();
+                                                        const value = "; " + document.cookie;
+                                                        const parts = value.split("; " + cname + "=");
+                                                        if (parts.length === 2) return parts.pop().split(";").shift();
                                                     }
 
-                                                    var historytype = getCookie('skinHistoryType');
-                                                    if (historytype == 'personal') {
+                                                    const historytype = getCookie('skinHistoryType');
+                                                    if (historytype === 'personal') {
 
-                                                    } else if (historytype == 'server') {
+                                                    } else if (historytype === 'server') {
 
-                                                    } else if (historytype == 'mineskin') {
+                                                    } else if (historytype === 'mineskin') {
                                                         $.getJSON($('#mineskin-recent')[0].href, {}, function (lst) {
                                                             $.each(lst.skins.slice(0, 6), function (key, val) {
                                                                 skinid = val.url.match(/\w+$/);

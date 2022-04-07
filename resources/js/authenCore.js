@@ -15,7 +15,6 @@ $(document).ready(function () {
                     location.reload();
                 }, res.refresh);
             }
-            ;
         }).fail(function () {
             console.log("[ERROR] AJAX FAILED!");
         });

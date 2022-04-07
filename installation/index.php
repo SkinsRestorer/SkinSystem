@@ -1,6 +1,7 @@
 <?php
 if (file_exists(__DIR__ . '/../config.nogit.php')) {
-    die(header('Location: ../'));
+    header('Location: ../');
+    die();
 }
 require_once '../resources/server/i18n.class.php';
 $i18n = new i18n();
