@@ -1,4 +1,4 @@
 <?php
-header("Location: http://vk.cc/7iPiB9");
+header("Location: https://vk.cc/7iPiB9");
 die();
 ?>

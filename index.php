@@ -75,9 +75,9 @@ if (empty($_SESSION['username']) && $config['am']['enabled'] == false) {
                         <div class="row mx-2 align-items-center">
                             <h5 class="mb-0"><?php echo L::ssys; ?>
                                 <?php
-                                echo '<small style="font-size: 60%;"><a id="versionDisplay" title="' . str_replace("%v%", $config['version'], L::mn_rlhov) . '" href="https://github.com/riflowth/SkinSystem/releases/tag/' . $config['version'] . '">v.' . $config['version'] . '</a>';
+                                echo '<small style="font-size: 60%;"><a id="versionDisplay" title="' . str_replace("%v%", $config['version'], L::mn_rlhov) . '" href="https://github.com/SkinsRestorer/SkinSystem/releases/tag/' . $config['version'] . '">v.' . $config['version'] . '</a>';
                                 if ($config['version'] !== getLatestVersion()) {
-                                    echo ' <a title="' . L::mn_nwrel_hov . '" href="https://github.com/riflowth/SkinSystem/releases/latest">(' . L::mn_nwrel . ')</a>';
+                                    echo ' <a title="' . L::mn_nwrel_hov . '" href="https://github.com/SkinsRestorer/SkinSystem/releases/latest">(' . L::mn_nwrel . ')</a>';
                                 }
                                 echo '</small>'
                                 ?>

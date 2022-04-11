@@ -90,7 +90,7 @@ function printErrorAndDie($data = [])
 /* GitHub getLastestVersion */
 function getLatestVersion()
 {
-    $nwVer = cacheGrab('https://api.github.com/repos/riflowth/SkinSystem/releases/latest', 'latest_version', __DIR__ . '/../../', (24 * 60 * 60));
+    $nwVer = cacheGrab('https://api.github.com/repos/SkinsRestorer/SkinSystem/releases/latest', 'latest_version', __DIR__ . '/../../', (24 * 60 * 60));
     return json_decode(curl($nwVer), true)['tag_name'];
 }
 
