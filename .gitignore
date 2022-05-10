@@ -3,3 +3,7 @@
 
 # Ignore favicon
 *.ico
+
+.idea/
+*.iml
+*.ipr

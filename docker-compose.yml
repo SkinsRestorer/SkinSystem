@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-   skin:
-     build: .
-     ports:
+  skin:
+    build: .
+    ports:
       - "8080:80"
