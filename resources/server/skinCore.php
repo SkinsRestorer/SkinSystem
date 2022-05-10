@@ -1,40 +1,42 @@
 <?php
-  require_once(__DIR__ . '/libraries.php');
-  session_start();
+require_once(__DIR__ . '/libraries.php');
+session_start();
 
-  /* Initialize playername */
-  if($config['am']['enabled'] == true && !empty($_SESSION['username'])){
+/* Initialize playername */
+if ($config['am']['enabled'] == true && !empty($_SESSION['username'])) {
     $playername = $_SESSION['username'];
-  } else if($config['am']['enabled'] != true && !empty($_POST['username'])){
+} else if ($config['am']['enabled'] != true && !empty($_POST['username'])) {
     $playername = $_POST['username'];
-  }
-  if(empty($playername)){
+}
+if (empty($playername)) {
     printErrorAndDie(str_replace("%rsn%", L::skcr_error_plnm, L::skcr_error));
-  }
+}
 
-  /* Check a request from users, Does it valid? --> If it valid do the statment below */
-  if(!empty($_POST['isSlim']) && !empty($_POST['uploadtype']) && isset($_FILES['file']['tmp_name']) && isset($_POST['url'])){
+/* Check a request from users, Does it valid? --> If it valid do the statment below */
+if (!empty($_POST['isSlim']) && !empty($_POST['uploadtype']) && isset($_FILES['file']['tmp_name']) && isset($_POST['url'])) {
     /* Initialize Data for sending to MineSkin API */
     $postparams = ['visibility' => 0];
-    if($_POST['isSlim'] == 'true'){
-      $postparams['model'] = 'slim';
+    if ($_POST['isSlim'] == 'true') {
+        $postparams['model'] = 'slim';
     }
     /* Send with URL */
-    if($_POST['uploadtype'] == 'url' && !empty($_POST['url'])){
-      $postparams['url'] = $_POST['url'];
-      $endpointURL = 'https://api.mineskin.org/generate/url';
-    /* Send with File */
+    if ($_POST['uploadtype'] == 'url' && !empty($_POST['url'])) {
+        $postparams['url'] = $_POST['url'];
+        $endpointURL = 'https://api.mineskin.org/generate/url';
+        /* Send with File */
     } else {
-      $file = $_FILES['file'];
-      $validFileType = ['image/jpeg', 'image/png'];
-      /* Check If the skin is a Minecraft's skin format */
-      if(!in_array($file['type'], $validFileType)){ printErrorAndDie(L::skcr_skfmt); }
-      list($skinWidth, $skinHeight) = getimagesize($file['tmp_name']);
-      if(( $skinWidth != 64 && $skinHeight != 64 ) || ( $skinWidth != 64 && $skinHeight != 32 )){
-        printErrorAndDie(L::skcr_invsk);
-      }
-      $postparams['file'] = new CURLFile($file['tmp_name'], $file['type'], $file['name']);
-      $endpointURL = 'https://api.mineskin.org/generate/upload';
+        $file = $_FILES['file'];
+        $validFileType = ['image/jpeg', 'image/png'];
+        /* Check If the skin is a Minecraft's skin format */
+        if (!in_array($file['type'], $validFileType)) {
+            printErrorAndDie(L::skcr_skfmt);
+        }
+        list($skinWidth, $skinHeight) = getimagesize($file['tmp_name']);
+        if (($skinWidth != 64 && $skinHeight != 64) || ($skinWidth != 64 && $skinHeight != 32)) {
+            printErrorAndDie(L::skcr_invsk);
+        }
+        $postparams['file'] = new CURLFile($file['tmp_name'], $file['type'], $file['name']);
+        $endpointURL = 'https://api.mineskin.org/generate/upload';
     }
 
     /* cURL to MineSkin API */
@@ -46,9 +48,9 @@
     curl_setopt($ch, CURLOPT_POSTFIELDS, $postparams);
     $response = curl_exec($ch);
     curl_close($ch);
-    if($response == false){
-      /* cURL ERROR */
-      printErrorAndDie(str_replace("%rsn%", L::skcr_error_mscurl, L::skcr_error));
+    if ($response == false) {
+        /* cURL ERROR */
+        printErrorAndDie(str_replace("%rsn%", L::skcr_error_mscurl, L::skcr_error));
     }
 
     $json = json_decode($response, true);
@@ -56,8 +58,8 @@
     $transformedName = ' ' . $playername;
 
     /* MineSkin API returned unusable data */
-    if(empty($json['data']['texture']['value']) || empty($json['data']['texture']['signature'])){
-      printErrorAndDie(str_replace("%rsn%", L::skcr_error_msinvl, L::skcr_error));
+    if (empty($json['data']['texture']['value']) || empty($json['data']['texture']['signature'])) {
+        printErrorAndDie(str_replace("%rsn%", L::skcr_error_msinvl, L::skcr_error));
     }
 
     /* Assign data for putting to SkinsRestorer Storage */
@@ -80,18 +82,17 @@
 
     /* Storage Writing (Skins Table) */
     query('sr',
-      "INSERT INTO {$config['sr']['skintable']} (Nick, Value, Signature, timestamp) VALUES (?, ?, ?, ?) " .
-      "ON DUPLICATE KEY UPDATE Nick=VALUES(Nick), Value=VALUES(Value), Signature=VALUES(Signature), " .
-      "timestamp=VALUES(timestamp)",
-      [$transformedName, $value, $signature, $timestamp]
+        "INSERT INTO {$config['sr']['skintable']} (Nick, Value, Signature, timestamp) VALUES (?, ?, ?, ?) " .
+        "ON DUPLICATE KEY UPDATE Nick=VALUES(Nick), Value=VALUES(Value), Signature=VALUES(Signature), " .
+        "timestamp=VALUES(timestamp)",
+        [$transformedName, $value, $signature, $timestamp]
     );
     /* Storage Writing (Players Table) */
     query('sr',
-      "INSERT INTO {$config['sr']['playertable']} (Nick, Skin) VALUES (?, ?) " .
-      "ON DUPLICATE KEY UPDATE Nick=VALUES(Nick), Skin=VALUES(Skin)",
-      [$playername, $transformedName]
+        "INSERT INTO {$config['sr']['playertable']} (Nick, Skin) VALUES (?, ?) " .
+        "ON DUPLICATE KEY UPDATE Nick=VALUES(Nick), Skin=VALUES(Skin)",
+        [$playername, $transformedName]
     );
-    printDataAndDie(['title'=>L::skcr_upld_title, 'text'=>L::skcr_upld_text, 'refresh'=>True]);
-  }
-  printErrorAndDie(str_replace("%rsn%", L::skcr_error_endprg, L::skcr_error));
-?>
+    printDataAndDie(['title' => L::skcr_upld_title, 'text' => L::skcr_upld_text, 'refresh' => True]);
+}
+printErrorAndDie(str_replace("%rsn%", L::skcr_error_endprg, L::skcr_error));

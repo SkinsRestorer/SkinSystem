@@ -1,0 +1,45 @@
+# This is an exmaple of SkinSystem configuration file
+# ! For someone who can't pass an installation !
+
+# If you need to use this file to be a configuration file.
+# Don't forget to remove .example 
+# "config.nogit.php.example" -> "config.nogit.php"
+
+<?php return [
+  'version' => '1.7.2',
+  /* Default theme for new users */
+  'def_theme' => '_light',
+  /* Warn all/eu/no users of data usage. 'eu' queries https://ipapi.co/<ip address>/in_eu */
+  'data_warn' => 'no',
+  /* AuthMe Configuration */
+  'am' => [
+    'enabled' => false,
+    'host' => '',
+    'port' => '',
+    'database' => '',
+    'username' => '',
+    'password' => '',
+    'table' => 'authme',
+    'hash' => [
+      'method' => 'sha256'
+    ],
+    'authsec' => [
+      'enabled' => false,
+      'failed_attempts' => 3,
+      'threshold_hours' => 24
+    ]
+  ],
+  /* SkinsRestorer Configuration */
+  'sr' => [
+    'host' => 'localhost',
+    'port' => '3306',
+    'database' => '',
+    'skintable' => 'Skins',
+    'playertable' => 'Players',
+    'username' => '',
+    'password' => ''
+  ],
+  /* Cache Configuration */
+  'cache_for_days' => 7,
+  'cache_dir' => 'resources/cache/'
+];?>
