@@ -58,17 +58,6 @@ function printErrorAndDie($data = [])
     }
     $defaults = ['type' => 'error', 'title' => L::gnrl_errorpop, 'showCloseButton' => True, 'footer' => ''];
     $data = array_replace($defaults, $data);
-    $url = 'https://status.mojang.com/check';
-    $mjstatus = json_decode(curl(cacheGrab($url, $url, __DIR__ . '/../../', 60)), true);
-    foreach ($mjstatus as $key) {
-        foreach ($key as $site => $status) {
-            if ($status !== 'green') {
-                $msg = str_replace("%site%", $site, L::gnrl_srvofl);
-                $data['footer'] = $data['footer'] . "\n" . '<div class="col"><a href="https://help.mojang.com"><i class="fas fa-exclamation-circle" style="padding-right: 5px;"></i>' . $msg . '</a></div>';
-                error_log($msg . ' (https://help.mojang.com)');
-            }
-        }
-    }
     $url = 'https://status.mineskin.org';
     $dta = curl(cacheGrab($url, $url, __DIR__ . '/../../', (60 * 60)));
     preg_match('/https:\/\/status\.mineskin\.org\/api\/getMonitorList\/\w+/', $dta, $match);
