@@ -9,7 +9,7 @@ $(document).ready(function () {
             dataType: "JSON",
             encode: true,
         }).done(function (res) {
-            Swal.fire(res);
+            $.ajax(res);
             if (typeof (res.refresh) === 'number') {
                 setTimeout(function () {
                     location.reload();
