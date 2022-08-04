@@ -1,4 +1,4 @@
 <?php
-header("Location: https://vk.cc/7iPiB9");
+header("Location: https://duckduckgo.com/?q=doge+wow&iax=images&ia=images");
 die();
 ?>
