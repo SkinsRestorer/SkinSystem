@@ -1587,7 +1587,7 @@ class render3DPlayer
 
         $imgOutput = '';
         if ($this->format == 'svg') {
-            $imgOutput .= '<svg width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="' . $minX . ' ' . $minY . ' ' . $width . ' ' . $height . '">';
+            $imgOutput .= '<svg width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="' . $minX . ' ' . $minY . ' ' . $width . ' ' . $height . '" shape-rendering="crispEdges">';
         }
 
         foreach ($display_order as $pieces) {
