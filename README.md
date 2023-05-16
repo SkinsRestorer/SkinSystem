@@ -1,3 +1,8 @@
+# Searching a new maintainer!
+SkinSystem is currently searching for a new maintainer of the project. Currently the team does not have the capacity to work on this PHP project. If you have experience in PHP, understand the code of this project and are willing to fix bugs and add new features then please contact us via discord!
+
+---
+
 <p align="center">
   <a href="https://github.com/SkinsRestorer/SkinSystem">
     <img src="https://i.imgur.com/pjuawRU.jpg" alt="SkinSystem" width="600">
