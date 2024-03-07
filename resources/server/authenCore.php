@@ -71,5 +71,4 @@ if (!empty($_POST['username']) && !empty($_POST['password'])) {
         printErrorAndDie(['title' => L::amcr_cd429_title, 'text' => L::amcr_cd429_text]);
     }
 }
-printErrorAndDie(L::amcr_invrq);
 ?>
